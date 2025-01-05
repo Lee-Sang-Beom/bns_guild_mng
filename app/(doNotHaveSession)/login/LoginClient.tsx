@@ -9,6 +9,7 @@ import {
 } from "@/utils/vaildation/reactHookFormReturnOption/option";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
+import Link from "next/link";
 
 interface IForm {
   id: string;
@@ -107,7 +108,11 @@ export default function LoginClient() {
               </div>
             </div>
           </SubmitForm>
-          <div className={ms.bottom}>회원가입</div>
+          <div className={ms.bottom}>
+            <Link href="/join" prefetch={false}>
+              회원가입
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,181 @@
+* {
+  font-family: var(--font-scdream) !important;
+}
+
+.select_box {
+  width: 100%;
+  height: 100%;
+
+  .select {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: var(--fs-16) !important;
+    background-color: var(--gray-100);
+    color: var(--gray-1000);
+    border: none;
+    border-radius: var(--br-10);
+
+    & > div {
+      padding: 0 !important;
+      height: 100% !important;
+      min-height: unset !important;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      & > span {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    fieldset {
+      width: 0;
+      padding: 0;
+      border: none;
+    }
+
+    svg {
+      font-size: var(--fs-16) !important;
+      margin-right: 5px;
+    }
+
+    /* size */
+    &.xsm {
+      height: 2.8rem;
+      font-size: var(--fs-14);
+      padding: 0.4rem 2rem;
+    }
+    &.sm {
+      height: 3.2rem;
+      padding: 0.6rem 2rem;
+    }
+    &.md {
+      // 기본 사이즈
+      height: 4.4rem;
+      padding: 1.2rem 2rem;
+
+      svg {
+        font-size: 2.1rem !important;
+      }
+    }
+    &.lg {
+      height: 5.6rem;
+      font-size: var(--fs-16);
+      padding: 0.4rem 2rem;
+
+      svg {
+        font-size: var(--fs-24) !important;
+      }
+    }
+    &.xlg {
+      height: 6.4rem;
+      font-size: var(--fs-18);
+      padding: 1.2rem 2rem;
+
+      svg {
+        font-size: var(--fs-30) !important;
+      }
+    }
+
+    /* color */
+    &.white {
+      background-color: #fff;
+      color: var(--form-white-text-color);
+      outline: 1px solid var(--form-white-border-color);
+
+      &:hover {
+        outline: 1px solid var(--form-hover-border-color);
+        color: var(--form-hover-border-color);
+      }
+      &.focus {
+        outline: 3px solid var(--form-white-focus-border-color);
+      }
+    }
+
+    &.disabled,
+    &:disabled {
+      background-color: var(--form-disabled-bg-color) !important;
+      color: var(--form-disabled-text-color) !important;
+      cursor: default !important;
+    }
+
+    &.red {
+      border: 1px solid var(--form-error-text-color) !important;
+    }
+  }
+
+  .txt_error {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 1rem;
+    color: var(--form-error-text-color);
+    line-height: 130%;
+  }
+  .txt_success {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 1rem;
+    color: var(--form-success-text-color);
+    line-height: 130%;
+  }
+}
+
+// 셀렉트옵션
+ul.MuiList-root.MuiList-padding.MuiMenu-list {
+  max-height: 17.2rem;
+
+  li {
+    font-size: var(--fs-16);
+
+    &:hover {
+      background-color: #f3f5f8;
+    }
+
+    &.Mui-selected {
+      color: var(--gray-1000);
+      background-color: var(--gray-500);
+    }
+  }
+
+  // size
+  &.xsm {
+    li {
+      font-size: var(--fs-14);
+    }
+  }
+  &.lg {
+    li {
+      font-size: var(--fs-16);
+    }
+  }
+  &.xlg {
+    li {
+      font-size: var(--fs-18);
+    }
+  }
+}
+
+// 반응형
+// 모바일
+@media screen and (max-width: 768px) {
+  input.inp {
+    font-size: var(--fs-14) !important;
+  }
+  ul.MuiList-root.MuiList-padding.MuiMenu-list {
+    li {
+      font-size: var(--fs-14) !important;
+    }
+  }
+  .MuiPaper-root.MuiPaper-elevation {
+    width: 100% !important;
+    min-width: auto !important;
+  }
+}
