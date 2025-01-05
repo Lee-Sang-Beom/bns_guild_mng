@@ -65,11 +65,6 @@
   // main color
   --mcolor: #236cdf;
 
-  // main blue color
-  --mblue01: #0b51c1;
-  --mblue02: #123388;
-  --mblue03: #002d5e;
-
   // sub blue color
   --sblue01: #7f96ae;
   --sblue02: #3377ff;
@@ -110,6 +105,8 @@
   --form-white-text-color: #111;
   --form-disabled-bg-color: #e5eaf0;
   --form-disabled-text-color: #666666;
+  --form-disabled-border-color: #d3d3d3;
+  --form-disabled-outline-color: #d3d3d3;
   --form-error-bg-color: #feecf0;
   --form-error-text-color: #d50136;
   --form-error-border-color: #eb003b;
