@@ -15,7 +15,7 @@ interface InputProps {
   inpSize?: "xsm" | "sm" | "md" | "lg" | "xlg";
   title: string;
   disabled?: boolean;
-  value: string | number;
+  value?: string | number;
   partialErrorObj?: FieldValues;
   effectivenessMsg?: InputErrorMsgType;
 }

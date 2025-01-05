@@ -33,7 +33,7 @@ interface ReactHookFormOption {
     message: string;
   };
 
-  validate?: object;
+  validate?: any;
 }
 
 /**
@@ -281,7 +281,7 @@ export function brnoReactHookFormOption(required?: boolean) {
           .map(function (d) {
             return parseInt(d, 10);
           });
-          const keyArr = [1, 3, 7, 1, 3, 7, 1, 3, 5];
+        const keyArr = [1, 3, 7, 1, 3, 7, 1, 3, 5];
         let chk = 0;
         keyArr.forEach(function (d, i) {
           chk += d * numberMap[i];
