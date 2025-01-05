@@ -1,0 +1,25 @@
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation0.MuiAlert-root.MuiAlert-outlined {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  width: fit-content;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.1s;
+  background-color: var(--gray-100);
+
+  &.animation_wrap {
+    z-index: 10000 !important;
+    opacity: 1;
+    transition: all 0.1s;
+  }
+
+  // txt
+  .MuiAlert-message {
+    width: 100%;
+    font-size: var(--fs-16);
+  }
+}

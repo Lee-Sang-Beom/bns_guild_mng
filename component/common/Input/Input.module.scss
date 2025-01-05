@@ -1,0 +1,82 @@
+.inp_box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  * {
+    box-sizing: border-box;
+  }
+  input.inp {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: var(--fs-16);
+    border-radius: var(--br-10);
+
+    /* size */
+    &.xsm {
+      height: 2.8rem;
+      font-size: var(--fs-14);
+      padding: 0 1.2rem;
+    }
+    &.sm {
+      height: 3.2rem;
+      padding: 1.5rem 1.2rem;
+    }
+    &.md {
+      // 기본 사이즈
+      height: 4.4rem;
+      padding: 1.5rem 2rem;
+    }
+    &.lg {
+      height: 5.6rem;
+      font-size: var(--fs-18);
+      padding: 1.7rem 2rem;
+    }
+    &.xlg {
+      height: 6.4rem;
+      font-size: var(--fs-18);
+      padding: 0 2.4rem;
+    }
+    /* color */
+    &.white {
+      background-color: var(--gray-100);
+      color: var(--form-white-text-color);
+      outline: 1px solid var(--form-white-outline-color);
+
+      &:hover {
+        outline: 1px solid var(--form-hover-outline-color);
+      }
+      &:focus {
+        outline: 1px solid var(--form-white-focus-outline-color);
+      }
+    }
+    &:disabled {
+      background-color: var(--form-disabled-bg-color) !important;
+      color: var(--form-disabled-text-color) !important;
+      cursor: default !important;
+    }
+  }
+
+  .txt_error,
+  .txt_success {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 1rem;
+    line-height: 130%;
+  }
+  .txt_error {
+    color: var(--form-error-text-color);
+  }
+  .txt_success {
+    color: var(--form-success-text-color);
+  }
+}
+// 반응형
+// 모바일
+@media screen and (max-width: 768px) {
+  input.inp {
+    font-size: var(--fs-14);
+  }
+}

@@ -51,26 +51,24 @@
   --br-50pro: 50%;
 
   // gray scale
-  // (피그마 스타일가이드가 중간에 생성되었으며, 이미 많은 컴포넌트 css가 기존 코드를 참고하여 '100'만큼의 넘버링 차이가 발생하고 있음)
-  --gray-100: #fff; // 피그마 스타일가이드 gray 000
-  --gray-200: #f8f8f8; // 피그마 스타일가이드 gray 100
-  --gray-300: #efefef; // 피그마 스타일가이드 gray 200
-  --gray-400: #d3d3d3; // 피그마 스타일가이드 gray 300
-  --gray-500: #cccccc; // 피그마 스타일가이드 gray 400
-  --gray-600: #999; // 피그마 스타일가이드 gray 500
-  --gray-700: #666; // 피그마 스타일가이드 gray 600
-  --gray-800: #555; // 피그마 스타일가이드 gray 700
-  --gray-900: #333; // 피그마 스타일가이드 gray 800
-  --gray-1000: #111; // 피그마 스타일가이드 gray 900
+  --gray-100: #fff;
+  --gray-200: #f8f8f8;
+  --gray-300: #efefef;
+  --gray-400: #d3d3d3;
+  --gray-500: #cccccc;
+  --gray-600: #999;
+  --gray-700: #666;
+  --gray-800: #555;
+  --gray-900: #333;
+  --gray-1000: #111;
 
   // main color
   --mcolor: #236cdf;
 
   // main blue color
-  --mblue01: #236cdf;
-  --mblue02: #0b51c1;
-  --mblue03: #123388;
-  --mblue04: #002d5e;
+  --mblue01: #0b51c1;
+  --mblue02: #123388;
+  --mblue03: #002d5e;
 
   // sub blue color
   --sblue01: #7f96ae;
@@ -86,21 +84,6 @@
   --warning: #ffb724;
   --info: #2768ff;
   --success: #008a1e;
-
-  // cms color
-  --cmsblue: #091d58;
-  --cmsblue03: #072977;
-
-  // gradation
-  --cms-gradation: linear-gradient(
-    179deg,
-    #0c4fab -6.11%,
-    #07469c -6.09%,
-    #3d0ca5 276.67%
-  );
-
-  // admin user icon gradation
-  --cms-user-info1: linear-gradient(180deg, #fff 2.15%, #ccd7e5 100.87%);
 
   // chart : 번호 순서대로 색상 표기
   --chart1: #ff6287;
@@ -118,52 +101,21 @@
   --chart13: #23408a;
   --chart14: #b5bfd3;
 
-  /**
-  * FORM : input, select
-  */
-  // border
+  // form
   --form-white-border-color: #dfe0e4;
-
-  // hover 시 변화
-  --form-hover-border-color: #2768ff; // white, gray, darkgray 모두 사용
-  --form-darkgray-hover-bg-color: #535353; // hover 시, darkgray는 배경이 변화
-  --form-darkgray-hover-text-color: #f3f5f8; // hover 시, darkgray는 배경이 변화
-
-  // focus 시 변화
+  --form-white-outline-color: #dfe0e4;
   --form-white-focus-border-color: #1f53cc;
-  --form-gray-focus-border-color: #1f53cc;
-  --form-darkgray-focus-border-color: #f3f5f8;
-  --form-darkgray-focus-bg-color: #474747; // focus 시, darkgray는 배경도 변화
-
-  // 배경
+  --form-white-focus-outline-color: #1f53cc;
   --form-white-bg-color: #fff;
-  --form-gray-bg-color: #f3f5f8;
-  --form-darkgray-bg-color: #34373e;
-
-  // 폰트 색
   --form-white-text-color: #111;
-  --form-gray-text-color: #111;
-  --form-darkgray-text-color: rgba(211, 211, 211, 1);
-
-  // disabled
   --form-disabled-bg-color: #e5eaf0;
   --form-disabled-text-color: #666666;
-
-  // 상태 색상
   --form-error-bg-color: #feecf0;
   --form-error-text-color: #d50136;
   --form-error-border-color: #eb003b;
-
   --form-success-text-color: rgba(0, 110, 24, 1);
   --form-success-bg-color: #eef7f0;
   --form-success-border-color: #008a1e;
-
-  // placeholder (darkgray)
-  --form-darkgray-placeholder-color: rgba(131, 131, 131, 1);
-
-  /**
-   * FORM : radio, checkbox
-   */
   --radio-and-checkbox-select-color: #3e7cf3;
   --radio-and-checkbox-unselect-color: #999;
   --radio-and-checkbox-disabled-bg-color: #eeeeee;
@@ -174,319 +126,28 @@ html,
 body {
   font-weight: 400;
   word-break: keep-all;
-}
-
-html {
-  font-size: 62.5%;
-  color: var(--gray-1000);
-  line-height: 1em;
-}
-
-body {
   font-size: var(--fs-16);
-  font-family: var(--font-scdream) !important;
+  color: var(--gray-1000);
+}
+body {
   position: relative;
   overflow-x: hidden;
   width: 100%;
   height: 100vh;
 }
-
-textarea {
+body * {
   font-family: var(--font-scdream) !important;
 }
-a {
-  display: block;
-}
-button {
-  cursor: pointer !important;
-}
+
 img {
   display: block;
   width: 100%;
 }
-
-// pc / mobile display 여부 분리
 .pc {
   display: block !important;
 }
 .mobile {
   display: none !important;
-}
-
-// 접근성
-#con_wrap {
-  width: 100%;
-  height: 100%;
-}
-.accessibility {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 9999;
-}
-
-.accessibility a,
-.accessibility button {
-  overflow: hidden;
-  display: block;
-  width: 1px;
-  height: 1px;
-  margin-bottom: -1px;
-  color: #444;
-  font-size: 0;
-  text-decoration: none;
-}
-.accessibility a:active,
-.accessibility a:focus,
-.accessibility button:active,
-.accessibility button:focus {
-  width: 100%;
-  height: auto;
-  padding: 5px 0;
-  background: #eee;
-  font-size: 14px;
-  text-align: center;
-}
-
-// 메인 레이아웃
-.container {
-  width: 1680px;
-  margin: 0 auto;
-}
-.s_container {
-  width: 100%;
-  display: inline-block;
-  box-sizing: border-box;
-  padding-bottom: 50px;
-  min-height: calc(100vh - 277px);
-}
-.s_content {
-  float: left;
-  width: calc(100% - 350px);
-  padding: 25px 50px 0 0;
-  box-sizing: border-box;
-}
-
-// 통합검색
-.s_search_container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-  padding-bottom: 50px;
-}
-.s_search_content {
-  width: 100%;
-  padding: 30px 50px;
-  box-sizing: border-box;
-}
-
-// <ContentSubTop> 컴포넌트 사용
-.s_title_depth2 {
-  font-size: var(--fs-30);
-  font-weight: 600;
-}
-
-// chart 공통으로 사용
-// .chart_wrap,
-.tb_wrap {
-  overflow-x: auto;
-}
-.chart_wrap {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.chart_wrap::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
-@media only screen and (max-width: 640px) {
-  .chart_wrap {
-    overflow-x: scroll;
-  }
-}
-.chart_select {
-  width: 300px;
-  margin-top: 20px;
-}
-
-// 기타
-// .scroll_info {
-//   width: 100%;
-//   text-align: center;
-//   font-size: var(--fs-12);
-//   font-weight: 500;
-//   border-radius: 3px;
-//   background: var(--Background-color-bg_01_F3F5F8, #f3f5f8);
-//   padding: 15px 0;
-//   box-sizing: border-box;
-//   margin-top: 20px;
-// }
-// .scroll_info span {
-//   position: relative;
-//   padding-left: 15px;
-// }
-// .scroll_info span::before {
-//   content: "";
-//   position: absolute;
-//   top: -5px;
-//   left: -15px;
-//   width: 25px;
-//   height: 25px;
-//   background: url("/img/icon_hand.svg") no-repeat 0 0;
-//   background-size: 100% auto;
-// }
-@media only screen and (min-width: 701px) {
-  .scroll_info {
-    display: none;
-  }
-}
-@media only screen and (max-width: 1463px) {
-  .left_menu {
-    display: none;
-  }
-  .s_content {
-    width: 100%;
-  }
-}
-@media only screen and (min-width: 641px) and (max-width: 1463px) {
-  .s_content {
-    padding: 30px 50px 0 50px;
-  }
-}
-@media only screen and (min-width: 641px) and (max-width: 768px) {
-  .s_content {
-    padding-top: 74px;
-  }
-}
-@media only screen and (max-width: 640px) {
-  .s_content {
-    position: relative;
-    top: 74px;
-    padding: 20px 10px 0 10px;
-    margin-bottom: 40px;
-  }
-  .s_container {
-    position: relative;
-    // top: 74px;
-    // padding-top: 74px;
-  }
-  .s_search_container {
-    position: relative;
-    top: 74px;
-    padding-bottom: 124px;
-  }
-  .s_title_depth2 {
-    font-size: var(--fs-18);
-  }
-}
-@media only screen and (max-width: 320px) {
-  .chart_select {
-    width: 100%;
-  }
-}
-
-@media only screen and (min-width: 816px) and (max-width: 1532px) {
-  .pp_top,
-  .pp_top_table {
-    top: 269px;
-  }
-}
-@media only screen and (min-width: 769px) and (max-width: 815px) {
-  .pp_top,
-  .pp_top_table {
-    top: 345px;
-  }
-  .pp_top.dp3,
-  .pp_top_table.dp3 {
-    top: 450px;
-  }
-  .pp_top.icc,
-  .pp_top_table.icc {
-    top: 360px;
-  }
-}
-@media only screen and (min-width: 641px) and (max-width: 768px) {
-  .pp_top,
-  .pp_top_table {
-    top: 290px;
-  }
-  .pp_top.dp3,
-  .pp_top_table.dp3 {
-    top: 390px;
-  }
-  .pp_top.icc,
-  .pp_top_table.icc {
-    top: 305px;
-  }
-}
-@media only screen and (max-width: 640px) {
-  .pp_top {
-    display: none;
-  }
-}
-@media only screen and (max-width: 815px) {
-  .pp_top {
-    border-right: none;
-    width: 85px;
-  }
-
-  .pp_top_table {
-    position: unset;
-    transform: unset;
-    border-right: none;
-    width: auto;
-    height: auto !important;
-  }
-  .pp_top_table button {
-    // background-color: var(--gray-200) !important;
-    border-radius: unset !important;
-    width: auto !important;
-    height: auto !important;
-    border-left: none;
-  }
-
-  .pp_top button {
-    // background-color: var(--gray-200) !important;
-    border-radius: 30px !important;
-    width: 40px !important;
-    height: 40px !important;
-    border-left: none;
-  }
-  .pp_top button:nth-of-type(1),
-  .pp_top_table button:nth-of-type(1) {
-    margin-right: 5px;
-  }
-}
-// 서브 레이아웃의 children을 감싸는 레이아웃
-@media only screen and (min-width: 1920px) {
-  .sub_container {
-    width: 100%;
-    padding: 30px 250px 60px 250px;
-    box-sizing: border-box;
-  }
-}
-@media only screen and (min-width: 1520px) and (max-width: 1919px) {
-  .sub_container {
-    width: 1420px;
-    margin: 0 auto;
-    padding: 30px 0 60px 0;
-  }
-}
-@media only screen and (min-width: 641px) and (max-width: 1519px) {
-  .sub_container {
-    width: 100%;
-    padding: 30px 50px 60px 50px;
-    box-sizing: border-box;
-  }
-}
-@media only screen and (max-width: 640px) {
-  .sub_container {
-    width: 100%;
-    padding: 0 12px 12px 12px;
-    box-sizing: border-box;
-  }
 }
 
 // 웹 표준
@@ -505,145 +166,4 @@ img {
 .essential {
   color: var(--error);
   margin-left: 6px;
-}
-// 커스텀 스크롤바
-*::-webkit-scrollbar {
-  width: 8px; /* 스크롤바 너비 */
-  height: 8px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--gray-500);
-  border-radius: 4px; /* 슬라이더 모서리 둥글기 */
-}
-*::-webkit-scrollbar-thumb:hover {
-  background-color: var(--gray-500);
-}
-
-*::-webkit-scrollbar-track {
-  background-color: transparent;
-} /*# sourceMappingURL=globals.css.map */
-
-// 에디터
-.ck-editor__editable {
-  min-height: 460px;
-}
-
-@media screen and (max-width: 1532px) {
-  // 서브 레이아웃 전체
-  .sub_layout_container {
-    padding: 12rem 0 0;
-  }
-}
-
-// 768부터 전부 다 모바일 시작
-@media screen and (max-width: 768px) {
-  // 서브 레이아웃 전체
-  .sub_layout_container {
-    padding: 6.5rem 0 0;
-  }
-
-  .pc {
-    display: none !important;
-  }
-  .mobile {
-    display: block !important;
-  }
-
-  // 에디터
-  .ck.ck-reset.ck-editor.ck-rounded-corners {
-    width: 99%;
-  }
-  .ck-editor__editable {
-    min-height: 200px;
-  }
-}
-
-// chart 사용을 위한 폰트세팅
-@font-face {
-  font-family: "chartSCDream" !important;
-  src: url("../fonts/SCDream/SCDream2.woff") format("woff");
-}
-
-// table
-/*table*/
-.tb_st1 caption {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: polygon(0 0, 0 0, 0 0);
-}
-.tb_st1 th,
-.tb_st1 td {
-  vertical-align: middle;
-  word-break: break-all;
-}
-.tb_st1 td {
-  line-height: 1.3;
-  font-weight: 300;
-  color: var(--gray-1000);
-}
-.tb_st1 {
-  width: 100%;
-  min-width: 800px;
-  margin-top: 30px;
-  border-bottom: solid 2px var(--gray-1000);
-}
-@media only screen and (min-width: 801px) {
-  .t_bot_m {
-    display: none;
-  }
-}
-@media only screen and (max-width: 800px) {
-  .tb_st1 {
-    margin-bottom: 10px;
-  }
-  .tb_st1 th,
-  .tb_st1 td {
-    font-size: var(--fs-12);
-  }
-}
-.tb_st1 thead {
-  border-top: solid 2px var(--gray-1000);
-  background: var(--gray-300);
-  color: var(--gray-1000);
-}
-.tb_st1 th {
-  padding: 15px 12px;
-  font-weight: 400;
-}
-.tb_st1 td {
-  padding: 12px;
-}
-.tb_st1 th,
-.tb_st1 td {
-  border-bottom: solid 1px var(--gray-500);
-  border-left: solid 1px var(--gray-500);
-  text-align: center;
-}
-.tb_st1 td:first-of-type {
-  border-left: none;
-}
-.tb_st1 thead tr:nth-of-type(1) th:nth-of-type(1) {
-  border-left: none !important;
-}
-.t_bot_m {
-  font-size: var(--fs-12);
-  margin-top: 10px;
-  line-height: 120%;
-}
-.t_bot_txt {
-  font-size: var(--fs-12);
-  margin-top: 10px;
-  line-height: 120%;
-  color: #666;
-}
-
-// 통합검색용
-@media screen and (max-width: 930px) {
-  .s_search_content {
-    padding: 0;
-  }
 }
