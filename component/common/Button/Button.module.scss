@@ -10,43 +10,37 @@ button.btn {
   box-sizing: border-box;
   overflow: hidden;
   transition: all 0.2s;
-  color: var(--gray-1000);
-  background-color: var(--gray-100);
   border: none;
   border-radius: var(--br-8);
 
-  // size
+  // ------------- size -------------
   &.xsm {
     height: 2.8rem;
     font-size: var(--fs-14);
     padding: 0.5rem 1.2rem;
   }
-
   &.sm {
     height: 3.2rem;
     padding: 0.5rem 1.2rem;
   }
-
   &.md {
     // 기본 사이즈
     height: 4.4rem;
     font-size: var(--fs-16);
     padding: 0.5rem 1.2rem;
   }
-
   &.lg {
     height: 5.6rem;
     font-size: var(--fs-18);
     padding: 0.5rem 1.2rem;
   }
-
   &.xlg {
     height: 6.4rem;
     font-size: var(--fs-18);
     padding: 0.5rem 1.2rem;
   }
 
-  /* color */
+  // ------------- color -------------
   &.white {
     border: 1px solid var(--gray-500);
     background: var(--gray-100);
@@ -56,7 +50,6 @@ button.btn {
       background: #eef2ff;
     }
   }
-
   &.blue {
     outline: 1px solid var(--gray-500);
     background: var(--mcolor);
@@ -66,7 +59,6 @@ button.btn {
       background: #033482;
     }
   }
-
   &.blue_reverse {
     border: 1px solid var(--mcolor);
     background: var(--gray-100);
@@ -77,7 +69,6 @@ button.btn {
       background: #eef2ff;
     }
   }
-
   &.red {
     outline: 1px solid var(--gray-500);
     background: var(--error);
@@ -87,7 +78,6 @@ button.btn {
       background: #a11429;
     }
   }
-
   &.red_reverse {
     border: 1px solid var(--error);
     background: var(--gray-100);
@@ -99,24 +89,22 @@ button.btn {
     }
   }
 
-  /* hover */
+  // ------------- hover -------------
   &.white_hover {
     outline: 1px solid #123388;
     background: #fafbff;
   }
-
   &.blue_hover {
     background: #0b51c1;
   }
-
   &.red_hover {
     background: #d50136;
   }
-
   &.red_reverse_hover {
     background: #feecf0;
   }
 
+  // ------------- disabled -------------
   &:disabled {
     background: var(--form-disabled-bg-color) !important;
     color: var(--form-disabled-text-color);

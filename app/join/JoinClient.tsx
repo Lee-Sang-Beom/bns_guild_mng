@@ -18,6 +18,7 @@ export default function JoinClient() {
       <Input
         title="비밀번호"
         value={id}
+        disabled
         onChange={(e) => {
           setId(e.currentTarget.value.toString());
         }}

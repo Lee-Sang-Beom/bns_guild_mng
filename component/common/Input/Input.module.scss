@@ -13,7 +13,7 @@
     font-size: var(--fs-16);
     border-radius: var(--br-10);
 
-    /* size */
+    // ------------- size -------------
     &.xsm {
       height: 2.8rem;
       font-size: var(--fs-14);
@@ -38,7 +38,8 @@
       font-size: var(--fs-18);
       padding: 0 2.4rem;
     }
-    /* color */
+
+    // ------------- color(필요 시 해당 블록 내용처럼 추가) -------------
     &.white {
       background-color: var(--gray-100);
       color: var(--form-white-text-color);
@@ -51,13 +52,21 @@
         outline: 1px solid var(--form-white-focus-outline-color);
       }
     }
+
+    // ------------- disabled -------------
     &:disabled {
       background-color: var(--form-disabled-bg-color) !important;
       color: var(--form-disabled-text-color) !important;
+      outline: 1px solid var(--form-disabled-outline-color);
       cursor: default !important;
+
+      &:hover {
+        outline: 1px solid var(--form-disabled-outline-color);
+      }
     }
   }
 
+  // ------------- description -------------
   .txt_error,
   .txt_success {
     display: flex;
