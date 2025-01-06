@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import ms from "./Join.module.scss";
 import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormReturnOption/option";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
@@ -16,6 +15,7 @@ import { useState } from "react";
 import SuccessJoin from "./SuccessJoin";
 import RejectJoin from "./RejectJoin";
 import SubmitForm from "@/component/common/SubmitForm/SubmitForm";
+import ms from "@/app/(doNotHaveSession)/join/Join.module.scss";
 
 export default function JoinClient() {
   /**
