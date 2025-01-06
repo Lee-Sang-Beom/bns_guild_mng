@@ -13,6 +13,8 @@ import { User } from "next-auth";
 import { signIn } from "next-auth/react";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
+import React from "react";
+import Loading from "@/component/common/Loading/Loading";
 
 interface IForm {
   id: string;
@@ -82,73 +84,76 @@ export default function LoginClient() {
   };
 
   return (
-    <div className={ms.wrap}>
-      <div className={ms.section}>
-        <div className={ms.inner}>
-          <div className={ms.top}>
-            <p className={ms.title}>로그인</p>
-            <p className={ms.desc}>
-              회원가입을 진행한 시그니처 문파원만 로그인을 진행할 수 있습니다.
-            </p>
-          </div>
-          <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
-            <div className={ms.middle}>
-              <div className={ms.inp_box}>
-                <span className={ms.label}>닉네임</span>
-                <Input
-                  {...register("id", {
-                    required: "블소 인게임 닉네임을 입력해주세요.",
-                  })}
-                  type="text"
-                  placeholder="닉네임을 입력해주세요."
-                  aria-invalid={
-                    isSubmitted ? (errors.id ? "true" : "false") : undefined
-                  }
-                  title="닉네임"
-                  id="id"
-                  partialErrorObj={errors.id}
-                />
-              </div>
-              <div className={ms.inp_box}>
-                <span className={ms.label}>비밀번호</span>
-                <Input
-                  {...register("password", passwordReactHookFormOption(true))}
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  aria-invalid={
-                    isSubmitted
-                      ? errors.password
-                        ? "true"
-                        : "false"
-                      : undefined
-                  }
-                  title="비밀번호"
-                  id="password"
-                  partialErrorObj={errors.password}
-                />
-              </div>
-              <div className={ms.btn_box}>
-                <Button
-                  color={"blue"}
-                  title={"로그인"}
-                  id={"login"}
-                  size="lg"
-                  type="submit"
-                  disabled={isSubmitting ? true : false}
-                  onClick={(e) => {}}
-                >
-                  로그인
-                </Button>
-              </div>
+    <React.Fragment>
+      <Loading text="로그인 정보를 제출하고 있습니다." open={isSubmitting} />
+      <div className={ms.wrap}>
+        <div className={ms.section}>
+          <div className={ms.inner}>
+            <div className={ms.top}>
+              <p className={ms.title}>로그인</p>
+              <p className={ms.desc}>
+                회원가입을 진행한 시그니처 문파원만 로그인을 진행할 수 있습니다.
+              </p>
             </div>
-          </SubmitForm>
-          <div className={ms.bottom}>
-            <Link href="/join" prefetch={false}>
-              회원가입 페이지로 이동
-            </Link>
+            <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
+              <div className={ms.middle}>
+                <div className={ms.inp_box}>
+                  <span className={ms.label}>닉네임</span>
+                  <Input
+                    {...register("id", {
+                      required: "블소 인게임 닉네임을 입력해주세요.",
+                    })}
+                    type="text"
+                    placeholder="닉네임을 입력해주세요."
+                    aria-invalid={
+                      isSubmitted ? (errors.id ? "true" : "false") : undefined
+                    }
+                    title="닉네임"
+                    id="id"
+                    partialErrorObj={errors.id}
+                  />
+                </div>
+                <div className={ms.inp_box}>
+                  <span className={ms.label}>비밀번호</span>
+                  <Input
+                    {...register("password", passwordReactHookFormOption(true))}
+                    type="password"
+                    placeholder="비밀번호를 입력해주세요."
+                    aria-invalid={
+                      isSubmitted
+                        ? errors.password
+                          ? "true"
+                          : "false"
+                        : undefined
+                    }
+                    title="비밀번호"
+                    id="password"
+                    partialErrorObj={errors.password}
+                  />
+                </div>
+                <div className={ms.btn_box}>
+                  <Button
+                    color={"blue"}
+                    title={"로그인"}
+                    id={"login"}
+                    size="lg"
+                    type="submit"
+                    disabled={isSubmitting ? true : false}
+                    onClick={(e) => {}}
+                  >
+                    로그인
+                  </Button>
+                </div>
+              </div>
+            </SubmitForm>
+            <div className={ms.bottom}>
+              <Link href="/join" prefetch={false}>
+                회원가입 페이지로 이동
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }

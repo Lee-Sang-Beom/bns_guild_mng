@@ -37,8 +37,22 @@ export interface EnumType<T> {
   name: string;
 }
 
+/**
+ * @name ApiResponse
+ * @description Api Response 형태
+ */
 export interface ApiResponse<T> {
   message: string;
   success: boolean;
   data: T;
+}
+
+/**
+ * @name MenuItem
+ * @description 메뉴 데이터 형태
+ */
+export interface MenuItem {
+  menuNm: string;
+  menuSeq: number;
+  menuUrl: string;
 }

@@ -44,8 +44,7 @@ export default withAuth(
     },
   }
 );
-
 export const config = {
-  // 모든 경로에 대해 미들웨어 적용
-  matcher: ["/((?!_next|favicon.ico).*)"],
+  // 정적 리소스 요청 제외 (_next, public 폴더 포함)
+  matcher: ["/((?!_next|favicon.ico|img).*)"],
 };

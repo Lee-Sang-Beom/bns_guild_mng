@@ -24,7 +24,8 @@ export default function RejectJoin({ res }: any) {
             size="lg"
             type="submit"
             onClick={(e) => {
-              router.push("/join");
+              if (!window) return;
+              window.location.reload();
             }}
           >
             회원가입 페이지로 이동

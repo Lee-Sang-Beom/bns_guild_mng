@@ -1,9 +1,21 @@
-import "@/styles/globals.scss"; // 경로가 올바르게 설정되었는지 확인
+import "@/styles/globals.scss";
+import ms from "./layout.module.scss";
+import Header from "@/component/Layout/Header/Header";
 
 export default function HaveSessionLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <div className={ms.wrap}>
+      {/* LEFT */}
+      <div className={ms.left}>
+        <Header />
+      </div>
+
+      {/* RIGHT */}
+      <div className={ms.right}>{children}</div>
+    </div>
+  );
 }
