@@ -7,8 +7,6 @@ declare module "next-auth" {
     password: string; // 유저 pswd
     authType: UserAuthType; // 유저 권한
     useYn: "Y" | "N"; // 사용 여부
-
-    message?: string; // 로그인 실패 시, 메시지가 담길 내용
   }
 
   interface Session {

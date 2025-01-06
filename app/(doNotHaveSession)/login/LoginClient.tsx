@@ -78,7 +78,7 @@ export default function LoginClient() {
       });
   };
   const onError = (errors: any) => {
-    console.log("errors ", errors);
+    console.error("errors ", errors);
   };
 
   return (

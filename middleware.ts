@@ -9,15 +9,21 @@ export default withAuth(
     const token =
       req.cookies.get("next-auth.session-token") ||
       req.cookies.get("__Secure-next-auth.session-token");
-    const isLoggedIn = !!token;
 
+    const isLoggedIn = !!token;
     const isOnDashboard = url.pathname.startsWith("/dashboard");
 
-    // 로그인하지않은 사용자 대시보드 접근 방지
-    if (isOnDashboard && !isLoggedIn) {
+    // 로그인하지않은 사용자 대시보드 접근 방지 : 로그인 페이지로 이동
+    if (!isLoggedIn && isOnDashboard) {
       const loginUrl = new URL("/login", url.origin); // 리다이렉트
       loginUrl.searchParams.set("callbackUrl", url.pathname); // callbackUrl: 로그인 후 돌아올경로 지정
       return NextResponse.redirect(loginUrl);
+    }
+
+    // 로그인했는데 사용자 대시보드 접근이 아닌경우 : 대시보드 이동
+    if (isLoggedIn && !isOnDashboard) {
+      const dashboardUrl = new URL("/dashboard", url.origin); // 리다이렉트
+      return NextResponse.redirect(dashboardUrl);
     }
 
     return NextResponse.next(); // 조건에 해당하지 않는 요청은 그대로 허용
@@ -40,7 +46,6 @@ export default withAuth(
 );
 
 export const config = {
-  // 이 미들웨어가 적용될 경로를 정의
-  // 대시보드 관련 경로(`/dashboard/*`)뿐만 아니라 전체 경로(`/`)에도 조건을 적용
-  matcher: ["/dashboard/:path*"], // Protect dashboard and other paths
+  // 모든 경로에 대해 미들웨어 적용
+  matcher: ["/((?!_next|favicon.ico).*)"],
 };
