@@ -13,8 +13,6 @@ import { ApiResponse, UserAuthType } from "@/types/common/commonType";
 import { addCollectionUser } from "@/utils/doNotHaveSession/join/action";
 import { AddUserRequest } from "@/types/doNotHaveSession/join/request";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import SuccessJoin from "./SuccessJoin";
 import RejectJoin from "./RejectJoin";
 import SubmitForm from "@/component/common/SubmitForm/SubmitForm";

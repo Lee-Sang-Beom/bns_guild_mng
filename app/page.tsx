@@ -1,7 +1,3 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "./api/auth/[...nextauth]/AuthOptions";
-
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  return <div>홈페이지입니다.</div>;
 }
