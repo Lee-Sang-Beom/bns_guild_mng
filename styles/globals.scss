@@ -64,6 +64,7 @@
 
   // main color
   --mcolor: #236cdf;
+  --mbackgroundColor: #f2f5fa;
 
   // sub blue color
   --sblue01: #7f96ae;
@@ -99,6 +100,8 @@
   // form
   --form-white-border-color: #dfe0e4;
   --form-white-outline-color: #dfe0e4;
+  --form-hover-border-color: #2768ff;
+  --form-hover-outline-color: #2768ff;
   --form-white-focus-border-color: #1f53cc;
   --form-white-focus-outline-color: #1f53cc;
   --form-white-bg-color: #fff;
@@ -150,6 +153,7 @@ img {
 }
 a {
   text-decoration: none;
+  color: #111;
 }
 .pc {
   display: block !important;

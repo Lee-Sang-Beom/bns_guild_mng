@@ -14,7 +14,6 @@
     font-size: var(--fs-16) !important;
     background-color: var(--gray-100);
     color: var(--gray-1000);
-    border: none;
     border-radius: var(--br-10);
 
     & > div {
@@ -87,21 +86,20 @@
     &.white {
       background-color: #fff;
       color: var(--form-white-text-color);
-      outline: 1px solid var(--form-white-border-color);
+      outline: 1px solid var(--form-white-outline-color);
 
       &:hover {
-        outline: 1px solid var(--form-hover-border-color);
-        color: var(--form-hover-border-color);
+        outline: 1px solid var(--form-hover-outline-color);
       }
       &.focus {
-        outline: 3px solid var(--form-white-focus-border-color);
+        outline: 1px solid var(--form-white-focus-outline-color);
       }
     }
 
-    &.disabled,
     &:disabled {
       background-color: var(--form-disabled-bg-color) !important;
       color: var(--form-disabled-text-color) !important;
+      outline: 1px solid var(--form-disabled-outline-color);
       cursor: default !important;
     }
 

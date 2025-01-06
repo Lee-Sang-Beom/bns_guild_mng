@@ -3,10 +3,7 @@
 import { useForm } from "react-hook-form";
 import ms from "./Login.module.scss";
 import SubmitForm from "@/component/common/SubmitForm/SubmitForm";
-import {
-  idReactHookFormOption,
-  passwordReactHookFormOption,
-} from "@/utils/vaildation/reactHookFormReturnOption/option";
+import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormReturnOption/option";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Link from "next/link";
@@ -42,7 +39,9 @@ export default function LoginClient() {
     },
   });
 
-  const onSubmit = async (data: IForm) => {};
+  const onSubmit = async (data: IForm) => {
+    console.log("post : ", data);
+  };
   const onError = (errors: any) => {
     console.log("errors ", errors);
   };
@@ -110,7 +109,7 @@ export default function LoginClient() {
           </SubmitForm>
           <div className={ms.bottom}>
             <Link href="/join" prefetch={false}>
-              회원가입
+              회원가입 페이지로 이동
             </Link>
           </div>
         </div>

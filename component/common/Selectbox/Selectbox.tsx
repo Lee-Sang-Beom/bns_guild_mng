@@ -20,7 +20,6 @@ interface SelectboxProps {
   items: SelectboxType[];
   size?: "xsm" | "sm" | "md" | "lg" | "xlg";
   color?: string;
-  border?: "br_square_round_1" | "br_square_round_2" | "br_round";
   title: string;
   value?: string;
   effectivenessMsg?: InputErrorMsgType;
@@ -29,41 +28,12 @@ interface SelectboxProps {
   placeholder?: string;
 }
 
-/**
- *
- * @param size?: 크기  (기본 md)
- * @return "xsm" | "sm" | "md" | "lg" | "xlg";
- *
- * @param color?: 색상 (기본 white)
- * @returns "white" | "gray" | "darkgray" | "disabled"
- *
- * @param border?: 보더 사이즈 (기본 0)
- * @return "br_square_round_1" | "br_square_round_2" | "br_round";
- *
- * @param value?: value // react-hook-form을 사용하면 안보내도 됨
- * @returns string | number
- *
- * @param title: title로, 한 페이지 내에서 겹치지 않는 샐랙트 대상명을 정확히 보내주어야 함
- * @returns string
- *
- * @param onChange
- *
- * @param placeholder? placeholder가 있고 value 값이 ""인 데이터가 있으면 value 값이 ""인 데이터가 우선 적용
- *
- * @param partialErrorObj: 제어형 컴포넌트의 유효성 검증에 사용 -> (state and setState / none use react-hook-form)
- * @returns FieldValues
- *
- * @param effectivenessMsg: 비제어형 컴포넌트의 유효성 검증에 사용 (react-hook-form)
- * @returns InputErrorMsgType
- */
-
 const Selectbox = (
   {
     items,
     size,
     color,
     title,
-    border,
     value,
     effectivenessMsg,
     partialErrorObj,
@@ -85,6 +55,7 @@ const Selectbox = (
 
   const baseSelectClassName = clsx({
     ["select"]: true,
+    ["white"]: true,
     ["xsm"]: size === "xsm",
     ["sm"]: size === "sm",
     ["md"]:
@@ -98,11 +69,6 @@ const Selectbox = (
     ["focus"]: isMouseFocus,
   });
 
-  /**
-   * @isMount : Selectbox 컴포넌트는 서버에서 SSR방식으로 미리 렌더링하는 도중 className이 불일치하는 현상이 발생함
-   *  - 따라서 해석과정에서, 완전한 tsx파일을 module reference type을 바로 적용할 수 없도록 빈 컴포넌트로 해석하게 한 다음 클라이언트에서 window객체를 찾은 다음 순차적으로 그리도록 함
-   *  - 이 오류는, `document.querySelector`과 관련이 있음
-   */
   const [isMount, setIsMount] = useState<boolean>(false);
   useEffect(() => {
     setIsMount(true);
@@ -142,8 +108,6 @@ const Selectbox = (
           </InputLabel>
           <Select
             open={open} // open 상태 관리
-            // id={selectId}
-            // labelId={labelId}
             displayEmpty
             inputProps={{
               "aria-label": title,
@@ -157,11 +121,7 @@ const Selectbox = (
                 setOpen(false); // 선택 후 드롭다운 닫기
               }, 0);
             }}
-            className={clsx(
-              baseSelectClassName,
-              color && color !== "" ? color : "white",
-              border ? border : "br_square"
-            )}
+            className={clsx(baseSelectClassName)}
             onMouseUp={() => {
               const addSizeClass = document.querySelector(
                 ".MuiList-root.MuiMenu-list"

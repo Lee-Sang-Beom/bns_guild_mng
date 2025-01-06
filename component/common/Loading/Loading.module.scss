@@ -1,0 +1,54 @@
+.loading_box {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  aspect-ratio: 1 / 0.7;
+  max-width: 50rem;
+  min-width: 27.5rem;
+  border-radius: var(--br-30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 3rem;
+  box-sizing: border-box;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.25);
+  background-color: var(--gray-100);
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.2s;
+
+  &.open {
+    z-index: 10000;
+    opacity: 1;
+    transition: all 0.2s;
+  }
+
+  .txt {
+    width: 100%;
+    text-align: center;
+    line-height: 130%;
+    font-size: var(--fs-20);
+  }
+}
+
+// 반응형
+// 모바일
+@media screen and (max-width: 768px) {
+  .loading_box {
+    gap: 3rem;
+    padding: 1rem;
+    border-radius: var(--br-10);
+
+    .txt {
+      width: 100%;
+      text-align: center;
+      font-size: var(--fs-14);
+    }
+  }
+}

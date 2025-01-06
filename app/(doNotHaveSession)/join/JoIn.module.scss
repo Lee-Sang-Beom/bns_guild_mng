@@ -1,0 +1,92 @@
+.wrap {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--mbackgroundColor);
+
+    // 회원가입 Form
+    .inner {
+      width: 1200px;
+      height: 800px;
+      background-color: #ffffff;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.25);
+      border-radius: 10px;
+
+      // TOP
+      .top {
+        width: 100%;
+        position: relative;
+        top: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 15px;
+
+        .title {
+          font-size: var(--fs-50);
+          color: #4845cf;
+          font-weight: 700;
+          letter-spacing: 2px;
+        }
+        .desc {
+          font-size: var(--fs-14);
+          color: var(--gray-700);
+        }
+      }
+
+      // MIDDLE
+      .middle {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .inp_box,
+        .btn_box {
+          width: 500px;
+        }
+
+        .inp_box .label {
+          display: inline-block;
+          font-weight: 500;
+          font-size: var(--fs-18);
+          margin-bottom: 5px;
+        }
+
+        img {
+          width: 320px !important;
+          height: 320px !important;
+        }
+      }
+    }
+
+    // BOTTOM
+    .bottom {
+    }
+  }
+}
