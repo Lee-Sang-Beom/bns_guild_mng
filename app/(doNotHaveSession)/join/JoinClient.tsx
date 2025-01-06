@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import ms from "./JoinClient.module.scss";
+import ms from "./Join.module.scss";
 import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormReturnOption/option";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";

@@ -13,18 +13,18 @@ export default function RejectJoin({ res }: any) {
         <p className={ms.desc}>{res.message}</p>
       </div>
       <div className={ms.middle}>
-        <img src="/img/reject_login.gif" alt="회원가입 성공 이미지" />
+        <img src="/img/reject_login.gif" alt="회원가입 실패 이미지" />
       </div>
       <div className={ms.bottom}>
         <div className={ms.btn_box}>
           <Button
             color={"blue"}
-            title={"로그인 페이지로 이동"}
-            id={"move_login"}
+            title={"회원가입 페이지로 이동"}
+            id={"move_join"}
             size="lg"
             type="submit"
             onClick={(e) => {
-              router.push("/login");
+              router.push("/join");
             }}
           >
             회원가입 페이지로 이동
