@@ -2,6 +2,8 @@ import { AuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { AdapterUser } from "next-auth/adapters";
 import { JWT } from "next-auth/jwt";
+import { ApiResponse } from "@/types/common/commonType";
+import { loginCollectionUser } from "@/utils/doNotHaveSession/login/action";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -10,34 +12,23 @@ export const authOptions: AuthOptions = {
       credentials: {
         id: { label: "id", type: "text" },
         password: { label: "password", type: "password" },
-        authType: { label: "authType", type: "text" },
       },
       async authorize(
-        credentials: Record<"id" | "password" | "authType", string> | undefined
+        credentials: Record<"id" | "password", string> | undefined
       ) {
         if (!credentials) return null;
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/bapi/common/member/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              id: credentials.id,
-              password: credentials.password,
-              loginType: credentials.authType,
-            }),
-          }
+        const res: ApiResponse<User | null> = await loginCollectionUser(
+          credentials
         );
-        const json = await res.json();
 
-        if (json.code === "200") {
-          return json.data;
-        } else {
-          throw new Error(JSON.stringify(json));
+        if (res.success && res.data) {
+          // 성공 시 메시지와 유저 객체 반환
+          return res.data;
         }
+
+        // 실패 시 메시지만 반환
+        throw new Error(res.message || "로그인 중 오류가 발생했습니다.");
       },
     }),
   ],
@@ -51,7 +42,6 @@ export const authOptions: AuthOptions = {
       }
       return token;
     },
-    // JWT (JSON Web Token)의 생성과 검증을 사용자 정의하고 조작할 수 있게 합니다.
     async session({ session, token }: { session: Session; token: JWT }) {
       session.user = token.user;
       return session;

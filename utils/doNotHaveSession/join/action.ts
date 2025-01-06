@@ -1,6 +1,7 @@
 import { db } from "@/datastore/firebase/firestore";
 import { ApiResponse } from "@/types/common/commonType";
 import { AddUserRequest } from "@/types/doNotHaveSession/join/request";
+import { encryptPassword } from "@/utils/common/common";
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 
 /**
@@ -45,8 +46,17 @@ export async function addCollectionUser(
       };
     }
 
+    // 비밀번호 암호화
+    const userWithEncryptedPassword = {
+      ...data,
+      password: encryptPassword(data.password),
+    };
+
     // Firestore에 새로운 유저 추가
-    const docRef = await addDoc(collection(db, "collection_user"), data);
+    const docRef = await addDoc(
+      collection(db, "collection_user"),
+      userWithEncryptedPassword
+    );
 
     return {
       success: true,

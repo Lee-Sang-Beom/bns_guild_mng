@@ -7,6 +7,12 @@ import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormRet
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Link from "next/link";
+import { loginCollectionUser } from "@/utils/doNotHaveSession/login/action";
+import { ApiResponse } from "@/types/common/commonType";
+import { User } from "next-auth";
+import { signIn } from "next-auth/react";
+import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
+import { useRouter } from "next/navigation";
 
 interface IForm {
   id: string;
@@ -14,6 +20,9 @@ interface IForm {
 }
 
 export default function LoginClient() {
+  const { setIsChange, setStatus, setText } = useAutoAlert();
+  const router = useRouter();
+
   const {
     register,
     getValues,
@@ -40,7 +49,33 @@ export default function LoginClient() {
   });
 
   const onSubmit = async (data: IForm) => {
-    console.log("post : ", data);
+    await signIn("credentials", {
+      ...data,
+      redirect: false,
+    })
+      .then((res) => {
+        // res가 아예 없는 경우 : 로그인 중 응답 오류
+        if (!res) {
+          setText("로그인 응답 중 오류가 발생했습니다.");
+          setIsChange(true);
+          setStatus("error");
+          return;
+        }
+
+        if (res.status == 200) {
+          router.push("/dashboard");
+        } else {
+          setText(res.error || "아이디와 비밀번호를 다시 확인해주세요.");
+          setIsChange(true);
+          setStatus("error");
+        }
+      })
+      .catch((error) => {
+        setText("로그인 응답 중 오류가 발생했습니다.");
+        setIsChange(true);
+        setStatus("error");
+        return;
+      });
   };
   const onError = (errors: any) => {
     console.log("errors ", errors);
