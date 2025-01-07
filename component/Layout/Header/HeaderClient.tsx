@@ -33,7 +33,7 @@ export default function HeaderClient({ menuList }: IProps) {
 
               setTimeout(() => {
                 router.push("/");
-              }, 2000);
+              }, 1000);
             }}
           >
             <span>
