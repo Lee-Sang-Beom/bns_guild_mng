@@ -64,7 +64,8 @@ button.btn {
     background: var(--gray-100);
     color: var(--mcolor);
 
-    &:focus {
+    &:focus,
+    &:hover {
       outline: 1px solid var(--mcolor);
       background: #eef2ff;
     }
@@ -83,7 +84,8 @@ button.btn {
     background: var(--gray-100);
     color: var(--error);
 
-    &:focus {
+    &:focus,
+    &:hover {
       outline: 1px solid var(--error);
       background: #fcd4de;
     }

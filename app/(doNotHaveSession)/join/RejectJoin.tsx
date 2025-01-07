@@ -18,7 +18,7 @@ export default function RejectJoin({ res }: any) {
       <div className={ms.bottom}>
         <div className={ms.btn_box}>
           <Button
-            color={"blue"}
+            color={"blue_reverse"}
             title={"회원가입 페이지로 이동"}
             id={"move_join"}
             size="lg"
@@ -29,6 +29,20 @@ export default function RejectJoin({ res }: any) {
             }}
           >
             회원가입 페이지로 이동
+          </Button>
+        </div>
+        <div className={ms.btn_box}>
+          <Button
+            color={"blue"}
+            title={"로그인인 페이지로 이동"}
+            id={"move_login"}
+            size="lg"
+            type="submit"
+            onClick={(e) => {
+              router.push("/login");
+            }}
+          >
+            로그인 페이지로 이동
           </Button>
         </div>
       </div>

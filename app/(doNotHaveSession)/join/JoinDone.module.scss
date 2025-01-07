@@ -54,6 +54,14 @@
 
   // BOTTOM
   .bottom {
-    width: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .btn_box {
+      width: 200px;
+    }
   }
 }

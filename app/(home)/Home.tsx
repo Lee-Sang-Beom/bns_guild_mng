@@ -54,8 +54,8 @@ export default function Home() {
           router.push("/login");
         }}
       >
-        <BsFillArrowLeftCircleFill size={22} />
         LOGIN
+        <BsFillArrowLeftCircleFill size={22} />
       </button>
     </div>
   );
