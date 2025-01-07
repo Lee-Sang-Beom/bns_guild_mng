@@ -147,7 +147,7 @@ export default function LoginClient() {
               </div>
             </SubmitForm>
             <div className={ms.bottom}>
-              <Link href="/join" prefetch={false}>
+              <Link href="/join" prefetch={true}>
                 회원가입 페이지로 이동
               </Link>
             </div>
