@@ -1,4 +1,3 @@
-import "@/styles/globals.scss";
 import ms from "./layout.module.scss";
 import Header from "@/component/Layout/Header/Header";
 

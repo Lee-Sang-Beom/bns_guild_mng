@@ -1,8 +1,5 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/AuthOptions";
+import Home from "./(home)/Home";
 
-export default async function Page() {
-  const session = await getServerSession(authOptions);
-  console.log("session is ", session);
-  return <div>홈페이지입니다.</div>;
+export default function Page() {
+  return <Home />;
 }

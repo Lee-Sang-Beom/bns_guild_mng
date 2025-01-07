@@ -1,10 +1,9 @@
-import "@/styles/globals.scss"; // 경로가 올바르게 설정되었는지 확인
-
 import AutoAlert from "@/component/common/AutoAlert/AutoAlert";
 import ReactQueryProvider from "@/provider/ReactQueryProvider";
 import RecoilRootProvider from "@/provider/RecoilProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "@/styles/globals.scss";
 
 export const metadata: Metadata = {
   title: "시그니처",

@@ -1,11 +1,16 @@
 @charset "UTF-8";
-@import url("reset.css");
+@import url("./reset.css");
 
-@font-face {
-  font-family: "scdream";
-  src: url("../fonts/SCDream/SCDream3.woff") format("woff2");
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "scdream";
+//   src: url("../fonts/SCDream/SCDream3.woff") format("woff2");
+//   font-style: normal;
+// }
+// @font-face {
+//   font-family: "scdream";
+//   src: url("../fonts/Pretendard/Pretendard-Medium.woff2") format("woff2");
+//   font-style: normal;
+// }
 
 :root {
   // font-size
@@ -134,14 +139,14 @@ body {
   font-weight: 400;
   word-break: keep-all;
   font-size: var(--fs-16);
-  font-family: var(--font-scdream);
+  font-family: var(--font-pretendard);
   position: relative;
   overflow-x: hidden;
   width: 100%;
   height: 100vh;
 
   * {
-    font-family: var(--font-scdream);
+    font-family: var(--font-pretendard);
   }
 }
 

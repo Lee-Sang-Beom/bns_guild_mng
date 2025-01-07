@@ -5,22 +5,28 @@ import { redirect } from "next/navigation";
 export default withAuth(
   async function middleware(req: NextRequest) {
     const url = req.nextUrl;
+    const pathname = url.pathname;
 
     const token =
       req.cookies.get("next-auth.session-token") ||
       req.cookies.get("__Secure-next-auth.session-token");
 
     const isLoggedIn = !!token;
-    const isOnDashboard = url.pathname.startsWith("/dashboard");
+    const isOnDashboard = pathname.startsWith("/dashboard");
 
-    // 로그인하지않은 사용자 대시보드 접근 방지 : 로그인 페이지로 이동
+    // .css, .scss 파일이 아닌 경우에만 미들웨어 처리
+    if (pathname.match(/\.(css|scss)$/)) {
+      return NextResponse.next(); // CSS/SCSS 파일은 미들웨어 처리하지 않음
+    }
+
+    // 로그인하지 않은 사용자가 대시보드에 접근하는 경우 로그인 페이지로 리다이렉트
     if (!isLoggedIn && isOnDashboard) {
       const loginUrl = new URL("/login", url.origin); // 리다이렉트
-      loginUrl.searchParams.set("callbackUrl", url.pathname); // callbackUrl: 로그인 후 돌아올경로 지정
+      loginUrl.searchParams.set("callbackUrl", pathname); // 로그인 후 돌아올 경로
       return NextResponse.redirect(loginUrl);
     }
 
-    // 로그인했는데 사용자 대시보드 접근이 아닌경우 : 대시보드 이동
+    // 로그인한 사용자가 대시보드 외의 페이지에 접근하는 경우 대시보드로 리다이렉트
     if (isLoggedIn && !isOnDashboard) {
       const dashboardUrl = new URL("/dashboard", url.origin); // 리다이렉트
       return NextResponse.redirect(dashboardUrl);
@@ -44,7 +50,10 @@ export default withAuth(
     },
   }
 );
+
 export const config = {
-  // 정적 리소스 요청 제외 (_next, public 폴더 포함)
-  matcher: ["/((?!_next|favicon.ico|img).*)"],
+  // 미들웨어가 적용되지 않도록 처리한 URL 패턴을 제외한 나머지 URL에 대해 미들웨어를 적용
+  matcher: [
+    "/((?!_next|favicon.ico|img).*)", // .css, .scss를 제외한 모든 요청에 대해 미들웨어 적용
+  ],
 };
