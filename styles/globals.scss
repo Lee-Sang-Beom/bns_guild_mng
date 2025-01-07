@@ -186,3 +186,22 @@ a {
   color: var(--error);
   margin-left: 6px;
 }
+
+// 스크롤 css 변경
+*::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--mcolor);
+  border-radius: 4px; /* 슬라이더 모서리 둥글기 */
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sblue03);
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+} /*# sourceMappingURL=globals.css.map */

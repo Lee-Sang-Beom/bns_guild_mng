@@ -50,18 +50,6 @@
   animation-fill-mode: forwards; /* 애니메이션 종료 후 마지막 상태 유지 */
 }
 
-/* 애니메이션을 정의 */
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px); /* 초기 상태 */
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0); /* 중앙에 배치되는 상태 */
-  }
-}
-
 .titleLoaded {
   opacity: 1; /* 로드된 후 타이틀은 보이도록 */
   visibility: visible; /* 화면에 표시 */
@@ -128,6 +116,7 @@
   transform: scaleX(1);
 }
 
+// 색상변경 애니메이션
 @keyframes colorChange {
   0% {
     color: var(--gray-200);

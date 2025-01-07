@@ -1,42 +1,165 @@
 .header {
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   display: block !important;
   background-color: #000;
 
   * {
     box-sizing: border-box;
   }
+}
 
-  .top,
-  .bottom {
-    width: 100%;
+.top,
+.bottom {
+  width: 100%;
+}
+
+// TOP
+.top {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  img {
+    width: auto;
+    height: 170px;
+    border-radius: 10px; /* 둥글게 만들기 */
   }
 
-  .top {
-    height: 200px;
+  .btn_box {
+    width: 100%;
+    height: 40px;
+
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
 
-    img {
-      width: auto;
-      height: 200px;
-      border-radius: 10px; /* 둥글게 만들기 */
-    }
-
-    p {
+    .logout {
+      position: relative;
+      background: transparent;
+      display: inline-block;
+      width: 130px;
+      height: 40px;
+      line-height: 42px;
+      padding: 0;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: var(--fs-16);
       font-weight: 600;
-      font-size: var(--fs-18);
-      color: var(--gray-200);
+
+      box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+        7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+      outline: none;
+
+      background: linear-gradient(0deg, var(--mcolor) 0%, var(--sblue02) 100%);
+    }
+    .logout span {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+
+      width: 100%;
+      height: 100%;
+    }
+    .logout:before,
+    .logout:after {
+      position: absolute;
+      content: "";
+      right: 0;
+      top: 0;
+      background: rgba(2, 126, 251, 1);
+      transition: all 0.3s ease;
+    }
+    .logout:before {
+      height: 0%;
+      width: 2px;
+    }
+    .logout:after {
+      width: 0%;
+      height: 2px;
+    }
+    .logout:hover {
+      background: transparent;
+      box-shadow: none;
+    }
+    .logout:hover:before {
+      height: 100%;
+    }
+    .logout:hover:after {
+      width: 100%;
+    }
+    .logout span:hover {
+      color: var(--mcolor);
+    }
+    .logout span:before,
+    .logout span:after {
+      position: absolute;
+      content: "";
+      left: 0;
+      bottom: 0;
+      background: rgba(2, 126, 251, 1);
+      transition: all 0.3s ease;
+    }
+    .logout span:before {
+      width: 2px;
+      height: 0%;
+    }
+    .logout span:after {
+      width: 0%;
+      height: 2px;
+    }
+    .logout span:hover:before {
+      height: 100%;
+    }
+    .logout span:hover:after {
+      width: 100%;
     }
   }
+}
 
-  .bottom {
-    height: calc(100vh - 100px);
-    color: var(--gray-200);
+// BOTTOM(NAV)
+.bottom {
+  height: calc(100vh - 200px);
+  background: linear-gradient(0deg, var(--gray-900) 0%, var(--gray-1000) 100%);
+  ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    li {
+      width: 100%;
+      height: 100px;
+      padding: 20px;
+
+      a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        gap: 6px;
+
+        color: var(--gray-100);
+        font-size: var(--fs-20);
+        font-weight: 500;
+      }
+
+      a:hover {
+        background-color: var(--gray-1000);
+      }
+      a.active {
+        background: linear-gradient(0deg, var(--chart11) 0%, var(--info) 100%);
+      }
+    }
   }
 }
