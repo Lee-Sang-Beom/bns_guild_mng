@@ -14,6 +14,16 @@ export default withAuth(
     const isLoggedIn = !!token;
     const isOnDashboard = pathname.startsWith("/dashboard");
 
+    // 모바일 디바이스 감지 (User-Agent 기반)
+    const userAgent = req.headers.get("user-agent") || "";
+    const isMobile = /android|iphone|ipad|mobile/i.test(userAgent);
+
+    // 모바일 기기 접근 시 특정 페이지로 리다이렉트
+    if (isMobile && pathname !== "/mobile") {
+      const mobileUrl = new URL("/mobile", url.origin);
+      return NextResponse.redirect(mobileUrl);
+    }
+
     // .css, .scss 파일이 아닌 경우에만 미들웨어 처리
     if (pathname.match(/\.(css|scss)$/)) {
       return NextResponse.next(); // CSS/SCSS 파일은 미들웨어 처리하지 않음

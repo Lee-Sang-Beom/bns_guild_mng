@@ -71,6 +71,7 @@ export default function JoinClient() {
         <div className={ms.section}>
           {!isDone || !res ? (
             <div className={ms.inner}>
+              {/* TOP */}
               <div className={ms.top}>
                 <p className={ms.title}>회원가입</p>
                 <p className={ms.desc}>
@@ -78,6 +79,8 @@ export default function JoinClient() {
                   사용 중단될 수 있습니다.
                 </p>
               </div>
+
+              {/* MIDDLE */}
               <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
                 <div className={ms.middle}>
                   <div className={ms.inp_box}>
@@ -152,6 +155,8 @@ export default function JoinClient() {
                   </div>
                 </div>
               </SubmitForm>
+
+              {/* BOTTOM */}
               <div className={ms.bottom}>
                 <Link href="/login" prefetch={true}>
                   로그인 페이지로 이동
