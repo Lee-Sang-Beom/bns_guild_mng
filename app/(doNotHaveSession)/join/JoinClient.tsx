@@ -8,8 +8,12 @@ import Button from "@/component/common/Button/Button";
 import Link from "next/link";
 import Selectbox from "@/component/common/Selectbox/Selectbox";
 import { SelectChangeEvent } from "@mui/material";
-import { userAuthList } from "@/datastore/common/common";
-import { ApiResponse, UserAuthType } from "@/types/common/commonType";
+import { genderList, jobList, userAuthList } from "@/datastore/common/common";
+import {
+  ApiResponse,
+  GenderType,
+  UserAuthType,
+} from "@/types/common/commonType";
 import { addCollectionUser } from "@/utils/doNotHaveSession/join/action";
 import { AddUserRequest } from "@/types/doNotHaveSession/join/request";
 import React, { useState } from "react";
@@ -46,6 +50,8 @@ export default function JoinClient() {
       id: "",
       password: "",
       authType: "NORMAL",
+      job: "검사",
+      gender: "MALE",
       useYn: "Y",
     },
   });
@@ -120,8 +126,53 @@ export default function JoinClient() {
                       partialErrorObj={errors.password}
                     />
                   </div>
+
+                  <div className={ms.flexbox}>
+                    <div className={ms.inp_box}>
+                      <span className={ms.label}>성별</span>
+                      <Selectbox
+                        {...register("gender", {
+                          required: "성별을 선택해주세요.",
+                        })}
+                        items={genderList}
+                        placeholder="성별 선택"
+                        title="성별 선택"
+                        color="white"
+                        size="md"
+                        onChange={function (event: SelectChangeEvent): void {
+                          const targetValue = event.target.value as GenderType;
+                          setValue("gender", targetValue, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        value={watch("gender")}
+                      />
+                    </div>
+
+                    <div className={ms.inp_box}>
+                      <span className={ms.label}>직업</span>
+                      <Selectbox
+                        {...register("job", {
+                          required: "인게임 직업을 선택해주세요.",
+                        })}
+                        items={jobList}
+                        placeholder="직업 선택"
+                        title="직업 선택"
+                        color="white"
+                        size="md"
+                        onChange={function (event: SelectChangeEvent): void {
+                          const targetValue = event.target.value;
+                          setValue("job", targetValue, {
+                            shouldValidate: true,
+                          });
+                        }}
+                        value={watch("job")}
+                      />
+                    </div>
+                  </div>
+
                   <div className={ms.inp_box}>
-                    <span className={ms.label}>권한</span>
+                    <span className={ms.label}>문파 권한</span>
                     <Selectbox
                       {...register("authType", {
                         required: "문파 내 권한을 선택해주세요.",
@@ -140,6 +191,7 @@ export default function JoinClient() {
                       value={watch("authType")}
                     />
                   </div>
+
                   <div className={ms.btn_box}>
                     <Button
                       color={"blue"}

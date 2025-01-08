@@ -1,13 +1,12 @@
 "use client";
-import { MenuItem } from "@/types/common/commonType";
 import ms from "./Header.module.scss";
 import { usePathname } from "next/navigation";
 import { FaPaperPlane } from "react-icons/fa";
-import { IoHome } from "react-icons/io5";
 import { AiFillPicture } from "react-icons/ai";
 import { GiPayMoney } from "react-icons/gi";
 import Link from "next/link";
 import { RiHome3Fill } from "react-icons/ri";
+import { menuList } from "@/datastore/common/common";
 
 // 메뉴 아이콘을 선택하는 함수
 const getMenuIcon = (menuSeq: number) => {
@@ -24,11 +23,7 @@ const getMenuIcon = (menuSeq: number) => {
   }
 };
 
-interface IProps {
-  menuList: MenuItem[];
-}
-
-export default function Navigation({ menuList }: IProps) {
+export default function Navigation() {
   const pathname = usePathname();
 
   return (

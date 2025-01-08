@@ -11,6 +11,12 @@ export type StatusType = "success" | "warning" | "info" | "error";
 export type UserAuthType = "NORMAL" | "ADMIN";
 
 /**
+ * @name GenderType
+ * @description 성별
+ */
+export type GenderType = "MALE" | "FEMALE";
+
+/**
  * @name KeyValue
  * @description key-value 형식의 이름을 그대로 가지는 객체에 사용
  */

@@ -8,6 +8,7 @@ import { RiHome3Fill } from "react-icons/ri";
 import { GiPayMoney } from "react-icons/gi";
 import { AiFillPicture } from "react-icons/ai";
 import { FaPaperPlane } from "react-icons/fa";
+import { menuList } from "@/datastore/common/common";
 
 interface IProps {
   menuList: MenuItem[];
@@ -28,7 +29,7 @@ const getMenuIcon = (menuSeq: number) => {
   }
 };
 
-export default function SubTop({ menuList }: IProps) {
+export default function SubTop() {
   const pathname = usePathname();
   const [currentMenu, setCurrentMenu] = useState<MenuItem | null>(null);
   useEffect(() => {

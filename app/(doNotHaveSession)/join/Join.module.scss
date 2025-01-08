@@ -36,13 +36,13 @@
       .top {
         width: 100%;
         position: relative;
-        top: 70px;
+        top: 50px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
-        gap: 15px;
+        gap: 5px;
 
         .title {
           font-size: var(--fs-50);
@@ -68,6 +68,14 @@
         .inp_box,
         .btn_box {
           width: 500px;
+        }
+
+        .flexbox {
+          width: 500px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
         }
 
         .inp_box .label {

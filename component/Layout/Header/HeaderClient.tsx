@@ -7,10 +7,8 @@ import { CiLogout } from "react-icons/ci";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
-interface IProps {
-  menuList: MenuItem[];
-}
-export default function HeaderClient({ menuList }: IProps) {
+
+export default function HeaderClient() {
   const router = useRouter();
   const { setText, setIsChange, setStatus } = useAutoAlert();
 
@@ -45,7 +43,7 @@ export default function HeaderClient({ menuList }: IProps) {
       </div>
 
       {/* BOTTOM - Navigation */}
-      <Navigation menuList={menuList} />
+      <Navigation />
     </header>
   );
 }
