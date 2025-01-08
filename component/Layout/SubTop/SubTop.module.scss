@@ -1,0 +1,24 @@
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%; // 100px;
+  border-bottom: 1px solid var(--gray-400);
+  padding-bottom: 10px; // divide기준으로 아래로 10px 만큼 간격부여
+
+  // LEFT
+  .left {
+    p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: var(--fs-32);
+      font-weight: 800;
+    }
+  }
+
+  // RIGHT
+  .right {
+  }
+}

@@ -24,7 +24,7 @@ export default withAuth(
       return NextResponse.redirect(mobileUrl);
     }
 
-    // .css, .scss 파일이 아닌 경우에만 미들웨어 처리
+    // .css, .scss 파일인 경우 요청 그대로 진행
     if (pathname.match(/\.(css|scss)$/)) {
       return NextResponse.next(); // CSS/SCSS 파일은 미들웨어 처리하지 않음
     }
