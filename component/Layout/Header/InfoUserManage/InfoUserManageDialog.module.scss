@@ -20,13 +20,31 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 20px;
 
-      // TOP
-      .top {
+      .inp_box,
+      .btn_box {
+        width: 100%;
       }
 
-      // BOTTOM
-      .bottom {
+      .flexbox {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .inp_box .label {
+        display: inline-block;
+        font-weight: 500;
+        font-size: var(--fs-18);
+        margin-bottom: 5px;
+      }
+
+      img {
+        width: 320px !important;
+        height: 320px !important;
       }
     }
   }

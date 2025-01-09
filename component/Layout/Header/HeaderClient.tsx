@@ -51,7 +51,7 @@ export default function HeaderClient({ session }: IProps) {
       <Navigation />
 
       {/* BOTTOM - User Info Manage */}
-      <InfoUserManage session={session} />
+      {session && session.user && <InfoUserManage session={session} />}
     </header>
   );
 }

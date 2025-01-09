@@ -41,7 +41,7 @@ export async function addCollectionUser(
       // 동일한 ID가 존재하면 예외 발생
       return {
         success: false,
-        message: "이미 같은 아이디를 가진 회원이 존재합니다.",
+        message: "이미 같은 닉네임을 가진 회원이 존재합니다.",
         data: null,
       };
     }

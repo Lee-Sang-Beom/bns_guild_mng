@@ -60,7 +60,7 @@ export default function LoginClient() {
         if (res.status == 200) {
           router.push("/dashboard");
         } else {
-          setText(res.error || "아이디와 비밀번호를 다시 확인해주세요.");
+          setText(res.error || "닉네임과 비밀번호를 다시 확인해주세요.");
           setIsChange(true);
           setStatus("error");
         }

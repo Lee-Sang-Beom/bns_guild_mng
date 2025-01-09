@@ -83,7 +83,7 @@ export async function loginCollectionUser(
       // 로그인할 수 있는 유저 정보가 조회되지 않음
       return {
         success: false,
-        message: "아이디와 비밀번호를 다시 확인해주세요.",
+        message: "닉네임과 비밀번호를 다시 확인해주세요.",
         data: null,
       };
     }

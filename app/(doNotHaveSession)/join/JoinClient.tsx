@@ -90,7 +90,9 @@ export default function JoinClient() {
               <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
                 <div className={ms.middle}>
                   <div className={ms.inp_box}>
-                    <span className={ms.label}>닉네임</span>
+                    <span className={ms.label}>
+                      닉네임 <span className="essential">*</span>
+                    </span>
                     <Input
                       {...register("id", {
                         required: "블소 인게임 닉네임을 입력해주세요.",
@@ -106,7 +108,9 @@ export default function JoinClient() {
                     />
                   </div>
                   <div className={ms.inp_box}>
-                    <span className={ms.label}>비밀번호</span>
+                    <span className={ms.label}>
+                      비밀번호 <span className="essential">*</span>
+                    </span>
                     <Input
                       {...register(
                         "password",
@@ -129,7 +133,9 @@ export default function JoinClient() {
 
                   <div className={ms.flexbox}>
                     <div className={ms.inp_box}>
-                      <span className={ms.label}>성별</span>
+                      <span className={ms.label}>
+                        성별 <span className="essential">*</span>
+                      </span>
                       <Selectbox
                         {...register("gender", {
                           required: "성별을 선택해주세요.",
@@ -150,7 +156,9 @@ export default function JoinClient() {
                     </div>
 
                     <div className={ms.inp_box}>
-                      <span className={ms.label}>직업</span>
+                      <span className={ms.label}>
+                        직업 <span className="essential">*</span>
+                      </span>
                       <Selectbox
                         {...register("job", {
                           required: "인게임 직업을 선택해주세요.",
@@ -172,7 +180,9 @@ export default function JoinClient() {
                   </div>
 
                   <div className={ms.inp_box}>
-                    <span className={ms.label}>문파 권한</span>
+                    <span className={ms.label}>
+                      문파 권한 <span className="essential">*</span>
+                    </span>
                     <Selectbox
                       {...register("authType", {
                         required: "문파 내 권한을 선택해주세요.",

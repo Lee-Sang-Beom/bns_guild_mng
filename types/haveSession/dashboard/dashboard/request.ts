@@ -6,5 +6,5 @@ export interface ModifyUserRequest {
   authType: UserAuthType;
   job: string;
   gender: GenderType;
-  useYn: "Y";
+  useYn: "Y" | "N";
 }

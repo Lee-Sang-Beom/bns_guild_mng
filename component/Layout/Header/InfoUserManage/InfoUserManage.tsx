@@ -9,7 +9,7 @@ import Dialog from "@/component/common/Dialog/Dialog";
 import InfoUserManageDialog from "./InfoUserManageDialog";
 
 interface IProps {
-  session: Session | null;
+  session: Session;
 }
 
 export default function InfoUserManage({ session }: IProps) {
@@ -52,7 +52,7 @@ export default function InfoUserManage({ session }: IProps) {
         ref={ref}
         paperHidden={true}
       >
-        <InfoUserManageDialog setOpen={setDialogOpen} />
+        <InfoUserManageDialog session={session} setOpen={setDialogOpen} />
       </Dialog>
     </React.Fragment>
   );
