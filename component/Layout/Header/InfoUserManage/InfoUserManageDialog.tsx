@@ -21,8 +21,10 @@ import Loading from "@/component/common/Loading/Loading";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import { ModifyUserRequest } from "@/types/haveSession/dashboard/dashboard/request";
-import { Session } from "next-auth";
+import { Session, User } from "next-auth";
 import { modifyCollectionUser } from "@/utils/haveSession/dashboard/dashboard/action";
+import { useSession } from "next-auth/react";
+import { encryptPassword } from "@/utils/common/common";
 
 interface IProps {
   session: Session;
@@ -31,6 +33,7 @@ interface IProps {
 export default function InfoUserManageDialog({ session, setOpen }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
+  const { update } = useSession();
 
   const {
     register,
@@ -59,8 +62,64 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
   });
 
   const onSubmit = async (data: ModifyUserRequest) => {
-    const modifyRequestResponse: ApiResponse<string | null> =
-      await modifyCollectionUser(data, session.user.id);
+    await modifyCollectionUser(data, session.user.id)
+      .then(async (res) => {
+        // res가 아예 없는 경우 : 로그인 중 응답 오류
+        if (!res) {
+          setText("개인정보 수정 중 오류가 발생했습니다.");
+          setIsChange(true);
+          setStatus("error");
+          return;
+        }
+
+        if (res.success) {
+          // session 업데이트
+          let updateUser: User = session.user;
+
+          if (data.password && data.password.length > 0) {
+            updateUser = {
+              ...updateUser,
+              id: data.id,
+              password: encryptPassword(data.password), // 새 비밀번호 암호화
+              authType: data.authType,
+              job: data.job,
+              gender: data.gender,
+              useYn: data.useYn,
+            };
+          } else {
+            updateUser = {
+              ...updateUser,
+              id: data.id,
+              authType: data.authType,
+              job: data.job,
+              gender: data.gender,
+              useYn: data.useYn,
+            };
+          }
+
+          await update({
+            user: updateUser,
+          });
+
+          setText("저장되었습니다.");
+          setIsChange(true);
+          setStatus("success");
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          setText(res.message || "개인정보 수정 중 오류가 발생했습니다.");
+          setIsChange(true);
+          setStatus("error");
+        }
+      })
+      .catch((error) => {
+        setText("개인정보 수정 중 오류가 발생했습니다.");
+        setIsChange(true);
+        setStatus("error");
+        return;
+      });
   };
 
   const onError = (errors: any) => {

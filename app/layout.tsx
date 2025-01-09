@@ -4,6 +4,7 @@ import RecoilRootProvider from "@/provider/RecoilProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.scss";
+import NextAuthProvider from "@/provider/NextAuthProvider";
 
 export const metadata: Metadata = {
   title: "시그니처",
@@ -99,8 +100,10 @@ export default function RootLayout({
       <body className={`${pretendard.variable} ${scdream.variable}`}>
         <ReactQueryProvider>
           <RecoilRootProvider>
-            {children}
-            <AutoAlert />
+            <NextAuthProvider>
+              {children}
+              <AutoAlert />
+            </NextAuthProvider>
           </RecoilRootProvider>
         </ReactQueryProvider>
       </body>

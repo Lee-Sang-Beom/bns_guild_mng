@@ -1,4 +1,4 @@
-import { AuthOptions, Session, User } from "next-auth";
+import { Account, AuthOptions, Profile, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { AdapterUser } from "next-auth/adapters";
 import { JWT } from "next-auth/jwt";
@@ -36,10 +36,31 @@ export const authOptions: AuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       return true;
     },
-    async jwt({ token, user }: { token: JWT; user: User | AdapterUser }) {
+    async jwt({
+      token,
+      user,
+      account,
+      profile,
+      trigger,
+      isNewUser,
+      session,
+    }: {
+      token: JWT;
+      user: User | AdapterUser;
+      account: Account | null;
+      profile?: Profile;
+      trigger?: "signIn" | "signUp" | "update";
+      isNewUser?: boolean;
+      session?: Session;
+    }) {
       if (user) {
         token.user = user;
       }
+
+      if (trigger === "update" && session) {
+        token.user = session.user;
+      }
+
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {

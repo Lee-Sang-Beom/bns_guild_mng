@@ -14,9 +14,14 @@ import {
 } from "firebase/firestore";
 import { User } from "next-auth";
 
+/**
+ * @name CollectionDocUser
+ * @description User 인터페이스를 확장한 docId를 포함한 인터페이스
+ */
 interface CollectionDocUser extends User {
   docId: string;
 }
+
 /**
  * @name getCollectionUserById
  * @param id 유저 ID
