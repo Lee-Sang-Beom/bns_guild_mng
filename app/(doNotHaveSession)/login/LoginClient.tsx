@@ -7,19 +7,12 @@ import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormRet
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Link from "next/link";
-import { loginCollectionUser } from "@/utils/doNotHaveSession/login/action";
-import { ApiResponse } from "@/types/common/commonType";
-import { User } from "next-auth";
 import { signIn } from "next-auth/react";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Loading from "@/component/common/Loading/Loading";
-
-interface IForm {
-  id: string;
-  password: string;
-}
+import { LoginUserRequest } from "@/types/doNotHaveSession/login/request";
 
 export default function LoginClient() {
   const { setIsChange, setStatus, setText } = useAutoAlert();
@@ -42,7 +35,7 @@ export default function LoginClient() {
       isSubmitted,
       errors,
     },
-  } = useForm<IForm>({
+  } = useForm<LoginUserRequest>({
     mode: "all",
     defaultValues: {
       id: "",
@@ -50,7 +43,7 @@ export default function LoginClient() {
     },
   });
 
-  const onSubmit = async (data: IForm) => {
+  const onSubmit = async (data: LoginUserRequest) => {
     await signIn("credentials", {
       ...data,
       redirect: false,

@@ -1,0 +1,81 @@
+h2.MuiTypography-root.MuiTypography-h6.MuiDialogTitle-root {
+  width: calc(100% - 4.8rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fs-28);
+  font-weight: bold;
+}
+
+.btn_close {
+  width: 3.2rem;
+  button {
+    width: 100%;
+    padding: 0 !important;
+
+    svg {
+      width: 100%;
+      height: auto;
+      transition: all 0.3s;
+    }
+  }
+
+  // hover
+  &.hover:hover {
+    button {
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.MuiDialog-root.hidden {
+  .MuiPaper-root {
+    overflow: hidden;
+  }
+}
+
+// contents
+.MuiDialogContent-root {
+  width: 100%;
+  word-break: break-all;
+  box-sizing: border-box;
+  border-top: none;
+  border-bottom: none;
+}
+
+// bottom {
+.MuiDialogActions-root.MuiDialogActions-spacing {
+  justify-content: center;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+
+  button {
+    max-width: 20rem;
+  }
+}
+
+// type_alert
+.type_alert {
+  // bottom {
+  .MuiDialogActions-root.MuiDialogActions-spacing {
+    justify-content: flex-end;
+
+    button {
+      max-width: 13rem;
+    }
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+  h2 {
+    font-size: 18px !important;
+    line-height: 120% !important;
+  }
+}
+@media only screen and (max-width: 320px) {
+  h2 {
+    font-size: 14px !important;
+    line-height: 120% !important;
+  }
+}

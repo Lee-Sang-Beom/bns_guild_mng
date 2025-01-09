@@ -1,0 +1,33 @@
+.wrap {
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .section {
+    padding: 10px;
+    background-color: var(--mbackgroundColor);
+
+    .inner {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      // TOP
+      .top {
+      }
+
+      // BOTTOM
+      .bottom {
+      }
+    }
+  }
+}

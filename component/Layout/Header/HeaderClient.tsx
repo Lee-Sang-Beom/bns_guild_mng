@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { Session } from "next-auth";
-import InfoUserManage from "./InfoUserManage";
+import InfoUserManage from "./InfoUserManage/InfoUserManage";
 
 interface IProps {
   session: Session | null;
@@ -15,7 +15,7 @@ interface IProps {
 export default function HeaderClient({ session }: IProps) {
   const router = useRouter();
   const { setText, setIsChange, setStatus } = useAutoAlert();
-  console.log("session is ", session);
+
   return (
     <header id="header" className={ms.header}>
       {/* TOP - 메인 로고 및 로그아웃 버튼 */}

@@ -39,7 +39,7 @@ export default function RejectJoin({ res }: any) {
         <div className={ms.btn_box}>
           <Button
             color={"blue"}
-            title={"로그인인 페이지로 이동"}
+            title={"로그인 페이지로 이동"}
             id={"move_login"}
             size="lg"
             type="submit"
