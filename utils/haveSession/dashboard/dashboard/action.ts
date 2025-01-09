@@ -61,6 +61,7 @@ export async function modifyCollectionUser(
      */
     const existingDiffUser: CollectionDocUser | null =
       await getCollectionUserById(data.id);
+
     if (existingDiffUser && existingDiffUser.id != currentUserId) {
       return {
         success: false,
@@ -84,7 +85,10 @@ export async function modifyCollectionUser(
       };
     }
 
-    // 비밀번호 처리
+    /**
+     * @name STEP3
+     * @description 새로 덮어쓸 유저정보 추가
+     */
     const updatedUser = {
       ...data,
       password:
@@ -93,7 +97,10 @@ export async function modifyCollectionUser(
           : existingUser.password, // 기존 비밀번호 유지
     };
 
-    // Firestore에서 기존 문서를 업데이트
+    /**
+     * @name STEP4
+     * @description Firestore에서 기존 문서를 업데이트
+     */
     const docRef = doc(db, "collection_user", existingUser.docId);
     await updateDoc(docRef, updatedUser);
 
