@@ -59,6 +59,7 @@ export default function Home() {
 
       {/* 왼쪽 버튼 */}
       <button
+        title="회원가입 페이지 이동"
         className={`${ms.button} ${ms.left}`}
         onClick={() => {
           router.push("/join");
@@ -70,6 +71,7 @@ export default function Home() {
 
       {/* 오른쪽 버튼 */}
       <button
+        title="로그인 페이지 이동"
         className={`${ms.button} ${ms.right}`}
         onClick={() => {
           router.push("/login");

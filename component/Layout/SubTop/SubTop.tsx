@@ -19,13 +19,13 @@ const getMenuIcon = (menuSeq: number) => {
   const size: number = 32;
   switch (menuSeq) {
     case 1:
-      return <RiHome3Fill size={size} />;
+      return <RiHome3Fill size={size} role="홈 아이콘" />;
     case 2:
-      return <GiPayMoney size={size} />;
+      return <GiPayMoney size={size} role="돈을 떨어뜨리는 손 아이콘" />;
     case 3:
-      return <AiFillPicture size={size} />;
+      return <AiFillPicture size={size} role="갤러리 아이콘" />;
     default:
-      return <FaPaperPlane size={size} />;
+      return <FaPaperPlane size={size} role="공지사항 아이콘" />;
   }
 };
 

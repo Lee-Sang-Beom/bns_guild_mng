@@ -1,17 +1,21 @@
 "use client";
 
-import { MenuItem } from "@/types/common/commonType";
 import ms from "./Header.module.scss";
 import Navigation from "./Navigation";
 import { CiLogout } from "react-icons/ci";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
+import { Session } from "next-auth";
+import InfoUserManage from "./InfoUserManage";
 
-export default function HeaderClient() {
+interface IProps {
+  session: Session | null;
+}
+export default function HeaderClient({ session }: IProps) {
   const router = useRouter();
   const { setText, setIsChange, setStatus } = useAutoAlert();
-
+  console.log("session is ", session);
   return (
     <header id="header" className={ms.header}>
       {/* TOP - 메인 로고 및 로그아웃 버튼 */}
@@ -19,6 +23,7 @@ export default function HeaderClient() {
         <img src="/img/logo.jpg" alt="시그니처 메인 로고" />
         <div className={ms.btn_box}>
           <button
+            title="로그아웃"
             className={ms.logout}
             onClick={async () => {
               await signOut({
@@ -42,8 +47,11 @@ export default function HeaderClient() {
         </div>
       </div>
 
-      {/* BOTTOM - Navigation */}
+      {/* MIDDLE - Navigation */}
       <Navigation />
+
+      {/* BOTTOM - User Info Manage */}
+      <InfoUserManage session={session} />
     </header>
   );
 }
