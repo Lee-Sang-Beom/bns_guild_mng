@@ -23,7 +23,8 @@
       gap: 20px;
 
       .inp_box,
-      .btn_box {
+      .btn_box,
+      .inp_dynamic_row_box {
         width: 100%;
       }
 
@@ -42,9 +43,8 @@
         margin-bottom: 5px;
       }
 
-      img {
-        width: 320px !important;
-        height: 320px !important;
+      // 행추가, 행삭제가 이루어지는 입력 박스
+      .inp_dynamic_row_box {
       }
     }
   }

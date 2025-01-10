@@ -45,7 +45,10 @@ export default function DistributionInfomationRegistrationDialog({
 }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
-  const { update } = useSession();
+
+  const [distributionUserList, setDistributionUserList] = useState<string[]>(
+    []
+  );
 
   const {
     register,
@@ -68,6 +71,8 @@ export default function DistributionInfomationRegistrationDialog({
       sellerId: session.user.id,
       itemName: "",
       price: insertFormatToString("NUMBER", Number(0)),
+      distributionUserList: [session.user.id],
+
       transactionRegisteredAt: null,
       transactionCompletedAt: null,
       distributionCompletedAt: null,
@@ -252,6 +257,13 @@ export default function DistributionInfomationRegistrationDialog({
                   />
                 </div>
               )}
+
+              {/* 분배 파티원 목록 */}
+              {distributionUserList.map((dUser: string) => {
+                return (
+                  <div key={dUser} className={ms.inp_dynamic_row_box}></div>
+                );
+              })}
 
               <div className={ms.btn_box}>
                 <Button

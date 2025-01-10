@@ -34,10 +34,10 @@ export interface DistributionInfomationRegistrationRequest {
   price: string | number;
 
   /**
-   * @name userList
+   * @name distributionUserList
    * @description 분배받을 유저 리스트
    */
-  userList: string[];
+  distributionUserList: string[];
 
   /**
    * @name transactionRegisteredAt
