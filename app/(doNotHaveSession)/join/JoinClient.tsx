@@ -89,6 +89,7 @@ export default function JoinClient() {
               {/* MIDDLE */}
               <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
                 <div className={ms.middle}>
+                  {/* 닉네임 */}
                   <div className={ms.inp_box}>
                     <span className={ms.label}>
                       닉네임 <span className="essential">*</span>
@@ -107,6 +108,8 @@ export default function JoinClient() {
                       partialErrorObj={errors.id}
                     />
                   </div>
+
+                  {/* 비밀번호 */}
                   <div className={ms.inp_box}>
                     <span className={ms.label}>
                       비밀번호 <span className="essential">*</span>
@@ -132,6 +135,7 @@ export default function JoinClient() {
                   </div>
 
                   <div className={ms.flexbox}>
+                    {/* 성별 */}
                     <div className={ms.inp_box}>
                       <span className={ms.label}>
                         성별 <span className="essential">*</span>
@@ -155,6 +159,7 @@ export default function JoinClient() {
                       />
                     </div>
 
+                    {/* 직업 */}
                     <div className={ms.inp_box}>
                       <span className={ms.label}>
                         직업 <span className="essential">*</span>
@@ -179,6 +184,7 @@ export default function JoinClient() {
                     </div>
                   </div>
 
+                  {/* 권한 */}
                   <div className={ms.inp_box}>
                     <span className={ms.label}>
                       문파 권한 <span className="essential">*</span>
@@ -201,7 +207,6 @@ export default function JoinClient() {
                       value={watch("authType")}
                     />
                   </div>
-
                   <div className={ms.btn_box}>
                     <Button
                       color={"blue"}

@@ -90,6 +90,7 @@ export default function LoginClient() {
             </div>
             <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
               <div className={ms.middle}>
+                {/* 닉네임 */}
                 <div className={ms.inp_box}>
                   <span className={ms.label}>닉네임</span>
                   <Input
@@ -106,6 +107,7 @@ export default function LoginClient() {
                     partialErrorObj={errors.id}
                   />
                 </div>
+                {/* 비밀번호 */}
                 <div className={ms.inp_box}>
                   <span className={ms.label}>비밀번호</span>
                   <Input

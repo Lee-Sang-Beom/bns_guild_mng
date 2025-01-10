@@ -4,7 +4,7 @@ import ms from "./CashShare.module.scss";
 import React, { useRef, useState } from "react";
 import { Session } from "next-auth";
 import Dialog from "@/component/common/Dialog/Dialog";
-import DistributionInfomationRegistrationDialog from "./DistributionInfomationRegistrationDialog";
+import DistributionInfomationRegistrationDialog from "./Dialog/DistributionInfomationRegistrationDialog";
 
 interface IProps {
   session: Session;
@@ -33,12 +33,12 @@ export default function CashShareTop({ session }: IProps) {
         </div>
       </div>
 
-      {/* 개인정보 관리 다이얼로그 */}
+      {/* 분배 정보 등록 */}
       <Dialog
         width="lg"
         open={dialogOpen}
         setOpen={setDialogOpen}
-        title="개인정보 관리"
+        title="분배 정보 등록"
         ref={ref}
         paperHidden={true}
       >

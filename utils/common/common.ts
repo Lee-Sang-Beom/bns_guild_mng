@@ -17,7 +17,7 @@ export function insertFormatToString(
   outcomingMomentDateType?: string
 ) {
   // 예상치 못한 값인 경우 빈 문자열 반환
-  if (!baseString) {
+  if (baseString != "0" && !baseString) {
     return "";
   }
 

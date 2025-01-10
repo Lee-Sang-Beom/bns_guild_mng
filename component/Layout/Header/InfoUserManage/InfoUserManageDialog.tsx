@@ -1,7 +1,4 @@
 "use client";
-
-"use client";
-
 import { useForm } from "react-hook-form";
 import ms from "./InfoUserManageDialog.module.scss";
 import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormReturnOption/option";
@@ -137,6 +134,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
           {/* TOP */}
           <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>
             <div className={ms.inner}>
+              {/* 닉네임 */}
               <div className={ms.inp_box}>
                 <span className={ms.label}>
                   닉네임 <span className="essential">*</span>
@@ -155,6 +153,8 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                   partialErrorObj={errors.id}
                 />
               </div>
+
+              {/* 비밀번호 변경 */}
               <div className={ms.inp_box}>
                 <span className={ms.label}>(선택) 변경할 비밀번호</span>
                 <Input
@@ -175,6 +175,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
               </div>
 
               <div className={ms.flexbox}>
+                {/* 성별 */}
                 <div className={ms.inp_box}>
                   <span className={ms.label}>
                     성별 <span className="essential">*</span>
@@ -198,6 +199,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                   />
                 </div>
 
+                {/* 직업 */}
                 <div className={ms.inp_box}>
                   <span className={ms.label}>
                     직업 <span className="essential">*</span>
@@ -222,6 +224,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                 </div>
               </div>
 
+              {/* 문파 권한 */}
               <div className={ms.inp_box}>
                 <span className={ms.label}>
                   문파 권한 <span className="essential">*</span>

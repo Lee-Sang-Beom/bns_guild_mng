@@ -6,12 +6,15 @@
     box-sizing: border-box;
   }
 }
+
 .top,
 .middle,
 .bottom {
   width: 100%;
   height: auto;
 }
+
+// TOP
 .top {
   display: flex;
   justify-content: end;
@@ -21,8 +24,10 @@
   }
 }
 
+// MIDDLE
 .middle {
 }
 
+// BOTTOM
 .bottom {
 }
