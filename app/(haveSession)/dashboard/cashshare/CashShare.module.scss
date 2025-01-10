@@ -1,0 +1,28 @@
+.wrap {
+  width: 100%;
+  height: auto;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+.top,
+.middle,
+.bottom {
+  width: 100%;
+  height: auto;
+}
+.top {
+  display: flex;
+  justify-content: end;
+
+  .btn_box {
+    width: 150px;
+  }
+}
+
+.middle {
+}
+
+.bottom {
+}

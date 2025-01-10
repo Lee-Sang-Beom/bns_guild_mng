@@ -1,3 +1,5 @@
+import CashShareServer from "./CashShareServer";
+
 export default function Page() {
-  return <>Sub Page</>;
+  return <CashShareServer />;
 }

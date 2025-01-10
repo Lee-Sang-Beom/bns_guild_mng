@@ -30,6 +30,7 @@ export default function InfoUserManage({ session }: IProps) {
           <button
             className={`${ms.right} ${ms.option_btn}`}
             title="개인정보 수정"
+            ref={ref}
             onClick={() => {
               setDialogOpen(true);
             }}

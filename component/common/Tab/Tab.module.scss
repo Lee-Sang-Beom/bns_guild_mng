@@ -1,0 +1,58 @@
+// 탭버튼
+.tab_btn_box {
+  -ms-overflow-style: none;
+}
+.tab_btn_box::-webkit-scrollbar {
+  display: none;
+}
+
+.tab_btn_box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 3rem;
+  overflow: auto;
+
+  .tab_btn {
+    width: 50%;
+
+    button {
+      width: 100%;
+      text-align: center;
+      line-height: 120%;
+      color: var(--grya-1000) !important;
+      background-color: #fafbff !important;
+      border: 1px solid var(--gray-600);
+    }
+    &.active {
+      color: var(--gray-100) !important;
+      box-shadow: 0 0 10px 0 hsla(0, 0%, 7%, 0.25);
+      border: 1px solid var(--mblue03);
+      border-radius: 1rem;
+
+      &.white {
+        button {
+          background-color: var(--gray-100) !important;
+          color: var(--gray-1000) !important;
+        }
+      }
+      &.black {
+        button {
+          background-color: var(--gray-1000) !important;
+        }
+      }
+      &.blue {
+        button {
+          background-color: var(--mcolor) !important;
+        }
+      }
+    }
+  }
+}
+
+// 탭 내용
+.tab_cont {
+  width: 100%;
+}
