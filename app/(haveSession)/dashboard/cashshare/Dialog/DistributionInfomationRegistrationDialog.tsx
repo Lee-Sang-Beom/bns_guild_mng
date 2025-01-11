@@ -1,15 +1,11 @@
 "use client";
 import { useForm } from "react-hook-form";
 import ms from "./DistributionInfomationRegistrationDialog.module.scss";
-import {
-  onlyNumberReactHookFormOption,
-  passwordReactHookFormOption,
-} from "@/utils/vaildation/reactHookFormReturnOption/option";
+import { onlyNumberReactHookFormOption } from "@/utils/vaildation/reactHookFormReturnOption/option";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Selectbox from "@/component/common/Selectbox/Selectbox";
 import { SelectChangeEvent } from "@mui/material";
-import { genderList, jobList, userAuthList } from "@/datastore/common/common";
 import {
   ApiResponse,
   GenderType,
@@ -20,20 +16,23 @@ import SubmitForm from "@/component/common/SubmitForm/SubmitForm";
 import Loading from "@/component/common/Loading/Loading";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
-import { ModifyUserRequest } from "@/types/haveSession/dashboard/dashboard/request";
-import { Session, User } from "next-auth";
-import { modifyCollectionUser } from "@/utils/haveSession/dashboard/dashboard/action";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+
 import {
-  encryptPassword,
   insertFormatToString,
   removeFormatToString,
 } from "@/utils/common/common";
 import {
   DistributionInfomationRegistrationRequest,
   DistributionStepType,
+  FeeType,
 } from "@/types/haveSession/dashboard/cashshare/request";
 import { distributionStepList } from "@/datastore/dashboard/cashshare/cashshare";
+import {
+  addCollectionCashShare,
+  getDistributionPrice,
+} from "@/utils/haveSession/dashboard/cashshare/action";
+import moment from "moment";
 
 interface IProps {
   session: Session;
@@ -45,10 +44,6 @@ export default function DistributionInfomationRegistrationDialog({
 }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
-
-  const [distributionUserList, setDistributionUserList] = useState<string[]>(
-    []
-  );
 
   const {
     register,
@@ -70,7 +65,8 @@ export default function DistributionInfomationRegistrationDialog({
       step: "TRANSACTION_REGISTRATION",
       sellerId: session.user.id,
       itemName: "",
-      price: insertFormatToString("NUMBER", Number(0)),
+      totalPrice: insertFormatToString("NUMBER", Number(0)),
+      distributionPrice: insertFormatToString("NUMBER", Number(0)),
       distributionUserList: [session.user.id],
 
       transactionRegisteredAt: null,
@@ -80,44 +76,109 @@ export default function DistributionInfomationRegistrationDialog({
   });
 
   const onSubmit = async (data: DistributionInfomationRegistrationRequest) => {
-    const postData = {
+    let transactionRegisteredAt = null; // 시장등록시간
+    let transactionCompletedAt = null; // 거래완료시간
+    let distributionCompletedAt = null; // 분배완료시간
+
+    switch (data.step) {
+      case "TRANSACTION_REGISTRATION":
+        transactionRegisteredAt = moment(new Date()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        break;
+      case "TRANSACTION_COMPLETED":
+        transactionRegisteredAt = moment(new Date()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        transactionCompletedAt = moment(new Date()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        break;
+      default:
+        transactionRegisteredAt = moment(new Date()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        transactionCompletedAt = moment(new Date()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        distributionCompletedAt = moment(new Date()).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        break;
+    }
+    const postData: DistributionInfomationRegistrationRequest = {
       ...data,
-      price: removeFormatToString("NUMBER", data.price.toString()),
+      totalPrice: Number(
+        removeFormatToString("NUMBER", data.totalPrice.toString())
+      ),
+      transactionRegisteredAt: transactionRegisteredAt,
+      transactionCompletedAt: transactionCompletedAt,
+      distributionCompletedAt: distributionCompletedAt,
     };
-    console.log("postData is ", postData);
-    // await modifyCollectionUser(data, session.user.id)
-    //   .then(async (res) => {
-    //     // res가 아예 없는 경우 : 로그인 중 응답 오류
-    //     if (!res) {
-    //       setText("분배 정보 등록 중 오류가 발생했습니다.");
-    //       setIsChange(true);
-    //       setStatus("error");
-    //       return;
-    //     }
-    //     if (res.success) {
-    //       setText("저장되었습니다.");
-    //       setIsChange(true);
-    //       setStatus("success");
-    //       setTimeout(() => {
-    //         window.location.reload();
-    //       }, 500);
-    //     } else {
-    //       setText(res.message || "분배 정보 등록 중 오류가 발생했습니다.");
-    //       setIsChange(true);
-    //       setStatus("error");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     setText("분배 정보 등록 중 오류가 발생했습니다.");
-    //     setIsChange(true);
-    //     setStatus("error");
-    //     return;
-    //   });
+    await addCollectionCashShare(postData)
+      .then(async (res) => {
+        console.log("res is ", res);
+        // res가 아예 없는 경우 : 로그인 중 응답 오류
+        if (!res) {
+          setText("분배 정보 등록 중 오류가 발생했습니다.");
+          setIsChange(true);
+          setStatus("error");
+          return;
+        }
+        if (res.success) {
+          setText("저장되었습니다.");
+          setIsChange(true);
+          setStatus("success");
+
+          setTimeout(() => {
+            setOpen(false);
+          }, 500);
+        } else {
+          setText(res.message || "분배 정보 등록 중 오류가 발생했습니다.");
+          setIsChange(true);
+          setStatus("error");
+        }
+      })
+      .catch((error) => {
+        setText("분배 정보 등록 중 오류가 발생했습니다.");
+        setIsChange(true);
+        setStatus("error");
+        return;
+      });
   };
 
   const onError = (errors: any) => {
     console.error("errors ", errors);
   };
+
+  /**
+   * @name useEffect
+   * @description 인당 예상 분배금 계산 : (총 분배금 / 4) - 우편수수료
+   */
+  useEffect(() => {
+    const totalPrice =
+      Number(removeFormatToString("NUMBER", watch("totalPrice").toString())) ||
+      0;
+    const userCount = watch("distributionUserList").length;
+    if (totalPrice == 0 || userCount < 1) {
+      setValue("distributionPrice", insertFormatToString("NUMBER", Number(0)));
+      return;
+    }
+    const distributionPrice: FeeType =
+      userCount == 1
+        ? {
+            gold: totalPrice,
+            silver: 0,
+            copper: 0,
+          }
+        : getDistributionPrice(totalPrice, userCount);
+
+    const distributionPriceToString = `${distributionPrice.gold.toLocaleString()}금 ${
+      distributionPrice.silver
+    }은 ${distributionPrice.copper}동`;
+
+    setValue("distributionPrice", distributionPriceToString);
+  }, [watch("totalPrice"), watch("distributionUserList")]);
 
   return (
     <React.Fragment>
@@ -150,7 +211,14 @@ export default function DistributionInfomationRegistrationDialog({
 
                     // 거래등록 단계로 변하면, 판매금액이 초기화
                     if (targetValue === "TRANSACTION_REGISTRATION") {
-                      setValue("price", 0);
+                      setValue(
+                        "totalPrice",
+                        insertFormatToString("NUMBER", Number(0))
+                      );
+                      setValue(
+                        "distributionPrice",
+                        insertFormatToString("NUMBER", Number(0))
+                      );
                     }
                   }}
                   value={watch("step")}
@@ -206,64 +274,178 @@ export default function DistributionInfomationRegistrationDialog({
                 />
               </div>
 
+              {/* 분배 파티원 목록 */}
+              <div className={ms.group_box}>
+                <span className={ms.label}>
+                  파티원 목록<span className="essential">*</span>
+                </span>
+                {watch("distributionUserList").map(
+                  (dUser: string, index: number) => {
+                    return (
+                      <div className={ms.inp_and_btn_box} key={dUser}>
+                        <div className={ms.inp_box}>
+                          <Input
+                            {...register(`distributionUserList.${index}`, {
+                              required: "분배할 파티원 닉네임을 입력해주세요.",
+                            })}
+                            type="text"
+                            placeholder="분배할 파티원 닉네임을 입력해주세요."
+                            aria-invalid={
+                              errors.distributionUserList?.[index]
+                                ? "true"
+                                : "false"
+                            }
+                            disabled
+                            defaultValue={dUser} // 초기값 설정
+                            title={`분배 파티원 닉네임-${index}`}
+                            id={`distributionUserList-${index}`}
+                          />
+                        </div>
+                        <div
+                          className={`${ms.flex_box} ${ms.distribution_user_btn_box}`}
+                        >
+                          <Button
+                            title={"파티원 추가"}
+                            id={"add_distribution_user"}
+                            onClick={() => {
+                              if (watch("distributionUserList").length >= 6) {
+                                setText(
+                                  "입력 가능한 파티원 수는 최대 6명입니다."
+                                );
+                                setIsChange(true);
+                                setStatus("warning");
+
+                                return;
+                              }
+
+                              const newUser = prompt(
+                                "추가할 파티원 닉네임을 입력하세요:"
+                              );
+
+                              if (newUser) {
+                                setValue("distributionUserList", [
+                                  ...watch("distributionUserList"),
+                                  newUser,
+                                ]);
+                              }
+                            }}
+                            color={"blue_reverse"}
+                            size="lg"
+                          >
+                            추가
+                          </Button>
+                          <Button
+                            title={"파티원 삭제"}
+                            id={"remove_distribution_user"}
+                            onClick={() => {
+                              if (dUser === session.user.id) {
+                                setText(
+                                  "대표 판매자(본인)은 삭제할 수 없습니다."
+                                );
+                                setIsChange(true);
+                                setStatus("warning");
+
+                                return;
+                              }
+                              const updatedList = watch(
+                                "distributionUserList"
+                              ).filter((user) => user !== dUser);
+
+                              setValue("distributionUserList", updatedList);
+                            }}
+                            color={"red_reverse"}
+                            size="lg"
+                          >
+                            삭제
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+
               {/* 물품 가격 */}
               {watch("step") != "TRANSACTION_REGISTRATION" && (
-                <div className={ms.inp_box}>
-                  <span className={ms.label}>판매 물품 총 가격</span>
-                  <Input
-                    {...register("price", onlyNumberReactHookFormOption(true))}
-                    type="text"
-                    placeholder="판매 물품 총 가격을 입력해주세요."
-                    aria-invalid={
-                      isSubmitted
-                        ? errors.price
-                          ? "true"
-                          : "false"
-                        : undefined
-                    }
-                    title="판매 물품 총 가격"
-                    id="price"
-                    onFocus={(e) => {
-                      setValue(
-                        "price",
-                        removeFormatToString("NUMBER", watch("price")),
-                        {
-                          shouldValidate: true,
-                        }
-                      );
-                    }}
-                    onBlur={(e) => {
-                      setValue(
-                        "price",
-                        insertFormatToString("NUMBER", watch("price")),
-                        {
-                          shouldValidate: true,
-                        }
-                      );
-                    }}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      let inputValue = e.target.value;
-
-                      // 앞의 0 제거
-                      if (/^0\d/.test(inputValue)) {
-                        inputValue = inputValue.replace(/^0+/, "");
+                <div className={ms.flexbox}>
+                  <div className={ms.inp_box}>
+                    <span className={ms.label}>
+                      {`판매 물품 총 가격(금)`}{" "}
+                      <span className="essential">*</span>
+                    </span>
+                    <Input
+                      {...register(
+                        "totalPrice",
+                        onlyNumberReactHookFormOption(true)
+                      )}
+                      type="text"
+                      placeholder="판매 물품 총 가격을 입력해주세요."
+                      aria-invalid={
+                        isSubmitted
+                          ? errors.totalPrice
+                            ? "true"
+                            : "false"
+                          : undefined
                       }
+                      title="판매 물품 총 가격"
+                      id="totalPrice"
+                      onFocus={(e) => {
+                        setValue(
+                          "totalPrice",
+                          removeFormatToString("NUMBER", watch("totalPrice")),
+                          {
+                            shouldValidate: true,
+                          }
+                        );
+                      }}
+                      onBlur={(e) => {
+                        setValue(
+                          "totalPrice",
+                          insertFormatToString("NUMBER", watch("totalPrice")),
+                          {
+                            shouldValidate: true,
+                          }
+                        );
+                      }}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        let inputValue = e.target.value;
 
-                      setValue("price", inputValue, {
-                        shouldValidate: true,
-                      });
-                    }}
-                    partialErrorObj={errors.price}
-                  />
+                        // 앞의 0 제거
+                        if (/^0\d/.test(inputValue)) {
+                          inputValue = inputValue.replace(/^0+/, "");
+                        }
+
+                        setValue("totalPrice", inputValue, {
+                          shouldValidate: true,
+                        });
+                      }}
+                      partialErrorObj={errors.totalPrice}
+                    />
+                  </div>
+
+                  <div className={ms.inp_box}>
+                    <span
+                      className={ms.label}
+                    >{`인당 분배금(우편 수수료 계산 포함)`}</span>
+                    <Input
+                      {...register("distributionPrice")}
+                      type="text"
+                      placeholder="인당 분배금"
+                      disabled
+                      aria-invalid={
+                        isSubmitted
+                          ? errors.distributionPrice
+                            ? "true"
+                            : "false"
+                          : undefined
+                      }
+                      title="인당 분배금"
+                      id="distributionPrice"
+                      partialErrorObj={errors.distributionPrice}
+                    />
+                  </div>
                 </div>
               )}
-
-              {/* 분배 파티원 목록 */}
-              {distributionUserList.map((dUser: string) => {
-                return (
-                  <div key={dUser} className={ms.inp_dynamic_row_box}></div>
-                );
-              })}
 
               <div className={ms.btn_box}>
                 <Button

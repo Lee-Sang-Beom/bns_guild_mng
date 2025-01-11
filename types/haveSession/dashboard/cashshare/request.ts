@@ -1,9 +1,15 @@
 import { GenderType, UserAuthType } from "@/types/common/commonType";
+export interface FeeType {
+  gold: number;
+  silver: number;
+  copper: number;
+}
 
 export type DistributionStepType =
   | "TRANSACTION_REGISTRATION"
   | "TRANSACTION_COMPLETED"
   | "DISTRIBUTION_COMPLETED";
+
 /**
  * @name DistributionInfomationRegistrationRequest
  * @description 등록 - 분배금
@@ -28,10 +34,16 @@ export interface DistributionInfomationRegistrationRequest {
   itemName: string;
 
   /**
-   * @name price
-   * @description 물품 가격
+   * @name totalPrice
+   * @description 물품 총 가격
    */
-  price: string | number;
+  totalPrice: string | number;
+
+  /**
+   * @name distributionPrice
+   * @description 분배금 (이건 금/은/동으로 표시할거라 number가 아님)
+   */
+  distributionPrice: string;
 
   /**
    * @name distributionUserList
