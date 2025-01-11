@@ -209,3 +209,29 @@ button {
 *::-webkit-scrollbar-track {
   background-color: transparent;
 } /*# sourceMappingURL=globals.css.map */
+
+// 테이블
+.tb_st1 caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
+.tb_st1 th,
+.tb_st1 td {
+  vertical-align: middle;
+  word-break: break-all;
+}
+.tb_st1 td {
+  line-height: 1.3;
+  font-weight: 300;
+  color: var(--gray-900);
+}
+.tb_st1 {
+  width: 100%;
+  min-width: 800px;
+  margin-top: 30px;
+  border-bottom: solid 2px var(--gray-900);
+}

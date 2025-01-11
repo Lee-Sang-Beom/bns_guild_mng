@@ -25,10 +25,10 @@ export const addCommaRegex = /\B(?=(\d{3})+(?!\d))/g;
 
 /**
  *
- * @generalNumRegex : 숫자로만 이루어진 값인지에 대한 체크를 위한 정규식
+ * @generalNumRegex : 숫자로만 이루어진 값인지에 대한 체크를 위한 정규식 (소수점 포함)
  * @onlyKoRegex @onlyEngRegx : 한글만/영어만 입력되었는지 검사할 때 사용
  */
-export const generalNumRegex = /^\d+$/;
+export const generalNumRegex = /^\d+(\.\d+)?$/;
 export const onlyKoRegex = /^[ㄱ-ㅎ|가-힣\s]{2,}$/;
 export const onlyEngRegex = /^[a-z|A-Z]+$/;
 
