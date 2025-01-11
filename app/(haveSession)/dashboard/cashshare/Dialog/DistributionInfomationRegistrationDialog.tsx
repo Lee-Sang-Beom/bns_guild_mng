@@ -33,6 +33,7 @@ import {
   getDistributionPrice,
 } from "@/utils/haveSession/dashboard/cashshare/action";
 import moment from "moment";
+import { Timestamp } from "firebase/firestore";
 
 interface IProps {
   session: Session;
@@ -68,52 +69,17 @@ export default function DistributionInfomationRegistrationDialog({
       totalPrice: insertFormatToString("NUMBER", Number(0)),
       distributionPrice: insertFormatToString("NUMBER", Number(0)),
       distributionUserList: [session.user.id],
-
-      transactionRegisteredAt: null,
-      transactionCompletedAt: null,
-      distributionCompletedAt: null,
+      regDt: null,
     },
   });
 
   const onSubmit = async (data: DistributionInfomationRegistrationRequest) => {
-    let transactionRegisteredAt = null; // 시장등록시간
-    let transactionCompletedAt = null; // 거래완료시간
-    let distributionCompletedAt = null; // 분배완료시간
-
-    switch (data.step) {
-      case "TRANSACTION_REGISTRATION":
-        transactionRegisteredAt = moment(new Date()).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        break;
-      case "TRANSACTION_COMPLETED":
-        transactionRegisteredAt = moment(new Date()).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        transactionCompletedAt = moment(new Date()).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        break;
-      default:
-        transactionRegisteredAt = moment(new Date()).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        transactionCompletedAt = moment(new Date()).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        distributionCompletedAt = moment(new Date()).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        break;
-    }
     const postData: DistributionInfomationRegistrationRequest = {
       ...data,
       totalPrice: Number(
         removeFormatToString("NUMBER", data.totalPrice.toString())
       ),
-      transactionRegisteredAt: transactionRegisteredAt,
-      transactionCompletedAt: transactionCompletedAt,
-      distributionCompletedAt: distributionCompletedAt,
+      regDt: Timestamp.fromDate(new Date()),
     };
     await addCollectionCashShare(postData)
       .then(async (res) => {

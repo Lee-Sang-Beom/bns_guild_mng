@@ -119,3 +119,52 @@ export function verifyPassword(
 ): boolean {
   return bcrypt.compareSync(plainPassword, hashedPassword);
 }
+
+/**
+ * @name getQueryParams
+ * @description 쿼리 스트링을 obj로 반환
+ * @param query
+ * @returns obj
+ */
+export function getQueryParams<T>(query: string): T {
+  const params = query.split("?")[1].split("&");
+  let obj: T = {} as T;
+  for (let i = 0; i < params.length; i++) {
+    const [key, value] = params[i].split("=");
+
+    // @ts-ignore
+    // obj[key] = value;
+    obj[key] =
+      key === "conditions"
+        ? JSON.parse(decodeURIComponent(value).replaceAll("+", " "))
+        : value;
+  }
+  return obj;
+}
+
+/**
+ * @name makeUrlQuery
+ * @description obj를 쿼리 스트링으로 반환
+ * @param params
+ * @returns url
+ */
+export function makeUrlQuery(params: any) {
+  const keys = Object.keys(params);
+  let url = "";
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const value = params[keys[i]];
+
+    url += key;
+    url += "=";
+    if (Array.isArray(value)) {
+      url += JSON.stringify(value);
+    } else {
+      url += value;
+    }
+    if (keys.length - 1 !== i) {
+      url += "&";
+    }
+  }
+  return url;
+}

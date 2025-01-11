@@ -1,0 +1,129 @@
+input.checkbox {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--gray-100);
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--radio-and-checkbox-unselect-color);
+
+  /* color */
+  &.blue {
+    color: var(--radio-and-checkbox-select-color);
+  }
+  &.red {
+    border: 2px solid var(--form-error-text-color) !important;
+  }
+  &.disabled,
+  &:disabled {
+    cursor: default !important;
+    border: 2px solid var(--radio-and-checkbox-disabled-border-color) !important;
+    background-color: var(--radio-and-checkbox-disabled-bg-color) !important;
+
+    &:checked {
+      &::before {
+        background-color: var(
+          --radio-and-checkbox-disabled-bg-color
+        ) !important;
+      }
+
+      &::after {
+        border-right: 2px solid var(--radio-and-checkbox-disabled-border-color) !important;
+        border-bottom: 2px solid var(--radio-and-checkbox-disabled-border-color) !important;
+      }
+    }
+  }
+
+  /* checked */
+  &:checked {
+    position: relative;
+    background-color: var(--radio-and-checkbox-select-color);
+
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid var(--radio-and-checkbox-select-color);
+      z-index: 2;
+    }
+
+    &::after {
+      content: "";
+      width: 30%;
+      height: 50%;
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      transform: translate(-50%, 0) rotate(45deg);
+      z-index: 3;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+  }
+
+  /* border */
+  &.br_square_round_1 {
+    border-radius: var(--br-3);
+  }
+  &.br_square_round_2 {
+    border-radius: var(--br-8);
+  }
+  &.br_round {
+    border-radius: var(--br-50);
+    position: relative;
+    border-color: var(--gray-300);
+
+    &::after {
+      content: "";
+      width: 30%;
+      height: 50%;
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      transform: translate(-50%, 0) rotate(45deg);
+      z-index: 3;
+      border-right: 2px solid var(--gray-300);
+      border-bottom: 2px solid var(--gray-300);
+    }
+  }
+
+  /* focus */
+  &:focus {
+    border: 2px solid var(--radio-and-checkbox-select-color);
+    outline: none;
+  }
+}
+
+// 반응형
+// 모바일
+@media screen and (max-width: 768px) {
+  input.checkbox {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: var(--fs-14);
+
+    /* checked */
+    &:checked {
+      &::after {
+        border-right: 1px solid var(--gray-100);
+        border-bottom: 1px solid var(--gray-100);
+      }
+    }
+
+    // disabled
+    &.disabled {
+      &:checked {
+        &::after {
+          border-right: 1px solid var(--gray-600);
+          border-bottom: 1px solid var(--gray-600);
+        }
+      }
+    }
+  }
+}

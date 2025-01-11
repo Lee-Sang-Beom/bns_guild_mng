@@ -62,3 +62,28 @@ export interface MenuItem {
   menuSeq: number;
   menuUrl: string;
 }
+
+/**
+ * @name TablePageRequest
+ * @description 테이블 데이터 요청 시 필수요소
+ */
+export interface TablePageRequest {
+  page: number;
+  size: number;
+  sort: string;
+  orderBy: "asc" | "desc";
+}
+
+/**
+ * @name TablePageResponse
+ * @description 테이블 데이터 응답 결과
+ */
+export interface TablePageResponse<T> {
+  content: T;
+  first: boolean;
+  last: boolean;
+  number: number;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+}
