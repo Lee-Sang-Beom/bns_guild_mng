@@ -43,7 +43,6 @@ export default function PagingComponent({
   const [curNum, setCurNum] = useState(1);
 
   useEffect(() => {
-    console.log("pagingData ", pagingData);
     setCurNum(Number(pagingData.number));
   }, [pagingData]);
 

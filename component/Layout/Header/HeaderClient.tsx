@@ -16,6 +16,16 @@ export default function HeaderClient({ session }: IProps) {
   const router = useRouter();
   const { setText, setIsChange, setStatus } = useAutoAlert();
 
+  const clearCache = () => {
+    if ("caches" in window) {
+      caches.keys().then((cacheNames) => {
+        cacheNames.forEach((cacheName) => {
+          caches.delete(cacheName);
+        });
+      });
+    }
+  };
+
   return (
     <header id="header" className={ms.header}>
       {/* TOP - 메인 로고 및 로그아웃 버튼 */}
@@ -34,8 +44,9 @@ export default function HeaderClient({ session }: IProps) {
               setStatus("success");
               setIsChange(true);
 
+              clearCache();
               setTimeout(() => {
-                router.push("/");
+                window.location.href = "/";
               }, 1000);
             }}
           >

@@ -9,6 +9,7 @@ import {
   CashshareResponse,
 } from "@/types/haveSession/dashboard/cashshare/request";
 import { TablePageResponse } from "@/types/common/commonType";
+import CashShareMiddle from "./CashShareMiddle";
 
 interface IProps {
   session: Session;
@@ -24,6 +25,13 @@ export default function CashShareClient({
     <div className={ms.wrap}>
       {/* TOP */}
       <CashShareTop session={session} />
+
+      {/* MIDDLE */}
+      <CashShareMiddle
+        session={session}
+        queryInstance={queryInstance}
+        tableResponse={tableResponse}
+      />
 
       {/* BOTTOM */}
       <CashShareBottom

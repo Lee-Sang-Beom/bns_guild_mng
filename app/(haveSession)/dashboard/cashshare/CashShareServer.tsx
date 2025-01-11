@@ -121,7 +121,7 @@ export default async function CashShareServer({
   const isEmptySearchParams = Object.keys(searchParams).length === 0;
 
   let queryInstance: CashshareRequest = {
-    page: 1, // 페이지는 1부터 시작
+    page: 1,
     size: 10,
     sort: "regDt",
     orderBy: "desc",

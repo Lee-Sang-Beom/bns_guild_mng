@@ -20,18 +20,18 @@
 .tb_st2 td {
   line-height: 1.3;
   font-weight: 300;
-  color: var(--gray-1000);
+  color: var(--gray-900);
 }
 
 // tb_st1
 .tb_st1 {
   width: 100%;
-  border-bottom: solid 2px var(--gray-1000);
+  border-bottom: solid 2px var(--gray-900);
 }
 .tb_st1 thead {
-  border-top: solid 2px var(--gray-1000);
+  border-top: solid 2px var(--gray-900);
   background: var(--gray-300);
-  color: var(--gray-1000);
+  color: var(--gray-900);
 }
 .tb_st1 th {
   padding: 15px 12px;
@@ -73,10 +73,10 @@
 // tb_st2
 .tb_st2 {
   width: 100%;
-  border-bottom: solid 2px var(--gray-1000);
+  border-bottom: solid 2px var(--gray-900);
 }
 .tb_st2 tbody {
-  border-top: solid 2px var(--gray-1000);
+  border-top: solid 2px var(--gray-900);
 }
 .tb_st2 tr {
   border-bottom: solid 1px var(--gray-500);
@@ -93,7 +93,7 @@
 .tb_st2 td {
   font-size: 16px;
   font-weight: 300;
-  color: var(--gray-1000);
+  color: var(--gray-900);
   text-align: left;
   border-left: solid 1px var(--gray-500);
   line-height: 150%;
@@ -176,18 +176,18 @@
 .tb_st3 td {
   line-height: 1.3;
   font-weight: 300;
-  color: var(--gray-1000);
+  color: var(--gray-900);
 }
 
 // tb_st3
 .tb_st3 {
   width: 100%;
-  border-bottom: solid 2px var(--gray-1000);
+  border-bottom: solid 2px var(--gray-900);
 }
 .tb_st3 thead {
-  border-top: solid 2px var(--gray-1000);
+  border-top: solid 2px var(--gray-900);
   background: var(--gray-300);
-  color: var(--gray-1000);
+  color: var(--gray-900);
 }
 .tb_st3 th {
   padding: 15px 12px;
@@ -272,7 +272,7 @@
 
           a {
             width: calc(100% - 28px);
-            color: var(--gray-1000);
+            color: var(--gray-900);
             font-size: var(--fs-14);
           }
 

@@ -67,7 +67,7 @@ export default function DistributionInfomationRegistrationDialog({
       sellerId: session.user.id,
       itemName: "",
       totalPrice: insertFormatToString("NUMBER", Number(0)),
-      distributionPrice: insertFormatToString("NUMBER", Number(0)),
+      distributionPrice: insertFormatToString("NUMBER", Number(0)) + "금",
       distributionUserList: [session.user.id],
       regDt: null,
     },
@@ -96,7 +96,7 @@ export default function DistributionInfomationRegistrationDialog({
           setStatus("success");
 
           setTimeout(() => {
-            setOpen(false);
+            window.location.reload();
           }, 500);
         } else {
           setText(res.message || "분배 정보 등록 중 오류가 발생했습니다.");
@@ -126,7 +126,10 @@ export default function DistributionInfomationRegistrationDialog({
       0;
     const userCount = watch("distributionUserList").length;
     if (totalPrice == 0 || userCount < 1) {
-      setValue("distributionPrice", insertFormatToString("NUMBER", Number(0)));
+      setValue(
+        "distributionPrice",
+        insertFormatToString("NUMBER", Number(0)) + "금"
+      );
       return;
     }
     const distributionPrice: FeeType =

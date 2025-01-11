@@ -1,0 +1,165 @@
+.chip {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gray-100);
+  color: var(--gray-1000);
+  box-sizing: border-box;
+  position: relative;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border: 1px solid var(--gray-400);
+  font-weight: 500;
+
+  &.parentFit {
+    width: 100%;
+    justify-content: center;
+  }
+  /* target 여부에 따른 padding 세팅 */
+  &.target_btn {
+    padding: 0.6rem 0.6rem 0.6rem 1.2rem;
+  }
+
+  /* size (sm 기본) */
+  &.xsm {
+    height: 2.8rem;
+    font-size: var(--fs-14);
+  }
+  &.sm {
+    // 기본 size
+    height: 3rem;
+    font-size: var(--fs-14);
+  }
+  &.md {
+    height: 4.4rem;
+    font-size: var(--fs-14);
+  }
+  &.lg {
+    height: 5.6rem;
+    font-size: var(--fs-18);
+  }
+  &.xlg {
+    height: 6.4rem;
+    font-size: var(--fs-18);
+  }
+
+  /* color */
+  &.white {
+    border: 1px solid var(--gray-400);
+    color: #111;
+  }
+  &.blue {
+    border: 1px solid var(--mcolor);
+    color: var(--mcolor);
+  }
+  &.disabled {
+    border: solid 1px var(--gray-300) !important;
+    background-color: var(--radio-and-checkbox-disabled-bg-color) !important;
+    color: #666 !important;
+  }
+
+  /* border */
+  &.br_square_round_1 {
+    border-radius: var(--br-3);
+  }
+  &.br_square_round_2 {
+    &.xsm {
+      border-radius: var(--br-6);
+    }
+    &.sm {
+      border-radius: var(--br-6);
+    }
+    &.md {
+      border-radius: var(--br-6);
+    }
+    &.lg {
+      border-radius: var(--br-6);
+    }
+    &.xlg {
+      border-radius: var(--br-6);
+    }
+  }
+  &.br_round {
+    border-radius: var(--br-50);
+  }
+
+  /* del btn */
+  .del_btn {
+    position: relative;
+    border-radius: var(--br-50);
+    width: 18px;
+    height: 18px;
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-300);
+
+    /** focus, hover 시 */
+    &:focus,
+    &:hover {
+      outline: 1px solid var(--form-white-text-color);
+      background-color: #e1e8f2;
+    }
+
+    /** disabled 상태에서 focus, hover 시 */
+    &:disabled {
+      outline: none;
+      cursor: default !important;
+      background-color: var(--gray-100);
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.tooltip_box {
+  position: absolute;
+  z-index: 1000;
+  background-color: var(--gray-100);
+  width: 100%;
+  top: 100%;
+  left: 0;
+  color: var(--gray-1000);
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: var(--br-8);
+  box-shadow: 0px 2px 2px 2px var(--gray-600);
+  transition: all 0.3s;
+  font-size: var(--fs-14);
+  &.none {
+    opacity: 0;
+  }
+  &.block {
+    opacity: 1;
+  }
+
+  &.top {
+    top: calc(-100% - 5px);
+    left: 0;
+  }
+
+  &.bottom {
+    top: calc(100% + 5px);
+    left: 0;
+  }
+  &.left {
+    top: 0;
+    left: calc(-100% - 5px);
+  }
+  &.right {
+    top: 0;
+    left: calc(100% + 5px);
+  }
+}
+// 반응형
+// 모바일
+@media screen and (max-width: 768px) {
+  input.inp {
+    font-size: var(--fs-14);
+  }
+}
