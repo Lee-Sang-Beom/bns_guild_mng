@@ -11,6 +11,8 @@ import {
 import { makeUrlQuery } from "@/utils/common/common";
 import { Session } from "next-auth";
 import { useRouter, useSearchParams } from "next/navigation";
+import tms from "./CashShareTableHeader.module.scss";
+import Button from "@/component/common/Button/Button";
 
 interface IProps {
   session: Session;
@@ -40,7 +42,7 @@ export default function CashShareBottom({
             ? "거래완료"
             : "분배완료";
         return (
-          <p className="table_header_text" key={`${item.docId}_step`}>
+          <p className={tms.table_header_text} key={`${item.docId}_step`}>
             {stepValue}
           </p>
         );
@@ -57,7 +59,7 @@ export default function CashShareBottom({
       accessFn: (item: CashshareResponse, idx: number) => {
         return (
           <div
-            className="table_header_flex"
+            className={`${tms.table_header_flex} ${tms.table_header_flexwrap}`}
             key={`${item.docId}_distributionUserList`}
           >
             {item.distributionUserList.map((user) => {
@@ -88,7 +90,7 @@ export default function CashShareBottom({
       value: "totalPrice",
       accessFn: (item: CashshareResponse, idx: number) => {
         return (
-          <p className="table_header_text" key={`${item.docId}_totalPrice`}>
+          <p className={tms.table_header_text} key={`${item.docId}_totalPrice`}>
             {`${item.totalPrice.toLocaleString()}금`}
           </p>
         );
@@ -109,6 +111,39 @@ export default function CashShareBottom({
           return <p key={`${item.docId}_regDt`}>{date.toLocaleString()}</p>; // 로컬 시간 포맷으로 출력
         }
         return <p key={`${item.docId}_regDt_등록일 없음`}>등록일 없음</p>;
+      },
+    },
+    {
+      name: "관리",
+      value: "docId",
+      width: "200px",
+      accessFn: (item: CashshareResponse, idx: number) => {
+        return (
+          <div className={`${tms.table_header_flex}`} key={`${item.docId}_mng`}>
+            <div className={tms.btn_box}>
+              <Button
+                color={"blue_reverse"}
+                title={"수정"}
+                id={"modifiy"}
+                type="submit"
+                onClick={(e) => {}}
+              >
+                수정
+              </Button>
+            </div>
+            <div className={tms.btn_box}>
+              <Button
+                color={"red_reverse"}
+                title={"삭제"}
+                id={"remove"}
+                type="submit"
+                onClick={(e) => {}}
+              >
+                삭제
+              </Button>
+            </div>
+          </div>
+        );
       },
     },
   ];

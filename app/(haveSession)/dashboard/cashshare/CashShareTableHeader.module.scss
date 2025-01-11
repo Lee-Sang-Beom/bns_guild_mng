@@ -1,0 +1,22 @@
+.table_header_text {
+  width: 100%;
+}
+.table_header_flex {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 5px;
+}
+.table_header_flexwrap {
+  flex-wrap: wrap;
+}
+.btn_box {
+  width: 70px;
+  height: auto;
+
+  button {
+    width: 100%;
+    height: 100%;
+  }
+}
