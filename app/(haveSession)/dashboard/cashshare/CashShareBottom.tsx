@@ -10,9 +10,15 @@ import {
 } from "@/types/haveSession/dashboard/cashshare/request";
 import { makeUrlQuery } from "@/utils/common/common";
 import { Session } from "next-auth";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import tms from "./CashShareTableHeader.module.scss";
 import Button from "@/component/common/Button/Button";
+import { useRef, useState } from "react";
+import Dialog from "@/component/common/Dialog/Dialog";
+import DistributionInfomationModifyDialog from "./Dialog/DistributionInfomationModifyDialog";
+import { deleteCollectionCashShare } from "@/utils/haveSession/dashboard/cashshare/action";
+import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
+import clsx from "clsx";
 
 interface IProps {
   session: Session;
@@ -25,9 +31,12 @@ export default function CashShareBottom({
   queryInstance,
   tableResponse,
 }: IProps) {
-  console.log("tableResponse is ", tableResponse);
-  console.log("session is ", session);
+  const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
+  const [selectCashshare, setSelectCashshare] =
+    useState<CashshareResponse | null>(null);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const ref = useRef<HTMLButtonElement | null>(null);
 
   const tableHeader: TableHeader[] = [
     {
@@ -41,8 +50,15 @@ export default function CashShareBottom({
             : step === "TRANSACTION_COMPLETED"
             ? "거래완료"
             : "분배완료";
+
+        const borderClsx = clsx({
+          [tms.table_header_text]: true,
+          [tms.red]: stepValue == "거래등록",
+          [tms.blue]: stepValue == "거래완료",
+          [tms.gray]: stepValue == "분배완료",
+        });
         return (
-          <p className={tms.table_header_text} key={`${item.docId}_step`}>
+          <p className={borderClsx} key={`${item.docId}_step`}>
             {stepValue}
           </p>
         );
@@ -89,16 +105,57 @@ export default function CashShareBottom({
       name: "물품 총 가격",
       value: "totalPrice",
       accessFn: (item: CashshareResponse, idx: number) => {
+        const step = item.step;
+        const stepValue =
+          step === "TRANSACTION_REGISTRATION"
+            ? "거래등록"
+            : step === "TRANSACTION_COMPLETED"
+            ? "거래완료"
+            : "분배완료";
+
         return (
-          <p className={tms.table_header_text} key={`${item.docId}_totalPrice`}>
-            {`${item.totalPrice.toLocaleString()}금`}
-          </p>
+          <>
+            {stepValue != "거래등록" ? (
+              <p
+                className={tms.table_header_text}
+                key={`${item.docId}_totalPrice`}
+              >
+                {`${item.totalPrice.toLocaleString()}금`}
+              </p>
+            ) : (
+              <p
+                className={tms.table_header_text}
+                key={`${item.docId}_totalPrice`}
+              >
+                미판매
+              </p>
+            )}
+          </>
         );
       },
     },
     {
       name: "인당 분배금",
       value: "distributionPrice",
+      accessFn: (item: CashshareResponse, idx: number) => {
+        const step = item.step;
+        const stepValue =
+          step === "TRANSACTION_REGISTRATION"
+            ? "거래등록"
+            : step === "TRANSACTION_COMPLETED"
+            ? "거래완료"
+            : "분배완료";
+
+        return (
+          <>
+            {stepValue != "거래등록" ? (
+              <p className={tms.table_header_text}>{item.distributionPrice}</p>
+            ) : (
+              <p className={tms.table_header_text}>미판매</p>
+            )}
+          </>
+        );
+      },
     },
     {
       name: "등록 일시",
@@ -126,7 +183,10 @@ export default function CashShareBottom({
                 title={"수정"}
                 id={"modifiy"}
                 type="submit"
-                onClick={(e) => {}}
+                onClick={(e) => {
+                  setSelectCashshare(item);
+                  setDialogOpen(true);
+                }}
               >
                 수정
               </Button>
@@ -137,7 +197,25 @@ export default function CashShareBottom({
                 title={"삭제"}
                 id={"remove"}
                 type="submit"
-                onClick={(e) => {}}
+                onClick={async (e) => {
+                  const res = await deleteCollectionCashShare(item.docId);
+                  if (res.success) {
+                    setText("삭제되었습니다.");
+                    setIsChange(true);
+                    setStatus("success");
+
+                    setTimeout(() => {
+                      router.replace("/dashboard/cashshare");
+                      router.refresh();
+                    }, 500);
+                  } else {
+                    setText(
+                      res.message || "분배 정보 삭제 중 오류가 발생했습니다."
+                    );
+                    setIsChange(true);
+                    setStatus("error");
+                  }
+                }}
               >
                 삭제
               </Button>
@@ -150,6 +228,23 @@ export default function CashShareBottom({
 
   return (
     <div>
+      {/* 분배 정보 수정 */}
+      {selectCashshare && (
+        <Dialog
+          width="lg"
+          open={dialogOpen}
+          setOpen={setDialogOpen}
+          title="분배 정보 등록"
+          ref={ref}
+          paperHidden={true}
+        >
+          <DistributionInfomationModifyDialog
+            session={session}
+            setOpen={setDialogOpen}
+            data={selectCashshare}
+          />
+        </Dialog>
+      )}
       <Table<CashshareResponse>
         data={
           tableResponse && tableResponse.content ? tableResponse.content : []

@@ -42,7 +42,7 @@ export default function CashShareMiddle({
     if (debouncedSearchKeyWord !== queryInstance.searchKeyWord) {
       const newQueryString = {
         ...queryInstance,
-        page: 0,
+        page: 1,
         searchKeyWord: debouncedSearchKeyWord,
       };
       router.replace(`/dashboard/cashshare?${makeUrlQuery(newQueryString)}`);
@@ -66,7 +66,7 @@ export default function CashShareMiddle({
                 const targetValue = event.target.value as DistributionStepType;
                 const newQueryString = {
                   ...queryInstance,
-                  page: 0,
+                  page: 1,
                   stepType: targetValue,
                 };
                 router.replace(
@@ -100,7 +100,7 @@ export default function CashShareMiddle({
                 const targetValue = event.target.value as DistributionStepType;
                 const newQueryString = {
                   ...queryInstance,
-                  page: 0,
+                  page: 1,
                   searchType: targetValue,
                 };
                 router.replace(

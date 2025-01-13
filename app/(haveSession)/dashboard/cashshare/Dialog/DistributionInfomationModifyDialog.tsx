@@ -6,7 +6,12 @@ import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Selectbox from "@/component/common/Selectbox/Selectbox";
 import { SelectChangeEvent } from "@mui/material";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import {
+  ApiResponse,
+  GenderType,
+  UserAuthType,
+} from "@/types/common/commonType";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import SubmitForm from "@/component/common/SubmitForm/SubmitForm";
 import Loading from "@/component/common/Loading/Loading";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
@@ -18,7 +23,8 @@ import {
   removeFormatToString,
 } from "@/utils/common/common";
 import {
-  DistributionInfomationRegistrationRequest,
+  CashshareResponse,
+  DistributionInfomationModifyRequest,
   DistributionStepType,
   FeeType,
 } from "@/types/haveSession/dashboard/cashshare/request";
@@ -26,19 +32,22 @@ import { distributionStepList } from "@/datastore/dashboard/cashshare/cashshare"
 import {
   addCollectionCashShare,
   getDistributionPrice,
+  updateCollectionCashShare,
 } from "@/utils/haveSession/dashboard/cashshare/action";
-import moment from "moment";
 import { Timestamp } from "firebase/firestore";
 
 interface IProps {
   session: Session;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  data: CashshareResponse;
 }
-export default function DistributionInfomationRegistrationDialog({
+export default function DistributionInfomationModifyDialog({
   session,
   setOpen,
+  data,
 }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
+  const [docId] = useState<string>(data.docId);
   const router = useRouter();
 
   const {
@@ -55,28 +64,28 @@ export default function DistributionInfomationRegistrationDialog({
       isSubmitted,
       errors,
     },
-  } = useForm<DistributionInfomationRegistrationRequest>({
+  } = useForm<DistributionInfomationModifyRequest>({
     mode: "all",
     defaultValues: {
-      step: "TRANSACTION_REGISTRATION",
-      sellerId: session.user.id,
-      itemName: "",
-      totalPrice: insertFormatToString("NUMBER", Number(0)),
-      distributionPrice: insertFormatToString("NUMBER", Number(0)) + "금",
-      distributionUserList: [session.user.id],
-      regDt: null,
+      step: data.step,
+      sellerId: data.sellerId,
+      itemName: data.itemName,
+      totalPrice: insertFormatToString("NUMBER", data.totalPrice),
+      distributionPrice: insertFormatToString("NUMBER", data.distributionPrice),
+      distributionUserList: data.distributionUserList,
+      regDt: data.regDt,
     },
   });
 
-  const onSubmit = async (data: DistributionInfomationRegistrationRequest) => {
-    const postData: DistributionInfomationRegistrationRequest = {
+  const onSubmit = async (data: DistributionInfomationModifyRequest) => {
+    const postData: DistributionInfomationModifyRequest = {
       ...data,
       totalPrice: Number(
         removeFormatToString("NUMBER", data.totalPrice.toString())
       ),
       regDt: Timestamp.fromDate(new Date()),
     };
-    await addCollectionCashShare(postData)
+    await updateCollectionCashShare(docId, postData)
       .then(async (res) => {
         // res가 아예 없는 경우 : 로그인 중 응답 오류
         if (!res) {

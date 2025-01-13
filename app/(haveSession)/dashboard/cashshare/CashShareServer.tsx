@@ -128,10 +128,10 @@ export default async function CashShareServer({
 
   let queryInstance: CashshareRequest = {
     page: 1,
-    size: 10,
+    size: 5,
     sort: "regDt",
     orderBy: "desc",
-    stepType: "TRANSACTION_COMPLETED",
+    stepType: "TRANSACTION_REGISTRATION",
     searchType: "SELLER_ID",
     searchKeyWord: "",
   };
