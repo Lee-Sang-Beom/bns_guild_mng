@@ -151,6 +151,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                   title="닉네임"
                   id="id"
                   partialErrorObj={errors.id}
+                  inpSize="md"
                 />
               </div>
 
@@ -171,6 +172,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                   title="비밀번호"
                   id="password"
                   partialErrorObj={errors.password}
+                  inpSize="md"
                 />
               </div>
 

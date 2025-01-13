@@ -148,23 +148,33 @@ export function getQueryParams<T>(query: string): T {
  * @param params
  * @returns url
  */
-export function makeUrlQuery(params: any) {
-  const keys = Object.keys(params);
-  let url = "";
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    const value = params[keys[i]];
+export function makeUrlQuery(params: Record<string, any>): string {
+  return Object.entries(params)
+    .map(([key, value]) => {
+      const encodedKey = encodeURIComponent(key);
+      const encodedValue = encodeURIComponent(
+        typeof value === "object" ? JSON.stringify(value) : String(value)
+      );
+      return `${encodedKey}=${encodedValue}`;
+    })
+    .join("&");
+}
 
-    url += key;
-    url += "=";
-    if (Array.isArray(value)) {
-      url += JSON.stringify(value);
-    } else {
-      url += value;
+/**
+ * @name throttle
+ * @description 스로틀링 함수 구현
+ */
+export function throttle(func: (...args: any[]) => void, delay: number) {
+  let timeoutId: NodeJS.Timeout | null = null;
+
+  return (...args: any[]) => {
+    if (timeoutId) {
+      return; // 이전 호출이 완료되지 않았다면 무시
     }
-    if (keys.length - 1 !== i) {
-      url += "&";
-    }
-  }
-  return url;
+
+    timeoutId = setTimeout(() => {
+      func(...args);
+      timeoutId = null; // 호출이 완료되면 timeoutId를 초기화
+    }, delay);
+  };
 }

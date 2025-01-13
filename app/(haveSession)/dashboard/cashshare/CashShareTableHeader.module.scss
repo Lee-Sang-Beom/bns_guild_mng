@@ -1,5 +1,18 @@
 .table_header_text {
   width: 100%;
+  padding: 5px 10px;
+}
+.red {
+  border: 2px solid var(--chart1);
+  color: var(--chart1);
+}
+.blue {
+  border: 2px solid var(--chart4);
+  color: var(--chart4);
+}
+.gray {
+  border: 2px solid var(--gray-500);
+  color: var(--gray-500);
 }
 .table_header_flex {
   width: 100%;

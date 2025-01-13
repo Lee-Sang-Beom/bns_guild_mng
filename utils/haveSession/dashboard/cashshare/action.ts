@@ -1,10 +1,17 @@
 import { db } from "@/datastore/firebase/firestore";
 import { ApiResponse } from "@/types/common/commonType";
 import {
+  DistributionInfomationModifyRequest,
   DistributionInfomationRegistrationRequest,
   FeeType,
 } from "@/types/haveSession/dashboard/cashshare/request";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 /**
  * @name feeToAmount
@@ -93,6 +100,62 @@ export async function addCollectionCashShare(
     return {
       success: false,
       message: "분배정보 등록 중 오류가 발생했습니다.",
+      data: null,
+    };
+  }
+}
+
+/**
+ * @name updateCollectionCashShare
+ * @param docId 수정할 문서 ID
+ * @param data 수정할 데이터
+ * @description 분배 정보 수정
+ */
+export async function updateCollectionCashShare(
+  docId: string,
+  data: Partial<DistributionInfomationModifyRequest>
+): Promise<ApiResponse<string | null>> {
+  try {
+    const docRef = doc(db, "collection_cashshare", docId);
+    await updateDoc(docRef, data);
+
+    return {
+      success: true,
+      message: "분배정보 수정이 완료되었습니다.",
+      data: null,
+    };
+  } catch (e) {
+    console.error("Error updating document: ", e);
+    return {
+      success: false,
+      message: "분배정보 수정 중 오류가 발생했습니다.",
+      data: null,
+    };
+  }
+}
+
+/**
+ * @name deleteCollectionCashShare
+ * @param id 삭제할 문서 ID
+ * @description 특정 ID의 분배 정보를 삭제
+ */
+export async function deleteCollectionCashShare(
+  docId: string
+): Promise<ApiResponse<string | null>> {
+  try {
+    const docRef = doc(db, "collection_cashshare", docId);
+    await deleteDoc(docRef);
+
+    return {
+      success: true,
+      message: "분배정보 삭제가 완료되었습니다.",
+      data: null,
+    };
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+    return {
+      success: false,
+      message: "분배정보 삭제 중 오류가 발생했습니다.",
       data: null,
     };
   }
