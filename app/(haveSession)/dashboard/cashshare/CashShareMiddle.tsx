@@ -50,75 +50,87 @@ export default function CashShareMiddle({
   }, [debouncedSearchKeyWord]);
 
   return (
-    <div className={ms.inner}>
-      {/* 거래단계 */}
-      <div className={ms.inp_box}>
-        <span className={ms.label}>거래단계</span>
-        <Selectbox
-          items={distributionStepList}
-          placeholder="거래단계 선택"
-          title="거래단계 선택"
-          color="white"
-          size="md"
-          onChange={function (event: SelectChangeEvent): void {
-            const targetValue = event.target.value as DistributionStepType;
-            const newQueryString = {
-              ...queryInstance,
-              page: 0,
-              stepType: targetValue,
-            };
-            router.replace(
-              `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
-            );
-          }}
-          value={queryInstance.stepType}
-        />
-      </div>
+    <div className={ms.middle}>
+      <div className={ms.inner}>
+        {/* 거래단계 */}
+        <div className={ms.inp_box}>
+          <span className={ms.label}>거래단계</span>
+          <div className={ms.inp}>
+            <Selectbox
+              items={distributionStepList}
+              placeholder="거래단계 선택"
+              title="거래단계 선택"
+              color="white"
+              size="md"
+              onChange={function (event: SelectChangeEvent): void {
+                const targetValue = event.target.value as DistributionStepType;
+                const newQueryString = {
+                  ...queryInstance,
+                  page: 0,
+                  stepType: targetValue,
+                };
+                router.replace(
+                  `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
+                );
+              }}
+              value={queryInstance.stepType}
+            />
+          </div>
+        </div>
 
-      {/* 검색종류 */}
-      <div className={ms.inp_box}>
-        <span className={ms.label}>검색종류</span>
-        <Selectbox
-          items={[
-            { name: "대표 판매자", value: "SELLER_ID", group: "" },
-            { name: "분배 파티원", value: "INCLUDE_DISTRIBUTION", group: "" },
-            { name: "판매 물품", value: "ITEM_NAME", group: "" },
-          ]}
-          placeholder="검색종류 선택"
-          title="검색종류 선택"
-          color="white"
-          size="md"
-          onChange={function (event: SelectChangeEvent): void {
-            const targetValue = event.target.value as DistributionStepType;
-            const newQueryString = {
-              ...queryInstance,
-              page: 0,
-              searchType: targetValue,
-            };
-            router.replace(
-              `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
-            );
-          }}
-          value={queryInstance.searchType}
-        />
-      </div>
+        {/* 검색종류 */}
+        <div className={ms.inp_box}>
+          <span className={ms.label}>검색종류</span>
+          <div className={ms.inp}>
+            <Selectbox
+              items={[
+                { name: "대표 판매자", value: "SELLER_ID", group: "" },
+                {
+                  name: "파티원 목록",
+                  value: "INCLUDE_DISTRIBUTION",
+                  group: "",
+                },
+                { name: "판매 물품", value: "ITEM_NAME", group: "" },
+              ]}
+              placeholder="검색종류 선택"
+              title="검색종류 선택"
+              color="white"
+              size="md"
+              onChange={function (event: SelectChangeEvent): void {
+                const targetValue = event.target.value as DistributionStepType;
+                const newQueryString = {
+                  ...queryInstance,
+                  page: 0,
+                  searchType: targetValue,
+                };
+                router.replace(
+                  `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
+                );
+              }}
+              value={queryInstance.searchType}
+            />
+          </div>
+        </div>
 
-      {/* 검색어 */}
-      <div className={ms.inp_box}>
-        <span className={ms.label}>
-          검색어 <span className="essential">*</span>
-        </span>
-        <Input
-          type="text"
-          placeholder="판매 물품을 입력해주세요."
-          title="판매 물품"
-          id="itemName"
-          inpSize="md"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchKeyWord(event.target.value); // 입력값을 상태에 반영
-          }}
-          value={searchKeyWord}
-        />
+        {/* 검색어 */}
+        <div className={ms.inp_box}>
+          <span className={ms.label}>
+            검색어 <span className="essential">*</span>
+          </span>
+          <div className={ms.inp}>
+            <Input
+              type="text"
+              placeholder="검색어를 입력해주세요."
+              title="검색어"
+              id="itemName"
+              inpSize="md"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchKeyWord(event.target.value); // 입력값을 상태에 반영
+              }}
+              value={searchKeyWord}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

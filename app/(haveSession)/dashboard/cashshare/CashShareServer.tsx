@@ -59,7 +59,7 @@ async function getCollectionCashShare(
       );
     } else {
       queryConstraints.push(
-        where("sellerId", "!=", searchKeyWord),
+        // where("sellerId", "!=", searchKeyWord),
         where("distributionUserList", "array-contains", searchKeyWord)
       );
     }

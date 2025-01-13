@@ -32,6 +32,27 @@
   .inner {
     width: 100%;
     height: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .inp_box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .label {
+        display: inline-block;
+        font-weight: 500;
+        font-size: var(--fs-18);
+        margin-bottom: 5px;
+      }
+
+      .inp {
+        width: 400px;
+      }
+    }
   }
 }
 
