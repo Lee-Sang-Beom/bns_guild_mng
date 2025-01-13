@@ -177,49 +177,56 @@ export default function CashShareBottom({
       accessFn: (item: CashshareResponse, idx: number) => {
         return (
           <div className={`${tms.table_header_flex}`} key={`${item.docId}_mng`}>
-            <div className={tms.btn_box}>
-              <Button
-                color={"blue_reverse"}
-                title={"수정"}
-                id={"modifiy"}
-                type="submit"
-                onClick={(e) => {
-                  setSelectCashshare(item);
-                  setDialogOpen(true);
-                }}
-              >
-                수정
-              </Button>
-            </div>
-            <div className={tms.btn_box}>
-              <Button
-                color={"red_reverse"}
-                title={"삭제"}
-                id={"remove"}
-                type="submit"
-                onClick={async (e) => {
-                  const res = await deleteCollectionCashShare(item.docId);
-                  if (res.success) {
-                    setText("삭제되었습니다.");
-                    setIsChange(true);
-                    setStatus("success");
+            {item.sellerId === session.user.id ? (
+              <>
+                <div className={tms.btn_box}>
+                  <Button
+                    color={"blue_reverse"}
+                    title={"수정"}
+                    id={"modifiy"}
+                    type="submit"
+                    onClick={(e) => {
+                      setSelectCashshare(item);
+                      setDialogOpen(true);
+                    }}
+                  >
+                    수정
+                  </Button>
+                </div>
+                <div className={tms.btn_box}>
+                  <Button
+                    color={"red_reverse"}
+                    title={"삭제"}
+                    id={"remove"}
+                    type="submit"
+                    onClick={async (e) => {
+                      const res = await deleteCollectionCashShare(item.docId);
+                      if (res.success) {
+                        setText("삭제되었습니다.");
+                        setIsChange(true);
+                        setStatus("success");
 
-                    setTimeout(() => {
-                      router.replace("/dashboard/cashshare");
-                      router.refresh();
-                    }, 500);
-                  } else {
-                    setText(
-                      res.message || "분배 정보 삭제 중 오류가 발생했습니다."
-                    );
-                    setIsChange(true);
-                    setStatus("error");
-                  }
-                }}
-              >
-                삭제
-              </Button>
-            </div>
+                        setTimeout(() => {
+                          router.replace("/dashboard/cashshare");
+                          router.refresh();
+                        }, 500);
+                      } else {
+                        setText(
+                          res.message ||
+                            "분배 정보 삭제 중 오류가 발생했습니다."
+                        );
+                        setIsChange(true);
+                        setStatus("error");
+                      }
+                    }}
+                  >
+                    삭제
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         );
       },
