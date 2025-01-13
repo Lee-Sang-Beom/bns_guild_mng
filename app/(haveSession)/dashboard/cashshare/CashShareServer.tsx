@@ -34,6 +34,7 @@ async function getCollectionCashShare(
   page = Number(page);
   size = Number(size);
 
+  console.log("queryInstance ", queryInstance);
   const cashShareCollection = collection(db, "collection_cashshare");
 
   // 기본적인 정렬 조건을 추가
@@ -50,6 +51,11 @@ async function getCollectionCashShare(
       queryConstraints.push(
         where("sellerId", ">=", searchKeyWord),
         where("sellerId", "<", searchKeyWord + "\uf8ff")
+      );
+    } else if (searchType === "ITEM_NAME") {
+      queryConstraints.push(
+        where("itemName", ">=", searchKeyWord),
+        where("itemName", "<", searchKeyWord + "\uf8ff")
       );
     } else {
       queryConstraints.push(

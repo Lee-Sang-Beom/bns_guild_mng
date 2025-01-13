@@ -105,6 +105,7 @@ export default function LoginClient() {
                     title="닉네임"
                     id="id"
                     partialErrorObj={errors.id}
+                    inpSize="md"
                   />
                 </div>
                 {/* 비밀번호 */}
@@ -124,6 +125,7 @@ export default function LoginClient() {
                     title="비밀번호"
                     id="password"
                     partialErrorObj={errors.password}
+                    inpSize="md"
                   />
                 </div>
                 <div className={ms.btn_box}>

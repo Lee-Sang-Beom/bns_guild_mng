@@ -96,7 +96,8 @@ export default function DistributionInfomationRegistrationDialog({
           setStatus("success");
 
           setTimeout(() => {
-            window.location.reload();
+            router.push("/dashboard/cashshare");
+            setOpen(false);
           }, 500);
         } else {
           setText(res.message || "분배 정보 등록 중 오류가 발생했습니다.");
@@ -215,6 +216,7 @@ export default function DistributionInfomationRegistrationDialog({
                   title="대표 판매자"
                   id="sellerId"
                   partialErrorObj={errors.sellerId}
+                  inpSize="md"
                 />
               </div>
 
@@ -239,6 +241,7 @@ export default function DistributionInfomationRegistrationDialog({
                   title="판매 물품"
                   id="itemName"
                   partialErrorObj={errors.itemName}
+                  inpSize="md"
                 />
               </div>
 
@@ -267,6 +270,7 @@ export default function DistributionInfomationRegistrationDialog({
                             defaultValue={dUser} // 초기값 설정
                             title={`분배 파티원 닉네임-${index}`}
                             id={`distributionUserList-${index}`}
+                            inpSize="md"
                           />
                         </div>
                         <div
@@ -388,6 +392,7 @@ export default function DistributionInfomationRegistrationDialog({
                         });
                       }}
                       partialErrorObj={errors.totalPrice}
+                      inpSize="md"
                     />
                   </div>
 
@@ -410,6 +415,7 @@ export default function DistributionInfomationRegistrationDialog({
                       title="인당 분배금"
                       id="distributionPrice"
                       partialErrorObj={errors.distributionPrice}
+                      inpSize="md"
                     />
                   </div>
                 </div>

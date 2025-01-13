@@ -82,7 +82,7 @@ export default function CashShareBottom({
       },
     },
     {
-      name: "판매물품",
+      name: "판매 물품",
       value: "itemName",
     },
     {

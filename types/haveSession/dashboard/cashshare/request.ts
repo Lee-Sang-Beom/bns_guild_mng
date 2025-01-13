@@ -23,7 +23,10 @@ export type DistributionStepType =
  * @name CashshareSearchType
  * @description 검색어 포함범위 (내가 판매자인것, 내가 판매자가 아니면서 )
  */
-export type CashshareSearchType = "SELLER_ID" | "INCLUDE_DISTRIBUTION";
+export type CashshareSearchType =
+  | "SELLER_ID"
+  | "INCLUDE_DISTRIBUTION"
+  | "ITEM_NAME";
 
 /**
  * @name DistributionInfomationRegistrationRequest
