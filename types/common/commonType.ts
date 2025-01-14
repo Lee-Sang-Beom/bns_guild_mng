@@ -66,6 +66,7 @@ export interface MenuItem {
   menuNm: string;
   menuSeq: number;
   menuUrl: string;
+  mainShow: "Y" | "N";
 }
 
 /**

@@ -18,6 +18,7 @@ import {
 } from "@/types/haveSession/dashboard/notice/request";
 import ModifyNoticeDialog from "./Dialog/ModifyNoticeDialog";
 import { deleteCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
+import Link from "next/link";
 
 interface IProps {
   session: Session;
@@ -40,6 +41,18 @@ export default function NoticeBottom({
       name: "제목",
       value: "title",
       width: "60%",
+      accessFn: (item: NoticeResponse, idx: number) => {
+        return (
+          <Link
+            className={`${tms.table_header_flex}`}
+            key={`${item.docId}_title`}
+            title={`${item.title} 상세 보기 페이지 이동`}
+            href={`/dashboard/notice/detail?doc=${item.docId}`}
+          >
+            {item.title}
+          </Link>
+        );
+      },
     },
     {
       name: "등록일",

@@ -81,7 +81,7 @@ async function getCollectionNotice(
   const querySnapshot = await getDocs(q);
 
   // 결과를 NoticeResponse 형식으로 변환
-  const cashShares: NoticeResponse[] = querySnapshot.docs.map(
+  const notice: NoticeResponse[] = querySnapshot.docs.map(
     (doc) =>
       ({
         docId: doc.id,
@@ -94,7 +94,7 @@ async function getCollectionNotice(
   const isLastPage = page === totalPages;
 
   return {
-    content: cashShares,
+    content: notice,
     first: isFirstPage,
     last: isLastPage,
     number: page,
