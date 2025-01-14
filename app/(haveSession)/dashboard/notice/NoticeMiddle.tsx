@@ -1,12 +1,11 @@
 "use client";
 
-import PagingComponent from "@/component/common/Paging/Paging";
 import { TablePageResponse } from "@/types/common/commonType";
 
 import { makeUrlQuery } from "@/utils/common/common";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
-import ms from "./CashShare.module.scss";
+import ms from "./Notice.module.scss";
 import { useEffect, useState } from "react";
 import Input from "@/component/common/Input/Input";
 import useDebounce from "@/hooks/common/debounce/useDebounce";
@@ -52,7 +51,7 @@ export default function NoticeMiddle({
         {/* 검색어 */}
         <div className={ms.inp_box}>
           <span className={ms.label}>
-            검색어 <span className="essential">*</span>
+            {`검색어(제목)`} <span className="essential">*</span>
           </span>
           <div className={ms.inp}>
             <Input

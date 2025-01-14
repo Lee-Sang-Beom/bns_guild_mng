@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/component/common/Button/Button";
-import ms from "./CashShare.module.scss";
+import ms from "./Notice.module.scss";
 import React, { useRef, useState } from "react";
 import { Session } from "next-auth";
 import Dialog from "@/component/common/Dialog/Dialog";

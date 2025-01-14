@@ -9,6 +9,7 @@ import {
 } from "@/types/haveSession/dashboard/notice/request";
 import NoticeTop from "./NoticeTop";
 import NoticeMiddle from "./NoticeMiddle";
+import NoticeBottom from "./NoticeBottom";
 
 interface IProps {
   session: Session;

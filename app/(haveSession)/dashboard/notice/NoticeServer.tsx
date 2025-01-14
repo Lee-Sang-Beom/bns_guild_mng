@@ -13,11 +13,15 @@ import {
 import { db } from "@/datastore/firebase/firestore";
 import { TablePageRequest, TablePageResponse } from "@/types/common/commonType";
 
-import NoticeClient from "./NoticeClient";
 import {
   NoticeRequest,
   NoticeResponse,
 } from "@/types/haveSession/dashboard/notice/request";
+import dynamic from "next/dynamic";
+
+const NoticeClient = dynamic(() => import("./NoticeClient"), {
+  ssr: false, // 서버 사이드 렌더링 비활성화
+});
 
 async function getCollectionNotice(
   queryInstance: NoticeRequest

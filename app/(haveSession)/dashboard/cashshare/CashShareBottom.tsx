@@ -11,7 +11,7 @@ import {
 import { makeUrlQuery } from "@/utils/common/common";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
-import tms from "./CashShareTableHeader.module.scss";
+import tms from "@/styles/tableHeader.module.scss";
 import Button from "@/component/common/Button/Button";
 import { useRef, useState } from "react";
 import Dialog from "@/component/common/Dialog/Dialog";

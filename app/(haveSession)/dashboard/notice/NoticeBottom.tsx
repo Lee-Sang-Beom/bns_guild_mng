@@ -8,18 +8,17 @@ import { TablePageResponse } from "@/types/common/commonType";
 import { makeUrlQuery } from "@/utils/common/common";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
-import tms from "./CashShareTableHeader.module.scss";
+import tms from "@/styles/tableHeader.module.scss";
 import Button from "@/component/common/Button/Button";
 import { useRef, useState } from "react";
 import Dialog from "@/component/common/Dialog/Dialog";
-import { deleteCollectionCashShare } from "@/utils/haveSession/dashboard/cashshare/action";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
-import clsx from "clsx";
-import ModifyNoticeDialog from "./Dialog/ModifyNoticeDialog";
 import {
   NoticeRequest,
   NoticeResponse,
 } from "@/types/haveSession/dashboard/notice/request";
+import ModifyNoticeDialog from "./Dialog/ModifyNoticeDialog";
+import { deleteCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
 
 interface IProps {
   session: Session;
@@ -33,134 +32,20 @@ export default function NoticeBottom({
 }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
-  const [selectCashshare, setSelectCashshare] = useState<NoticeResponse | null>(
-    null
-  );
+  const [selectNotice, setSelectNotice] = useState<NoticeResponse | null>(null);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const ref = useRef<HTMLButtonElement | null>(null);
 
   const tableHeader: TableHeader[] = [
     {
-      name: "단계",
-      value: "step",
-      accessFn: (item: NoticeResponse, idx: number) => {
-        const step = item.step;
-        const stepValue =
-          step === "TRANSACTION_REGISTRATION"
-            ? "거래등록"
-            : step === "TRANSACTION_COMPLETED"
-            ? "거래완료"
-            : "분배완료";
-
-        const borderClsx = clsx({
-          [tms.table_header_text]: true,
-          [tms.red]: stepValue == "거래등록",
-          [tms.blue]: stepValue == "거래완료",
-          [tms.gray]: stepValue == "분배완료",
-        });
-        return (
-          <p className={borderClsx} key={`${item.docId}_step`}>
-            {stepValue}
-          </p>
-        );
-      },
+      name: "제목",
+      value: "title",
+      width: "60%",
     },
     {
-      name: "대표 판매자",
-      value: "sellerId",
-    },
-    {
-      name: "파티원 목록",
-      value: "distributionUserList",
-      width: "20%",
-      accessFn: (item: NoticeResponse, idx: number) => {
-        return (
-          <div
-            className={`${tms.table_header_flex} ${tms.table_header_flexwrap}`}
-            key={`${item.docId}_distributionUserList`}
-          >
-            {item.distributionUserList.map((user) => {
-              return (
-                <Chip
-                  widthStyle="fit-content"
-                  chipData={{
-                    name: user,
-                    value: user,
-                    group: "",
-                  }}
-                  color={user === session.user.id ? "blue" : "white"}
-                  title={`${item.docId}_distributionUserList_${user}`}
-                  key={`${item.docId}_distributionUserList_${user}`}
-                />
-              );
-            })}
-          </div>
-        );
-      },
-    },
-    {
-      name: "판매 물품",
-      value: "itemName",
-    },
-    {
-      name: "물품 총 가격",
-      value: "totalPrice",
-      accessFn: (item: NoticeResponse, idx: number) => {
-        const step = item.step;
-        const stepValue =
-          step === "TRANSACTION_REGISTRATION"
-            ? "거래등록"
-            : step === "TRANSACTION_COMPLETED"
-            ? "거래완료"
-            : "분배완료";
-
-        return (
-          <>
-            {stepValue != "거래등록" ? (
-              <p
-                className={tms.table_header_text}
-                key={`${item.docId}_totalPrice`}
-              >
-                {`${item.totalPrice.toLocaleString()}금`}
-              </p>
-            ) : (
-              <p
-                className={tms.table_header_text}
-                key={`${item.docId}_totalPrice`}
-              >
-                미판매
-              </p>
-            )}
-          </>
-        );
-      },
-    },
-    {
-      name: "인당 분배금",
-      value: "distributionPrice",
-      accessFn: (item: NoticeResponse, idx: number) => {
-        const step = item.step;
-        const stepValue =
-          step === "TRANSACTION_REGISTRATION"
-            ? "거래등록"
-            : step === "TRANSACTION_COMPLETED"
-            ? "거래완료"
-            : "분배완료";
-
-        return (
-          <>
-            {stepValue != "거래등록" ? (
-              <p className={tms.table_header_text}>{item.distributionPrice}</p>
-            ) : (
-              <p className={tms.table_header_text}>미판매</p>
-            )}
-          </>
-        );
-      },
-    },
-    {
-      name: "등록 일시",
+      name: "등록일",
       value: "regDt",
+      width: "20%",
       accessFn: (item: NoticeResponse, idx: number) => {
         // regDt가 Timestamp 객체라면 Date로 변환 후 포맷
         const timestamp = item.regDt; // Firebase Timestamp 객체
@@ -174,11 +59,11 @@ export default function NoticeBottom({
     {
       name: "관리",
       value: "docId",
-      width: "200px",
+      width: "20%",
       accessFn: (item: NoticeResponse, idx: number) => {
         return (
           <div className={`${tms.table_header_flex}`} key={`${item.docId}_mng`}>
-            {item.sellerId === session.user.id ? (
+            {item.writerId === session.user.id ? (
               <>
                 <div className={tms.btn_box}>
                   <Button
@@ -187,7 +72,7 @@ export default function NoticeBottom({
                     id={"modifiy"}
                     type="submit"
                     onClick={(e) => {
-                      setSelectCashshare(item);
+                      setSelectNotice(item);
                       setDialogOpen(true);
                     }}
                   >
@@ -201,20 +86,18 @@ export default function NoticeBottom({
                     id={"remove"}
                     type="submit"
                     onClick={async (e) => {
-                      const res = await deleteCollectionCashShare(item.docId);
+                      const res = await deleteCollectionNotice(item.docId);
                       if (res.success) {
                         setText("삭제되었습니다.");
                         setIsChange(true);
                         setStatus("success");
-
                         setTimeout(() => {
-                          router.replace("/dashboard/cashshare");
+                          router.replace("/dashboard/notice");
                           router.refresh();
                         }, 500);
                       } else {
                         setText(
-                          res.message ||
-                            "분배 정보 삭제 중 오류가 발생했습니다."
+                          res.message || "공지사항 삭제 중 오류가 발생했습니다."
                         );
                         setIsChange(true);
                         setStatus("error");
@@ -237,7 +120,7 @@ export default function NoticeBottom({
   return (
     <div>
       {/* 공지사항 수정 */}
-      {selectCashshare && (
+      {selectNotice && (
         <Dialog
           width="lg"
           open={dialogOpen}
@@ -249,7 +132,7 @@ export default function NoticeBottom({
           <ModifyNoticeDialog
             session={session}
             setOpen={setDialogOpen}
-            data={selectCashshare}
+            data={selectNotice}
           />
         </Dialog>
       )}
@@ -273,9 +156,7 @@ export default function NoticeBottom({
           };
 
           // 쿼리스트링에 lastDoc을 포함하여 URL 업데이트
-          router.replace(
-            `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
-          );
+          router.replace(`/dashboard/notice?${makeUrlQuery(newQueryString)}`);
         }}
         pagingData={{
           first: tableResponse?.first ?? false,
