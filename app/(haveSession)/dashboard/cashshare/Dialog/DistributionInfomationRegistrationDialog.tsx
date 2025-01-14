@@ -78,7 +78,6 @@ export default function DistributionInfomationRegistrationDialog({
     };
     await addCollectionCashShare(postData)
       .then(async (res) => {
-        // res가 아예 없는 경우 : 로그인 중 응답 오류
         if (!res) {
           setText("분배 정보 등록 중 오류가 발생했습니다.");
           setIsChange(true);

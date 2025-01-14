@@ -178,3 +178,57 @@ export function throttle(func: (...args: any[]) => void, delay: number) {
     }, delay);
   };
 }
+
+export function compressImages(
+  base64Str: string,
+  maxWidth = 800,
+  maxHeight = 800
+): Promise<string> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64Str;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      let { width, height } = img;
+
+      // 비율 유지하면서 크기 조정
+      if (width > maxWidth || height > maxHeight) {
+        if (width > height) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        } else {
+          width = (width * maxHeight) / height;
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx!.drawImage(img, 0, 0, width, height);
+      const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7); // 품질 70%
+      resolve(compressedBase64);
+    };
+  });
+}
+
+export async function compressContentImages(content: string): Promise<string> {
+  const imageRegex = /<img[^>]*src=["']([^"']+)["'][^>]*>/g; // img 태그에서 src 추출
+  let match;
+  let compressedContent = content;
+
+  while ((match = imageRegex.exec(content)) !== null) {
+    const originalBase64 = match[1]; // img src에서 Base64 추출
+    if (originalBase64.startsWith("data:image/")) {
+      const compressedBase64 = await compressImages(originalBase64); // 이미지 압축
+      compressedContent = compressedContent.replace(
+        originalBase64,
+        compressedBase64
+      ); // HTML 업데이트
+    }
+  }
+
+  return compressedContent;
+}
