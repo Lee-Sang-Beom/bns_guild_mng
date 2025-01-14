@@ -43,6 +43,6 @@ export const genderList: SelectboxType[] = [
 export const menuList: MenuItem[] = [
   { menuSeq: 1, menuNm: "홈", menuUrl: "/dashboard" },
   { menuSeq: 2, menuNm: "분배금 관리", menuUrl: "/dashboard/cashshare" },
-  { menuSeq: 3, menuNm: "아트워크", menuUrl: "/dashboard/artworks" },
+  // { menuSeq: 3, menuNm: "아트워크", menuUrl: "/dashboard/artworks" },
   { menuSeq: 4, menuNm: "공지사항", menuUrl: "/dashboard/notice" },
 ];

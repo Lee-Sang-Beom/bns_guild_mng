@@ -1,0 +1,65 @@
+.wrap {
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .section {
+    padding: 10px;
+    background-color: var(--mbackgroundColor);
+
+    .inner {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+
+      .inp_box,
+      .btn_box,
+      .group_box {
+        width: 100%;
+      }
+
+      .flexbox {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .inp_box .label,
+      .group_box .label {
+        display: inline-block;
+        font-weight: 500;
+        font-size: var(--fs-18);
+        margin-bottom: 5px;
+      }
+
+      // 행추가, 행삭제가 이루어지는 입력 박스
+      .group_box .inp_and_btn_box {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+
+        .distribution_user_btn_box {
+          display: flex;
+          align-items: center;
+          width: 200px;
+          gap: 10px;
+        }
+      }
+    }
+  }
+}

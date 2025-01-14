@@ -121,7 +121,8 @@ export interface DistributionInfomationModifyRequest {
 }
 
 /**
- * 페이징 요청
+ * @name CashshareRequest
+ * @description 분배정보 조회 페이징 요청
  */
 export interface CashshareRequest extends TablePageRequest {
   stepType: DistributionStepType;
@@ -129,6 +130,10 @@ export interface CashshareRequest extends TablePageRequest {
   searchKeyWord: string;
 }
 
+/**
+ * @name CashshareRequest
+ * @description 분배정보 조회 응답
+ */
 export interface CashshareResponse {
   /**
    * @name docId
