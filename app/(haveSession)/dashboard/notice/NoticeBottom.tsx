@@ -1,6 +1,5 @@
 "use client";
 
-import Chip from "@/component/common/Chip/Chip";
 import PagingComponent from "@/component/common/Paging/Paging";
 import Table, { TableHeader } from "@/component/common/Table/Table";
 import { TablePageResponse } from "@/types/common/commonType";

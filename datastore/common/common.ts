@@ -6,10 +6,12 @@ import { MenuItem } from "@/types/common/commonType";
  * @description 유저 권한 종류
  */
 export const userAuthList: SelectboxType[] = [
-  { name: "일반", value: "NORMAL", group: "" },
-  { name: "관리자", value: "ADMIN", group: "" },
+  { name: "문파장", value: "LEADER", group: "" },
+  { name: "부문파장", value: "DEPUTY_LEADER", group: "" },
+  { name: "문파장로", value: "ELDER", group: "" },
+  { name: "문파원", value: "MEMBER", group: "" },
+  { name: "연습생", value: "TRAINEE", group: "" },
 ];
-
 /**
  * @name jobList
  * @description 게임 직업 종류

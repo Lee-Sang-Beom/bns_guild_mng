@@ -6,11 +6,6 @@ import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Selectbox from "@/component/common/Selectbox/Selectbox";
 import { SelectChangeEvent } from "@mui/material";
-import {
-  ApiResponse,
-  GenderType,
-  UserAuthType,
-} from "@/types/common/commonType";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import SubmitForm from "@/component/common/SubmitForm/SubmitForm";
 import Loading from "@/component/common/Loading/Loading";

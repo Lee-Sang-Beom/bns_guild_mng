@@ -20,7 +20,7 @@ export default function NoticeTop({ session }: IProps) {
         <div className={ms.btn_box}>
           <Button
             color={"blue"}
-            title={"분배정보 등록"}
+            title={"공지사항 등록"}
             id={"reg_notice_btn"}
             size="md"
             ref={ref}

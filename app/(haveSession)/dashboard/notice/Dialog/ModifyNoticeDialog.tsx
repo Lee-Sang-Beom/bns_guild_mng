@@ -1,9 +1,8 @@
 "use client";
-import { useForm } from "react-hook-form";
 import ms from "./NoticeDialog.module.scss";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Loading from "@/component/common/Loading/Loading";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
@@ -15,11 +14,8 @@ import {
 } from "@/types/haveSession/dashboard/notice/request";
 import EditorComponent from "@/component/common/EditorComponent/EditorComponent";
 import _ from "lodash";
-import {
-  addCollectionNotice,
-  modifyCollectionNotice,
-} from "@/utils/haveSession/dashboard/notice/action";
-import { compressContentImages, compressImages } from "@/utils/common/common";
+import { modifyCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
+import { compressContentImages } from "@/utils/common/common";
 
 interface IProps {
   session: Session;

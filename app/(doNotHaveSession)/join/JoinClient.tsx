@@ -49,7 +49,7 @@ export default function JoinClient() {
     defaultValues: {
       id: "",
       password: "",
-      authType: "NORMAL",
+      authType: "MEMBER",
       job: "검사",
       gender: "MALE",
       useYn: "Y",
