@@ -1,25 +1,33 @@
 .wrap {
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 
   * {
     box-sizing: border-box;
   }
 
-  .inner {
+  width: 100%;
+  height: auto;
+
+  .top {
+    width: 100%;
+    height: auto;
+  }
+
+  .middle {
     width: 100%;
     height: auto;
 
-    .top {
-      width: 100%;
-      height: 300px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
 
-    .middle {
-    }
-
-    .bottom {
-    }
+  .bottom {
   }
 }
 
@@ -31,18 +39,23 @@
   gap: 5px;
   font-size: var(--fs-18);
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: var(--gray-900);
 }
 
 // Card : Section 별 외곽 스타일
 .card {
   background-color: var(--backgroundColor);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.25);
+  padding: 10px;
 
   &.loading_run {
     background: url("/img/dashboard_loading_run.gif") no-repeat center center;
   }
-
+  &.loading_cat {
+    background: url("/img/dashboard_loading_cat.gif") no-repeat center center;
+  }
   &.loading {
     background-size: cover; /* 이미지가 요소를 완전히 채우도록 */
   }
@@ -50,5 +63,99 @@
 
 .card_top {
   width: 100%;
+  height: 400px;
+}
+
+.card_middle {
+  border: 1px solid var(--gray-500);
+  width: 100%;
   height: 300px;
+  position: relative;
+
+  .loading_text {
+    display: inline-block;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: var(--fs-20);
+    color: #fff;
+    letter-spacing: 2px;
+  }
+}
+
+// TOP
+// MIDDLE
+.middle_left,
+.middle_right {
+  width: calc(50% - 10px) !important;
+  height: 300px;
+
+  // 데이터가 없는경우
+  .no_data {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: var(--fs-18);
+    font-weight: 600;
+  }
+
+  ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    li {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      border-bottom: 1px dashed var(--gray-500);
+
+      span {
+        display: inline-block;
+        text-align: center;
+        font-size: var(--fs-14);
+
+        &.header {
+          font-size: var(--fs-16);
+          color: var(--chart13);
+          font-weight: 600;
+        }
+
+        // 분배금 관리
+        &.step,
+        &.itemName,
+        &.totalPrice {
+          width: 100px;
+          min-width: 100px;
+          max-width: 100px;
+        }
+
+        // 공지사항
+        &.notice_title {
+          width: 300px;
+          min-width: 100px;
+          max-width: 300px;
+        }
+        &.notice_writerId {
+          width: 100px;
+          min-width: 100px;
+          max-width: 100px;
+        }
+
+        // 공통
+        &.regDt {
+          width: 90px;
+          max-width: 90px;
+        }
+      }
+    }
+  }
 }

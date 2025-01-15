@@ -1,16 +1,28 @@
 import { Session } from "next-auth";
 import ms from "./Dashboard.module.scss";
 import dynamic from "next/dynamic";
-import { FaChartPie } from "react-icons/fa";
+import { FaChartPie, FaPaperPlane } from "react-icons/fa";
+import { MdOutlineAttachMoney } from "react-icons/md";
 interface IProps {
   session: Session;
 }
-
+const DisplayNoticeCard = dynamic(() => import("./DisplayNoticeCard"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className={`${ms.card} ${ms.card_middle} ${ms.loading} ${ms.loading_cat}`}
+    >
+      <span className={ms.loading_text}>Loading...</span>
+    </div>
+  ),
+});
 const DisplayCashShareCard = dynamic(() => import("./DisplayCashShareCard"), {
   ssr: false,
   loading: () => (
-    <div className={`${ms.card} ${ms.loading}`}>
-      정보를 불러오고 있습니다...
+    <div
+      className={`${ms.card} ${ms.card_middle} ${ms.loading} ${ms.loading_cat}`}
+    >
+      <span className={ms.loading_text}>Loading...</span>
     </div>
   ),
 });
@@ -34,8 +46,28 @@ export default function Dashboard({ session }: IProps) {
         </p>
         <DisplayJobListCard />
       </div>
-      {/* 2. 분배 리스트 */}
-      {/* 3. 공지사항 */}
+      <div className={ms.middle}>
+        {/* 2. 분배 리스트 */}
+        <div className={ms.middle_left}>
+          <p className={ms.title}>
+            <FaPaperPlane
+              size={22}
+              role="img"
+              aria-label="공지사항 종이 아이콘"
+            />
+            최근 거래 및 분배정보
+          </p>
+          <DisplayCashShareCard />
+        </div>
+        {/* 3. 공지사항 */}
+        <div className={ms.middle_right}>
+          <p className={ms.title}>
+            <MdOutlineAttachMoney size={22} role="img" aria-label="돈 아이콘" />
+            최근 공지사항
+          </p>
+          <DisplayNoticeCard />
+        </div>
+      </div>
     </div>
   );
 }
