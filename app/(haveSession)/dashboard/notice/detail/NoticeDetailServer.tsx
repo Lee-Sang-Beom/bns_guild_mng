@@ -26,10 +26,11 @@ async function getDetailCollectionNoticeByDocId(
 }
 
 export default async function NoticeDetailServer({ docId }: { docId: string }) {
+  const session = await getServerSession(authOptions);
   const data = await getDetailCollectionNoticeByDocId(docId);
 
-  if (!data) {
+  if (!data || !session) {
     redirect("/dashboard/errors");
   }
-  return <NoticeDetailClient data={data} />;
+  return <NoticeDetailClient session={session} data={data} />;
 }

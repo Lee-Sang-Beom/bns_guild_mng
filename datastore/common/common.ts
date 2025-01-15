@@ -12,6 +12,18 @@ export const userAuthList: SelectboxType[] = [
   { name: "문파원", value: "MEMBER", group: "" },
   { name: "연습생", value: "TRAINEE", group: "" },
 ];
+
+/**
+ * @name adminAuthType
+ * @description 관리자 유저 권한
+ */
+type AdminAuthType = "LEADER" | "DEPUTY_LEADER" | "ELDER";
+export const adminAuthTypes: AdminAuthType[] = [
+  "LEADER",
+  "DEPUTY_LEADER",
+  "ELDER",
+];
+
 /**
  * @name jobList
  * @description 게임 직업 종류

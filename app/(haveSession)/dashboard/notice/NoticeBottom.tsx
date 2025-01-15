@@ -40,7 +40,7 @@ export default function NoticeBottom({
     {
       name: "제목",
       value: "title",
-      width: "60%",
+      width: "40%",
       accessFn: (item: NoticeResponse, idx: number) => {
         return (
           <Link
@@ -53,6 +53,11 @@ export default function NoticeBottom({
           </Link>
         );
       },
+    },
+    {
+      name: "작성자",
+      value: "writerId",
+      width: "20%",
     },
     {
       name: "등록일",
@@ -82,7 +87,6 @@ export default function NoticeBottom({
                     color={"blue_reverse"}
                     title={"수정"}
                     id={"modifiy"}
-                    type="submit"
                     onClick={(e) => {
                       setSelectNotice(item);
                       setDialogOpen(true);
@@ -96,7 +100,6 @@ export default function NoticeBottom({
                     color={"red_reverse"}
                     title={"삭제"}
                     id={"remove"}
-                    type="submit"
                     onClick={async (e) => {
                       const res = await deleteCollectionNotice(item.docId);
                       if (res.success) {
