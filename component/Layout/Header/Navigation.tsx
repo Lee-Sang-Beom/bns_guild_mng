@@ -29,19 +29,21 @@ export default function Navigation() {
   return (
     <nav className={ms.middle}>
       <ul>
-        {menuList.map((menu) => (
-          <li key={menu.menuSeq}>
-            <Link
-              href={menu.menuUrl}
-              prefetch={true}
-              className={pathname === menu.menuUrl ? ms.active : ""}
-            >
-              {/* 아이콘 렌더링 */}
-              {getMenuIcon(menu.menuSeq)}
-              {menu.menuNm}
-            </Link>
-          </li>
-        ))}
+        {menuList
+          .filter((menu) => menu.mainShow === "Y")
+          .map((menu) => (
+            <li key={menu.menuSeq}>
+              <Link
+                href={menu.menuUrl}
+                prefetch={true}
+                className={pathname === menu.menuUrl ? ms.active : ""}
+              >
+                {/* 아이콘 렌더링 */}
+                {getMenuIcon(menu.menuSeq)}
+                {menu.menuNm}
+              </Link>
+            </li>
+          ))}
       </ul>
     </nav>
   );

@@ -6,5 +6,6 @@ export interface AddUserRequest {
   authType: UserAuthType;
   job: string;
   gender: GenderType;
+  userBirth: string;
   useYn: "Y";
 }

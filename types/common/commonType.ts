@@ -8,7 +8,12 @@ export type StatusType = "success" | "warning" | "info" | "error";
  * @name UserAuthType
  * @description 선택 가능한 유저 권한
  */
-export type UserAuthType = "NORMAL" | "ADMIN";
+export type UserAuthType =
+  | "LEADER"
+  | "DEPUTY_LEADER"
+  | "ELDER"
+  | "MEMBER"
+  | "TRAINEE";
 
 /**
  * @name GenderType
@@ -61,6 +66,7 @@ export interface MenuItem {
   menuNm: string;
   menuSeq: number;
   menuUrl: string;
+  mainShow: "Y" | "N";
 }
 
 /**

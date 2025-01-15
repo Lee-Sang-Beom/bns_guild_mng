@@ -6,8 +6,22 @@ import { MenuItem } from "@/types/common/commonType";
  * @description 유저 권한 종류
  */
 export const userAuthList: SelectboxType[] = [
-  { name: "일반", value: "NORMAL", group: "" },
-  { name: "관리자", value: "ADMIN", group: "" },
+  { name: "문파장", value: "LEADER", group: "" },
+  { name: "부문파장", value: "DEPUTY_LEADER", group: "" },
+  { name: "문파장로", value: "ELDER", group: "" },
+  { name: "문파원", value: "MEMBER", group: "" },
+  { name: "연습생", value: "TRAINEE", group: "" },
+];
+
+/**
+ * @name adminAuthType
+ * @description 관리자 유저 권한
+ */
+type AdminAuthType = "LEADER" | "DEPUTY_LEADER" | "ELDER";
+export const adminAuthTypes: AdminAuthType[] = [
+  "LEADER",
+  "DEPUTY_LEADER",
+  "ELDER",
 ];
 
 /**
@@ -41,8 +55,24 @@ export const genderList: SelectboxType[] = [
  * @description 메뉴 리스트 (필요 시, 차후 서버에서 관리하여 내려줄 수 있도록 할 것임)
  */
 export const menuList: MenuItem[] = [
-  { menuSeq: 1, menuNm: "홈", menuUrl: "/dashboard" },
-  { menuSeq: 2, menuNm: "분배금 관리", menuUrl: "/dashboard/cashshare" },
-  // { menuSeq: 3, menuNm: "아트워크", menuUrl: "/dashboard/artworks" },
-  { menuSeq: 4, menuNm: "공지사항", menuUrl: "/dashboard/notice" },
+  { menuSeq: 1, menuNm: "홈", menuUrl: "/dashboard", mainShow: "Y" },
+  {
+    menuSeq: 2,
+    menuNm: "분배금 관리",
+    menuUrl: "/dashboard/cashshare",
+    mainShow: "Y",
+  },
+  // { menuSeq: 3, menuNm: "아트워크", menuUrl: "/dashboard/artworks", mainShow: "N"  },
+  {
+    menuSeq: 4,
+    menuNm: "공지사항",
+    menuUrl: "/dashboard/notice",
+    mainShow: "Y",
+  },
+  {
+    menuSeq: 5,
+    menuNm: "공지사항 상세",
+    menuUrl: "/dashboard/notice/detail",
+    mainShow: "N",
+  },
 ];

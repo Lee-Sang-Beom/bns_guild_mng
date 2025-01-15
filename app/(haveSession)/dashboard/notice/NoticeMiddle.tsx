@@ -50,9 +50,7 @@ export default function NoticeMiddle({
       <div className={ms.inner}>
         {/* 검색어 */}
         <div className={ms.inp_box}>
-          <span className={ms.label}>
-            {`검색어(제목)`} <span className="essential">*</span>
-          </span>
+          <span className={ms.label}>{`검색어(제목)`}</span>
           <div className={ms.inp}>
             <Input
               type="text"

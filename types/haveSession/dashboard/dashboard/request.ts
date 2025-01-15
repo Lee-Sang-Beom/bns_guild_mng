@@ -7,4 +7,5 @@ export interface ModifyUserRequest {
   job: string;
   gender: GenderType;
   useYn: "Y" | "N";
+  userBirth: string;
 }
