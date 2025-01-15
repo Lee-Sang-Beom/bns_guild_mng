@@ -1,0 +1,54 @@
+.wrap {
+  width: 100%;
+  height: auto;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .inner {
+    width: 100%;
+    height: auto;
+
+    .top {
+      width: 100%;
+      height: 300px;
+    }
+
+    .middle {
+    }
+
+    .bottom {
+    }
+  }
+}
+
+// TITLE : Section 별 타이틀
+.title {
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--fs-18);
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--gray-900);
+}
+
+// Card : Section 별 외곽 스타일
+.card {
+  background-color: var(--backgroundColor);
+
+  &.loading_run {
+    background: url("/img/dashboard_loading_run.gif") no-repeat center center;
+  }
+
+  &.loading {
+    background-size: cover; /* 이미지가 요소를 완전히 채우도록 */
+  }
+}
+
+.card_top {
+  width: 100%;
+  height: 300px;
+}
