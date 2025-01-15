@@ -9,6 +9,7 @@ declare module "next-auth" {
     job: string; // 게임 내 직업
     gender: GenderType; // 성별
     useYn: "Y" | "N"; // 사용 여부
+    userBirth: string; // 생년월일
   }
 
   interface Session {

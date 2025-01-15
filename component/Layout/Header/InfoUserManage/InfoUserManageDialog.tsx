@@ -56,6 +56,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
       job: session.user.job,
       gender: session.user.gender,
       useYn: session.user.useYn,
+      userBirth: session.user.userBirth,
     },
   });
 
@@ -82,6 +83,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
               job: data.job,
               gender: data.gender,
               useYn: data.useYn,
+              userBirth: data.userBirth,
             };
           } else {
             updateUser = {
@@ -91,6 +93,7 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
               job: data.job,
               gender: data.gender,
               useYn: data.useYn,
+              userBirth: data.userBirth,
             };
           }
 
@@ -201,6 +204,32 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                   />
                 </div>
 
+                {/* 생년월일 */}
+                <div className={ms.inp_box}>
+                  <span className={ms.label}>
+                    생년월일 <span className="essential">*</span>
+                  </span>
+                  <Input
+                    {...register("userBirth", {
+                      required: "생년월일 선택은 필수입니다.",
+                    })}
+                    type="date"
+                    aria-invalid={
+                      isSubmitted
+                        ? errors.userBirth
+                          ? "true"
+                          : "false"
+                        : undefined
+                    }
+                    // 별도 컴포넌트 기능
+                    title="userBirth"
+                    inpSize={"md"}
+                    partialErrorObj={errors.userBirth}
+                  />
+                </div>
+              </div>
+
+              <div className={ms.flexbox}>
                 {/* 직업 */}
                 <div className={ms.inp_box}>
                   <span className={ms.label}>
@@ -224,30 +253,30 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
                     value={watch("job")}
                   />
                 </div>
-              </div>
 
-              {/* 문파 권한 */}
-              <div className={ms.inp_box}>
-                <span className={ms.label}>
-                  문파 권한 <span className="essential">*</span>
-                </span>
-                <Selectbox
-                  {...register("authType", {
-                    required: "문파 내 권한을 선택해주세요.",
-                  })}
-                  items={userAuthList}
-                  placeholder="권한 선택"
-                  title="권한 선택"
-                  color="white"
-                  size="md"
-                  onChange={function (event: SelectChangeEvent): void {
-                    const targetValue = event.target.value as UserAuthType;
-                    setValue("authType", targetValue, {
-                      shouldValidate: true,
-                    });
-                  }}
-                  value={watch("authType")}
-                />
+                {/* 문파 권한 */}
+                <div className={ms.inp_box}>
+                  <span className={ms.label}>
+                    문파 권한 <span className="essential">*</span>
+                  </span>
+                  <Selectbox
+                    {...register("authType", {
+                      required: "문파 내 권한을 선택해주세요.",
+                    })}
+                    items={userAuthList}
+                    placeholder="권한 선택"
+                    title="권한 선택"
+                    color="white"
+                    size="md"
+                    onChange={function (event: SelectChangeEvent): void {
+                      const targetValue = event.target.value as UserAuthType;
+                      setValue("authType", targetValue, {
+                        shouldValidate: true,
+                      });
+                    }}
+                    value={watch("authType")}
+                  />
+                </div>
               </div>
 
               <div className={ms.btn_box}>

@@ -2,7 +2,7 @@
 
 import React, { Ref } from "react";
 import ms from "./TableDetail.module.scss";
-import "@/styles/editor.scss";
+import "@/styles/Editor.scss";
 
 interface TableDetailProps {
   title: string; // 제목
