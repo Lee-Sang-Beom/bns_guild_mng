@@ -115,7 +115,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 100px;
+      height: 70px;
+      max-height: 70px;
       border-bottom: 1px dashed var(--gray-500);
 
       span {
