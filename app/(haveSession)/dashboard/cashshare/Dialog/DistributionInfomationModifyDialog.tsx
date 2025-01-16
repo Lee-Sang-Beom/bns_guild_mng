@@ -123,9 +123,10 @@ export default function DistributionInfomationModifyDialog({
           };
 
           setTimeout(() => {
-            window.location.href = `/dashboard/cashshare?${makeUrlQuery(
-              replaceQueryInstance
-            )}`;
+            router.replace(
+              `/dashboard/cashshare?${makeUrlQuery(replaceQueryInstance)}`
+            );
+            router.refresh();
             setOpen(false);
           }, 500);
         } else {

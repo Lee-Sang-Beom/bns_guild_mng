@@ -120,10 +120,10 @@ export default function DistributionInfomationRegistrationDialog({
           };
 
           setTimeout(() => {
-            window.location.href = `/dashboard/cashshare?${makeUrlQuery(
-              replaceQueryInstance
-            )}`;
-            setOpen(false);
+            router.replace(
+              `/dashboard/cashshare?${makeUrlQuery(replaceQueryInstance)}`
+            );
+            router.refresh();
           }, 500);
         } else {
           setText(res.message || "분배 정보 등록 중 오류가 발생했습니다.");
