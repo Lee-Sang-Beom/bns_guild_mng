@@ -207,7 +207,12 @@ export default function CashShareBottom({
                         setStatus("success");
 
                         setTimeout(() => {
-                          router.replace("/dashboard/cashshare");
+                          router.replace(
+                            `/dashboard/cashshare?${makeUrlQuery({
+                              ...queryInstance,
+                              page: 0,
+                            })}`
+                          );
                           router.refresh();
                         }, 500);
                       } else {
