@@ -16,7 +16,7 @@ const fetchRecentCashShareDates = async (): Promise<CashshareResponse[]> => {
   // 쿼리 결과를 배열로 반환
   const result: CashshareResponse[] = [];
   querySnapshot.forEach((doc) => {
-    result.push({ ...(doc.data() as CashshareResponse) });
+    result.push({ ...(doc.data() as CashshareResponse), docId: doc.id });
   });
 
   return result;

@@ -36,7 +36,7 @@
   width: auto;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   font-size: var(--fs-18);
   font-weight: 600;
   margin-bottom: 10px;
@@ -99,8 +99,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: var(--fs-18);
+    gap: 10px;
+    color: var(--mcolor);
+    font-size: var(--fs-28);
     font-weight: 600;
   }
 
@@ -132,6 +133,7 @@
 
         // 분배금 관리
         &.step,
+        &.sellerId,
         &.itemName,
         &.totalPrice {
           width: 100px;
@@ -158,5 +160,18 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .middle {
+    display: flex;
+    flex-direction: column;
+    gap: 50px !important;
+  }
+
+  .middle_left,
+  .middle_right {
+    width: 100% !important;
   }
 }

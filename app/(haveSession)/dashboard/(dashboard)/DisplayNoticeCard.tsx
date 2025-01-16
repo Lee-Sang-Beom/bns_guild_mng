@@ -1,13 +1,10 @@
 "use client";
-import { useGetRecentCashShareDates } from "@/hooks/dashboard/useGetRecentCashShareDates";
 import ms from "./Dashboard.module.scss";
-import { useEffect } from "react";
-import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/request";
-import clsx from "clsx";
-import tms from "@/styles/tableHeader.module.scss";
 import { useGetRecentNoticeDates } from "@/hooks/dashboard/useGetRecentNoticeDates";
 import { NoticeResponse } from "@/types/haveSession/dashboard/notice/request";
-
+import { makeUrlQuery } from "@/utils/common/common";
+import Link from "next/link";
+import { SiDatadog } from "react-icons/si";
 export default function DisplayCashShareCard() {
   const { data } = useGetRecentNoticeDates();
 
@@ -28,18 +25,30 @@ export default function DisplayCashShareCard() {
               : "-";
 
             return (
-              <li key={noticeItem.docId}>
-                <span className={ms.notice_title}>{noticeItem.title}</span>
-                <span className={ms.notice_writerId}>
-                  {noticeItem.writerId}
-                </span>
-                <span className={ms.regDt}>{dateString}</span>
-              </li>
+              <Link
+                key={`${noticeItem.docId}_link`}
+                href={`/dashboard/notice/detail?doc=${noticeItem.docId}`}
+              >
+                <li>
+                  <span className={ms.notice_title}>{noticeItem.title}</span>
+                  <span className={ms.notice_writerId}>
+                    {noticeItem.writerId}
+                  </span>
+                  <span className={ms.regDt}>{dateString}</span>
+                </li>
+              </Link>
             );
           })}
         </ul>
       ) : (
-        <p className={ms.no_data}>등록된 정보가 없습니다.</p>
+        <p className={ms.no_data}>
+          <SiDatadog
+            size={28}
+            role="img"
+            aria-label="사진을 물고있는 개 아이콘"
+          />
+          등록된 정보가 없습니다.
+        </p>
       )}
     </div>
   );

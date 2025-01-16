@@ -16,7 +16,7 @@ const fetchRecentNoticeDates = async (): Promise<NoticeResponse[]> => {
   // 쿼리 결과를 배열로 반환
   const result: NoticeResponse[] = [];
   querySnapshot.forEach((doc) => {
-    result.push({ ...(doc.data() as NoticeResponse) });
+    result.push({ ...(doc.data() as NoticeResponse), docId: doc.id });
   });
 
   return result;

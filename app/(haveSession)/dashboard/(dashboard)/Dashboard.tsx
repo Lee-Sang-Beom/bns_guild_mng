@@ -2,7 +2,7 @@ import { Session } from "next-auth";
 import ms from "./Dashboard.module.scss";
 import dynamic from "next/dynamic";
 import { FaChartPie, FaPaperPlane } from "react-icons/fa";
-import { MdOutlineAttachMoney } from "react-icons/md";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 interface IProps {
   session: Session;
 }
@@ -50,11 +50,7 @@ export default function Dashboard({ session }: IProps) {
         {/* 2. 분배 리스트 */}
         <div className={ms.middle_left}>
           <p className={ms.title}>
-            <FaPaperPlane
-              size={22}
-              role="img"
-              aria-label="공지사항 종이 아이콘"
-            />
+            <FaMoneyCheckDollar size={22} role="img" aria-label="돈 아이콘" />
             최근 거래 및 분배정보
           </p>
           <DisplayCashShareCard />
@@ -62,7 +58,11 @@ export default function Dashboard({ session }: IProps) {
         {/* 3. 공지사항 */}
         <div className={ms.middle_right}>
           <p className={ms.title}>
-            <MdOutlineAttachMoney size={22} role="img" aria-label="돈 아이콘" />
+            <FaPaperPlane
+              size={22}
+              role="img"
+              aria-label="공지사항 종이 아이콘"
+            />
             최근 공지사항
           </p>
           <DisplayNoticeCard />
