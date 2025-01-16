@@ -3,12 +3,13 @@
 import { NoticeResponse } from "@/types/haveSession/dashboard/notice/request";
 import ms from "./NoticeDetail.module.scss";
 import TableDetail from "@/component/common/TableDetail/TableDetail";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Session } from "next-auth";
 import Button from "@/component/common/Button/Button";
 import Dialog from "@/component/common/Dialog/Dialog";
 import ModifyNoticeDialog from "../Dialog/ModifyNoticeDialog";
 import { useRouter } from "next/navigation";
+import { adminAuthTypes } from "@/datastore/common/common";
 interface IProps {
   data: NoticeResponse;
   session: Session;
@@ -19,6 +20,16 @@ export default function NoticeDetailClient({ session, data }: IProps) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const router = useRouter();
   const ref = useRef<HTMLButtonElement | null>(null);
+
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+  useEffect(() => {
+    const loginUserAuthType = session.user.authType;
+    const findIsAdmin = adminAuthTypes.find(
+      (auth) => auth === loginUserAuthType
+    );
+    setIsAdmin(findIsAdmin ? true : false);
+  }, [session]);
 
   return (
     <div className={ms.wrap}>
@@ -47,7 +58,7 @@ export default function NoticeDetailClient({ session, data }: IProps) {
         writerId={data.writerId}
       >
         <div className={ms.btn_box}>
-          {session.user.id === data.writerId ? (
+          {isAdmin ? (
             <Button
               color={"blue_reverse"}
               title={"수정"}
