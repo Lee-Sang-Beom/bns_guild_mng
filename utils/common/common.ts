@@ -181,8 +181,8 @@ export function throttle(func: (...args: any[]) => void, delay: number) {
 
 export function compressImages(
   base64Str: string,
-  maxWidth = 1800, // 해상도를 높이기 위해 최대 크기 확장
-  maxHeight = 1800 // 해상도를 높이기 위해 최대 크기 확장
+  maxWidth = 1280, // 해상도를 높이기 위해 최대 크기 확장
+  maxHeight = 1280 // 해상도를 높이기 위해 최대 크기 확장
 ): Promise<string> {
   return new Promise((resolve) => {
     const img = new Image();
