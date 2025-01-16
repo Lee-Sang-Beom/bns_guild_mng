@@ -52,10 +52,7 @@ async function getCollectionCashShare(
         where("sellerId", "<", searchKeyWord + "\uf8ff")
       );
     } else if (searchType === "ITEM_NAME") {
-      queryConstraints.push(
-        where("itemName", ">=", searchKeyWord),
-        where("itemName", "<", searchKeyWord + "\uf8ff")
-      );
+      queryConstraints.push(where("itemList", "array-contains", searchKeyWord));
     } else {
       queryConstraints.push(
         // where("sellerId", "!=", searchKeyWord),

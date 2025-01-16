@@ -46,6 +46,12 @@ export default function DisplayCashShareCard() {
               [tms.gray]: stepValue == "분배완료",
             });
 
+            // 아이템 리스트
+            const itemListString =
+              cashData.itemList.length > 1
+                ? `${cashData.itemList[0]} 외 ${cashData.itemList.length - 1}건`
+                : `${cashData.itemList[0]}`;
+
             // 총 가격
             const totalPriceString =
               stepValue != "거래등록"
@@ -79,7 +85,7 @@ export default function DisplayCashShareCard() {
                     {stepValue}
                   </span>
                   <span className={ms.sellerId}>{cashData.sellerId}</span>
-                  <span className={ms.itemName}>{cashData.itemName}</span>
+                  <span className={ms.itemName}>{itemListString}</span>
                   <span className={ms.totalPrice}>{totalPriceString}</span>
                   <span className={ms.regDt}>{dateString}</span>
                 </li>

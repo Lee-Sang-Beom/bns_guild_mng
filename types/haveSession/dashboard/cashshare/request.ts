@@ -48,6 +48,12 @@ export interface DistributionInfomationRegistrationRequest {
   itemName: string;
 
   /**
+   * @name itemList
+   * @description 물품 이름 리스트 (쉼표기준)
+   */
+  itemList: string[];
+
+  /**
    * @name totalPrice
    * @description 물품 총 가격
    */
@@ -94,6 +100,12 @@ export interface DistributionInfomationModifyRequest {
    * @description 물품 이름
    */
   itemName: string;
+
+  /**
+   * @name itemList
+   * @description 물품 이름 리스트 (쉼표기준)
+   */
+  itemList: string[];
 
   /**
    * @name totalPrice
@@ -158,6 +170,12 @@ export interface CashshareResponse {
    * @description 물품 이름
    */
   itemName: string;
+
+  /**
+   * @name itemList
+   * @description 물품 이름 리스트 (쉼표기준)
+   */
+  itemList: string[];
 
   /**
    * @name totalPrice

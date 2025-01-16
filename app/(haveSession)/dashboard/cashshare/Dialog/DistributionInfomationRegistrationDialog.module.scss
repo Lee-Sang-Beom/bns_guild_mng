@@ -53,12 +53,19 @@
         gap: 10px;
         margin-bottom: 10px;
 
+        .item_name_btn_box,
         .distribution_user_btn_box {
           display: flex;
           align-items: center;
           width: 200px;
           gap: 10px;
         }
+      }
+
+      // 부가설명 (판매 물품)
+      .itemName_desc {
+        margin-top: 5px;
+        font-size: var(--fs-14);
       }
     }
   }

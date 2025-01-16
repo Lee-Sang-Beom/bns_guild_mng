@@ -63,15 +63,17 @@ export default function CashShareBottom({
           </p>
         );
       },
+      width: "5%",
     },
     {
       name: "대표 판매자",
       value: "sellerId",
+      width: "10%",
     },
     {
       name: "파티원 목록",
       value: "distributionUserList",
-      width: "20%",
+      width: "15%",
       accessFn: (item: CashshareResponse, idx: number) => {
         return (
           <div
@@ -99,11 +101,37 @@ export default function CashShareBottom({
     },
     {
       name: "판매 물품",
-      value: "itemName",
+      value: "itemList",
+      width: "15%",
+      accessFn: (item: CashshareResponse, idx: number) => {
+        return (
+          <div
+            className={`${tms.table_header_flex} ${tms.table_header_flexwrap}`}
+            key={`${item.docId}_itemList`}
+          >
+            {item.itemList.map((itemName) => {
+              return (
+                <Chip
+                  widthStyle="fit-content"
+                  chipData={{
+                    name: itemName,
+                    value: itemName,
+                    group: "",
+                  }}
+                  color={"white"}
+                  title={`${item.docId}_itemList_${itemName}`}
+                  key={`${item.docId}_itemList_${itemName}`}
+                />
+              );
+            })}
+          </div>
+        );
+      },
     },
     {
       name: "물품 총 가격",
       value: "totalPrice",
+      width: "15%",
       accessFn: (item: CashshareResponse, idx: number) => {
         const step = item.step;
         const stepValue =
@@ -137,6 +165,8 @@ export default function CashShareBottom({
     {
       name: "인당 분배금",
       value: "distributionPrice",
+      width: "15%",
+
       accessFn: (item: CashshareResponse, idx: number) => {
         const step = item.step;
         const stepValue =
@@ -160,6 +190,7 @@ export default function CashShareBottom({
     {
       name: "등록 일시",
       value: "regDt",
+      width: "10%",
       accessFn: (item: CashshareResponse, idx: number) => {
         // regDt가 Timestamp 객체라면 Date로 변환 후 포맷
         const timestamp = item.regDt; // Firebase Timestamp 객체
@@ -173,7 +204,6 @@ export default function CashShareBottom({
     {
       name: "관리",
       value: "docId",
-      width: "200px",
       accessFn: (item: CashshareResponse, idx: number) => {
         return (
           <div className={`${tms.table_header_flex}`} key={`${item.docId}_mng`}>
