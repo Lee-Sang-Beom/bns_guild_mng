@@ -181,8 +181,8 @@ export function throttle(func: (...args: any[]) => void, delay: number) {
 
 export function compressImages(
   base64Str: string,
-  maxWidth = 800,
-  maxHeight = 800
+  maxWidth = 3200, // 해상도를 높이기 위해 최대 크기 확장
+  maxHeight = 3200 // 해상도를 높이기 위해 최대 크기 확장
 ): Promise<string> {
   return new Promise((resolve) => {
     const img = new Image();
@@ -193,7 +193,7 @@ export function compressImages(
 
       let { width, height } = img;
 
-      // 비율 유지하면서 크기 조정
+      // 비율을 유지하면서 크기 조정
       if (width > maxWidth || height > maxHeight) {
         if (width > height) {
           height = (height * maxWidth) / width;
@@ -208,7 +208,9 @@ export function compressImages(
       canvas.height = height;
 
       ctx!.drawImage(img, 0, 0, width, height);
-      const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7); // 품질 70%
+
+      // 품질을 100%로 설정하여 해상도를 최대화
+      const compressedBase64 = canvas.toDataURL("image/jpeg", 1.0); // 품질 100%
       resolve(compressedBase64);
     };
   });

@@ -121,9 +121,6 @@ export default function RegisterNoticeDialog({ session, setOpen }: IProps) {
               />
             </div>
 
-            {/* 부가설명 */}
-            <p className={ms.img_desc}>이미지는 기본 800x800으로 저장됩니다.</p>
-
             <div className={ms.btn_box}>
               <Button
                 color={"blue"}
