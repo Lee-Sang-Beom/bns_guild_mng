@@ -19,6 +19,7 @@ import {
 import ModifyNoticeDialog from "./Dialog/ModifyNoticeDialog";
 import { deleteCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
 import Link from "next/link";
+import { adminAuthTypes } from "@/datastore/common/common";
 
 interface IProps {
   session: Session;
@@ -78,9 +79,14 @@ export default function NoticeBottom({
       value: "docId",
       width: "20%",
       accessFn: (item: NoticeResponse, idx: number) => {
+        const loginUserAuthType = session.user.authType;
+        const isAdmin = adminAuthTypes.find(
+          (auth) => auth === loginUserAuthType
+        );
+
         return (
           <div className={`${tms.table_header_flex}`} key={`${item.docId}_mng`}>
-            {item.writerId === session.user.id ? (
+            {isAdmin ? (
               <>
                 <div className={tms.btn_box}>
                   <Button
