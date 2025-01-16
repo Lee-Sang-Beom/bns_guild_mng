@@ -60,13 +60,14 @@ export default function RegisterNoticeDialog({ session, setOpen }: IProps) {
             setOpen(false);
           }, 500);
         } else {
-          setText(res.message || "공지사항 등록 중 오류가 발생했습니다.");
+          setText("업로드할 내용의 크기가 허용량을 초과하였습니다.");
           setIsChange(true);
           setStatus("error");
         }
       })
       .catch((error) => {
         setText("공지사항 등록 중 오류가 발생했습니다.");
+
         setIsChange(true);
         setStatus("error");
         return;
