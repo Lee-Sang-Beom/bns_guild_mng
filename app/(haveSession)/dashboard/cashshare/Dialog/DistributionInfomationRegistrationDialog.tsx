@@ -15,6 +15,7 @@ import { Session } from "next-auth";
 
 import {
   insertFormatToString,
+  makeUrlQuery,
   removeFormatToString,
 } from "@/utils/common/common";
 import {
@@ -61,6 +62,7 @@ export default function DistributionInfomationRegistrationDialog({
       step: "TRANSACTION_REGISTRATION",
       sellerId: session.user.id,
       itemName: "",
+      itemList: [],
       totalPrice: insertFormatToString("NUMBER", Number(0)),
       distributionPrice: insertFormatToString("NUMBER", Number(0)) + "금",
       distributionUserList: [session.user.id],
@@ -69,13 +71,30 @@ export default function DistributionInfomationRegistrationDialog({
   });
 
   const onSubmit = async (data: DistributionInfomationRegistrationRequest) => {
+    // itemName에서 맨 끝의 쉼표 제거
+    let cleanedItemName = data.itemName;
+
+    // 끝의 쉼표 제거
+    if (cleanedItemName.endsWith(",")) {
+      cleanedItemName = cleanedItemName.slice(0, -1);
+    }
+
+    // 연속된 쉼표를 하나로 변경하고, 쉼표를 기준으로 나누기
+    const itemList = cleanedItemName
+      .split(",")
+      .map((item) => item.trim()) // 각 항목의 앞뒤 공백 제거
+      .filter((item) => item.length > 0); // 빈 항목은 필터링
+
     const postData: DistributionInfomationRegistrationRequest = {
       ...data,
+      itemName: itemList.join(", "),
+      itemList: itemList,
       totalPrice: Number(
         removeFormatToString("NUMBER", data.totalPrice.toString())
       ),
       regDt: Timestamp.fromDate(new Date()),
     };
+
     await addCollectionCashShare(postData)
       .then(async (res) => {
         if (!res) {
@@ -89,8 +108,21 @@ export default function DistributionInfomationRegistrationDialog({
           setIsChange(true);
           setStatus("success");
 
+          // 자동으로 내가 추가하거나 수정한 검색조건으로 이동
+          const replaceQueryInstance = {
+            page: 1,
+            size: 5,
+            sort: "regDt",
+            orderBy: "desc",
+            stepType: postData.step,
+            searchType: "SELLER_ID",
+            searchKeyWord: "",
+          };
+
           setTimeout(() => {
-            router.refresh();
+            window.location.href = `/dashboard/cashshare?${makeUrlQuery(
+              replaceQueryInstance
+            )}`;
             setOpen(false);
           }, 500);
         } else {
@@ -217,14 +249,16 @@ export default function DistributionInfomationRegistrationDialog({
               {/* 판매 물품 */}
               <div className={ms.inp_box}>
                 <span className={ms.label}>
-                  판매 물품 <span className="essential">*</span>
+                  판매 물품
+                  <span className="essential">*</span>
                 </span>
                 <Input
                   {...register("itemName", {
-                    required: "판매 물품을 입력해주세요.",
+                    required:
+                      "판매 물품을 입력해주세요. (예: 뇌호석, 봉인된 야칸의 정기)",
                   })}
                   type="text"
-                  placeholder="판매 물품을 입력해주세요."
+                  placeholder="판매 물품을 입력해주세요. (예: 뇌호석, 봉인된 야칸의 정기)"
                   aria-invalid={
                     isSubmitted
                       ? errors.itemName
@@ -237,6 +271,10 @@ export default function DistributionInfomationRegistrationDialog({
                   partialErrorObj={errors.itemName}
                   inpSize="md"
                 />
+                {/* 판매 물품 부가설명 */}
+                <p className={ms.itemName_desc}>
+                  {`※ 판매 물품 기준 검색을 위하여, 판매 물품이 여러 개라면 쉼표를 사용하여 개수를 제외하여 입력해주세요. (ex: 뇌호석 2개, 봉인된 야칸의 정기 1개 -> 뇌호석, 봉인된 야칸의 정기)`}
+                </p>
               </div>
 
               {/* 분배 파티원 목록 */}
