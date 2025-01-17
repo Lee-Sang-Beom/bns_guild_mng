@@ -76,7 +76,7 @@ export async function loginCollectionUser(
         return {
           success: false,
           message:
-            "로그인 승인된 문파원이 아닙니다. 문파 관리자에게 문의해주세요.",
+            "로그인이 승인된 문파원이 아닙니다. 문파 관리자에게 문의해주세요.",
           data: null,
         };
       }

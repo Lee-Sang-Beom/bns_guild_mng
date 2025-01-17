@@ -2,9 +2,9 @@
 
 import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { Session } from "next-auth";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ms from "./Org.module.scss";
-import { userAuthList } from "@/datastore/common/common";
+import { adminAuthTypes, userAuthList } from "@/datastore/common/common";
 import Dialog from "@/component/common/Dialog/Dialog";
 import LoginApprovalDialog from "./LoginApprovalDialog";
 interface IProps {
@@ -13,6 +13,7 @@ interface IProps {
 }
 
 export function OrgRightTabClient({ session, userList }: IProps) {
+  const [isAdmin, setIsAdmin] = useState<boolean>();
   const [userCount, setUserCount] = useState<number>(
     userList && userList.length > 0 ? userList.length : 0
   );
@@ -21,55 +22,73 @@ export function OrgRightTabClient({ session, userList }: IProps) {
   const [selectUser, setSelectUser] = useState<UserResponse | null>(null);
   const ref = useRef<HTMLButtonElement | null>(null);
 
+  useEffect(() => {
+    const loginUserAuthType = session.user.authType;
+    const findIsAdmin = adminAuthTypes.find(
+      (auth) => auth === loginUserAuthType
+    );
+    setIsAdmin(findIsAdmin ? true : false);
+  }, [session]);
+
   return (
     <div className={ms.inner}>
-      {userCount > 0 ? (
-        <div className={ms.card_box}>
-          {userList.map((user) => {
-            const authName = userAuthList.find(
-              (auth) => user.authType === auth.value
-            )!.name;
-            return (
-              <button
-                className={ms.card}
-                key={user.id}
-                onClick={() => {
-                  setSelectUser(user);
-                  setOpen(true);
-                }}
-              >
-                <p>
-                  <span className={ms.key}>닉네임</span>
-                  <span className={ms.value}>{user.id}</span>
-                </p>
-                <p>
-                  <span className={ms.key}>성별</span>
-                  <span className={ms.value}>
-                    {user.gender === "MALE" ? "남" : "여"}
-                  </span>
-                </p>
-                <p>
-                  <span className={ms.key}>생년월일</span>
-                  <span className={ms.value}>{user.userBirth}</span>
-                </p>
-                <p>
-                  <span className={ms.key}>직업</span>
-                  <span className={ms.value}>{user.job}</span>
-                </p>
-                <p>
-                  <span className={ms.key}>요청 권한</span>
-                  <span className={ms.value}>{authName}</span>
-                </p>
-              </button>
-            );
-          })}
-        </div>
+      {isAdmin ? (
+        <>
+          {userCount > 0 ? (
+            <div className={ms.card_box}>
+              {userList.map((user) => {
+                const authName = userAuthList.find(
+                  (auth) => user.authType === auth.value
+                )!.name;
+                return (
+                  <button
+                    className={ms.card}
+                    key={user.id}
+                    onClick={() => {
+                      setSelectUser(user);
+                      setOpen(true);
+                    }}
+                  >
+                    <p>
+                      <span className={ms.key}>닉네임</span>
+                      <span className={ms.value}>{user.id}</span>
+                    </p>
+                    <p>
+                      <span className={ms.key}>성별</span>
+                      <span className={ms.value}>
+                        {user.gender === "MALE" ? "남" : "여"}
+                      </span>
+                    </p>
+                    <p>
+                      <span className={ms.key}>생년월일</span>
+                      <span className={ms.value}>{user.userBirth}</span>
+                    </p>
+                    <p>
+                      <span className={ms.key}>직업</span>
+                      <span className={ms.value}>{user.job}</span>
+                    </p>
+                    <p>
+                      <span className={ms.key}>요청 권한</span>
+                      <span className={ms.value}>{authName}</span>
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className={ms.no_user}>
+              <img src="/img/no_user.jpg" alt="농담곰 슬픈이미지" />
+              로그인 승인을 기다리는 유저가 없습니다.
+            </div>
+          )}
+        </>
       ) : (
         <div className={ms.no_user}>
-          <img src="/img/no_user.jpg" alt="농담곰 슬픈이미지" />
-          로그인 승인을 기다리는 유저가 없습니다.
+          <img src="/img/no_user.jpg" alt="농담곰 슬픈이미지" />본 영역은 관리자
+          외의 접근을 허용하지 않습니다.
         </div>
       )}
+
       {/* 분배 정보 수정 */}
       {selectUser && (
         <Dialog
