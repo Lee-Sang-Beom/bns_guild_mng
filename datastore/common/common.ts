@@ -62,7 +62,12 @@ export const menuList: MenuItem[] = [
     menuUrl: "/dashboard/cashshare",
     mainShow: "Y",
   },
-  // { menuSeq: 3, menuNm: "아트워크", menuUrl: "/dashboard/artworks", mainShow: "N"  },
+  {
+    menuSeq: 3,
+    menuNm: "문파 구성원",
+    menuUrl: "/dashboard/org",
+    mainShow: "Y",
+  },
   {
     menuSeq: 4,
     menuNm: "공지사항",

@@ -129,7 +129,7 @@ export default function CashShareBottom({
       },
     },
     {
-      name: "판매 수익금(단위: 금)",
+      name: "판매 수익금",
       value: "totalPrice",
       width: "15%",
       accessFn: (item: CashshareResponse, idx: number) => {
