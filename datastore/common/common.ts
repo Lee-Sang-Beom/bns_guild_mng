@@ -81,4 +81,16 @@ export const menuList: MenuItem[] = [
     menuUrl: "/dashboard/notice/detail",
     mainShow: "N",
   },
+  {
+    menuSeq: 6,
+    menuNm: "업데이트",
+    menuUrl: "/dashboard/update",
+    mainShow: "N",
+  },
+  {
+    menuSeq: 7,
+    menuNm: "업데이트 상세",
+    menuUrl: "/dashboard/update/detail",
+    mainShow: "N",
+  },
 ];
