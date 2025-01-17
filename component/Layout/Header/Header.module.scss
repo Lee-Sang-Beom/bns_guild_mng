@@ -173,7 +173,7 @@
 
   left: 0;
   bottom: 20px;
-  padding: 0 50px;
+  padding: 0 35px;
   font-size: var(--fs-18);
 
   .inner {
@@ -191,6 +191,12 @@
       display: flex;
       align-items: center;
       gap: 5px;
+
+      span {
+        display: inline-block;
+        word-wrap: break-word;
+        max-width: 130px;
+      }
     }
 
     // RIGHT
