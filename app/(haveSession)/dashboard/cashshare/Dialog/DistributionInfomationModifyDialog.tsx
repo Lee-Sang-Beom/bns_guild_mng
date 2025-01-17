@@ -19,18 +19,17 @@ import {
   removeFormatToString,
 } from "@/utils/common/common";
 import {
-  CashshareResponse,
   DistributionInfomationModifyRequest,
   DistributionStepType,
   FeeType,
 } from "@/types/haveSession/dashboard/cashshare/request";
 import { distributionStepList } from "@/datastore/dashboard/cashshare/cashshare";
 import {
-  addCollectionCashShare,
   getDistributionPrice,
   updateCollectionCashShare,
 } from "@/utils/haveSession/dashboard/cashshare/action";
 import { Timestamp } from "firebase/firestore";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 
 interface IProps {
   session: Session;

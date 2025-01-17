@@ -4,7 +4,6 @@ import PagingComponent from "@/component/common/Paging/Paging";
 import { TablePageResponse } from "@/types/common/commonType";
 import {
   CashshareRequest,
-  CashshareResponse,
   DistributionStepType,
 } from "@/types/haveSession/dashboard/cashshare/request";
 import { makeUrlQuery } from "@/utils/common/common";
@@ -17,6 +16,7 @@ import { SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
 import Input from "@/component/common/Input/Input";
 import useDebounce from "@/hooks/common/debounce/useDebounce";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 
 interface IProps {
   session: Session;
