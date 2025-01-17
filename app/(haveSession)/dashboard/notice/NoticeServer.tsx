@@ -35,7 +35,6 @@ async function getCollectionNotice(
   page = Number(page);
   size = Number(size);
 
-  console.log("queryInstance ", queryInstance);
   const noticeCollection = collection(db, "collection_notice");
 
   // 기본적인 정렬 조건을 추가

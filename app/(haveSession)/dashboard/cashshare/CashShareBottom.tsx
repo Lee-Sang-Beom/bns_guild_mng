@@ -212,7 +212,6 @@ export default function CashShareBottom({
                     color={"blue_reverse"}
                     title={"수정"}
                     id={"modifiy"}
-                    type="submit"
                     onClick={(e) => {
                       setSelectCashshare(item);
                       setDialogOpen(true);
@@ -226,7 +225,6 @@ export default function CashShareBottom({
                     color={"red_reverse"}
                     title={"삭제"}
                     id={"remove"}
-                    type="submit"
                     onClick={async (e) => {
                       const res = await deleteCollectionCashShare(item.docId);
                       if (res.success) {

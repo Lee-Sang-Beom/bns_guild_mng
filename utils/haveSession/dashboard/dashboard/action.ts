@@ -1,7 +1,7 @@
 import { db } from "@/datastore/firebase/firestore";
 import { ApiResponse } from "@/types/common/commonType";
 import { ModifyUserRequest } from "@/types/haveSession/dashboard/dashboard/request";
-import { UserResponse } from "@/types/haveSession/dashboard/org/request";
+import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { encryptPassword } from "@/utils/common/common";
 import {
   collection,

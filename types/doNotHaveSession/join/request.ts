@@ -7,5 +7,5 @@ export interface AddUserRequest {
   job: string;
   gender: GenderType;
   userBirth: string;
-  useYn: "Y";
+  useYn: "Y" | "N";
 }

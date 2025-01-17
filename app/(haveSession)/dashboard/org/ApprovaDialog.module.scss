@@ -1,0 +1,70 @@
+.approval_wrap {
+  width: 100%;
+  height: auto;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.top,
+.bottom {
+  width: 100%;
+  height: auto;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background-color: var(--mbackgroundColor); /* 카드 배경색 */
+  border: 1px solid #ddd; /* 테두리 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+  padding: 16px;
+  text-align: center; /* 텍스트 가운데 정렬 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 효과 */
+
+  .title {
+    font-size: var(--fs-22);
+    color: var(--mcolor);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    li {
+      font-size: var(--fs-16);
+      color: var(--gray-900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      span {
+        display: inline-block;
+      }
+      .key {
+        font-weight: 600;
+      }
+      .value {
+      }
+    }
+  }
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  margin-top: 20px;
+
+  .btn_box {
+    width: 100px;
+    height: auto;
+  }
+}

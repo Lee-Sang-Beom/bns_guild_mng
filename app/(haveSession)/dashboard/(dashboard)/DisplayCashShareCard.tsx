@@ -24,8 +24,6 @@ export default function DisplayCashShareCard() {
             <span className={`${ms.regDt} ${ms.header}`}>등록일</span>
           </li>
           {data.map((cashData: CashshareResponse) => {
-            console.log(cashData);
-
             // 거래단계
             const step = cashData.step;
             const stepValue =
