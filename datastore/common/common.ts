@@ -1,6 +1,7 @@
 import { SelectboxType } from "@/component/common/Selectbox/Selectbox";
 import { MenuItem } from "@/types/common/commonType";
 
+export const homepageAdminUserId = "표현";
 /**
  * @name userAuthList
  * @description 유저 권한 종류

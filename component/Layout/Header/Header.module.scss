@@ -24,6 +24,8 @@
   align-items: center;
   gap: 5px;
 
+  position: relative;
+
   img {
     width: auto;
     height: 170px;
@@ -122,6 +124,21 @@
     .logout span:hover:after {
       width: 100%;
     }
+  }
+
+  .version_update_link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+    font-size: var(--fs-16);
   }
 }
 
