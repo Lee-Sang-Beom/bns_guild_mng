@@ -1,5 +1,5 @@
 import { db } from "@/datastore/firebase/firestore";
-import { NoticeResponse } from "@/types/haveSession/dashboard/notice/request";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, orderBy, limit, query } from "firebase/firestore";
 

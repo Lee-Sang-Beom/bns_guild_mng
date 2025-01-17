@@ -1,7 +1,7 @@
 "use client";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 import ms from "./Dashboard.module.scss";
 import { useGetRecentNoticeDates } from "@/hooks/dashboard/useGetRecentNoticeDates";
-import { NoticeResponse } from "@/types/haveSession/dashboard/notice/request";
 import { makeUrlQuery } from "@/utils/common/common";
 import Link from "next/link";
 import { SiDatadog } from "react-icons/si";

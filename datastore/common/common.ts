@@ -64,7 +64,7 @@ export const menuList: MenuItem[] = [
   },
   {
     menuSeq: 3,
-    menuNm: "문파 구성원",
+    menuNm: "조직도",
     menuUrl: "/dashboard/org",
     mainShow: "Y",
   },

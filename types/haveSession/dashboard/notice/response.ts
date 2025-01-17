@@ -1,20 +1,21 @@
-import { TablePageRequest } from "@/types/common/commonType";
 import { Timestamp } from "firebase/firestore";
 
 /**
- * @name NoticeRequest
- * @description 공지사항 조회 페이징 요청
+ * @name NoticeResponse
+ * @description 공지사항 조회 응답
  */
-export interface NoticeRequest extends TablePageRequest {
-  searchKeyWord: string;
-}
-
-export interface NoticeFormRegisterRequest {
+export interface NoticeResponse {
   /**
    * @name writerId
    * @description 작성자 아이디
    */
   writerId: string;
+
+  /**
+   * @name docId
+   * @description firebase 문서번호
+   */
+  docId: string;
 
   /**
    * @name title
@@ -32,5 +33,5 @@ export interface NoticeFormRegisterRequest {
    * @name regDt
    * @description 등록일
    */
-  regDt: Timestamp | null;
+  regDt: Timestamp;
 }

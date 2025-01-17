@@ -8,14 +8,12 @@ import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { Timestamp } from "firebase/firestore";
-import {
-  NoticeFormRegisterRequest,
-  NoticeResponse,
-} from "@/types/haveSession/dashboard/notice/request";
+import { NoticeFormRegisterRequest } from "@/types/haveSession/dashboard/notice/request";
 import EditorComponent from "@/component/common/EditorComponent/EditorComponent";
 import _ from "lodash";
 import { modifyCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
 import { compressContentImages } from "@/utils/common/common";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 
 interface IProps {
   session: Session;

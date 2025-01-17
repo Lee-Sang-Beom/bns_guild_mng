@@ -1,6 +1,5 @@
 "use client";
 
-import { NoticeResponse } from "@/types/haveSession/dashboard/notice/request";
 import ms from "./NoticeDetail.module.scss";
 import TableDetail from "@/component/common/TableDetail/TableDetail";
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +9,7 @@ import Dialog from "@/component/common/Dialog/Dialog";
 import ModifyNoticeDialog from "../Dialog/ModifyNoticeDialog";
 import { useRouter } from "next/navigation";
 import { adminAuthTypes } from "@/datastore/common/common";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 interface IProps {
   data: NoticeResponse;
   session: Session;
