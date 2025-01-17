@@ -9,10 +9,8 @@ import ms from "./Notice.module.scss";
 import { useEffect, useState } from "react";
 import Input from "@/component/common/Input/Input";
 import useDebounce from "@/hooks/common/debounce/useDebounce";
-import {
-  NoticeRequest,
-  NoticeResponse,
-} from "@/types/haveSession/dashboard/notice/request";
+import { NoticeRequest } from "@/types/haveSession/dashboard/notice/request";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 
 interface IProps {
   session: Session;

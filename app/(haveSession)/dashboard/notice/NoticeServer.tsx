@@ -11,13 +11,11 @@ import {
   startAfter,
 } from "firebase/firestore";
 import { db } from "@/datastore/firebase/firestore";
-import { TablePageRequest, TablePageResponse } from "@/types/common/commonType";
+import { TablePageResponse } from "@/types/common/commonType";
 
-import {
-  NoticeRequest,
-  NoticeResponse,
-} from "@/types/haveSession/dashboard/notice/request";
+import { NoticeRequest } from "@/types/haveSession/dashboard/notice/request";
 import dynamic from "next/dynamic";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 
 const NoticeClient = dynamic(() => import("./NoticeClient"), {
   ssr: false, // 서버 사이드 렌더링 비활성화
@@ -37,7 +35,6 @@ async function getCollectionNotice(
   page = Number(page);
   size = Number(size);
 
-  console.log("queryInstance ", queryInstance);
   const noticeCollection = collection(db, "collection_notice");
 
   // 기본적인 정렬 조건을 추가

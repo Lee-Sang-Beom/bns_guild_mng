@@ -27,7 +27,6 @@ export default function RejectJoin({ res }: any) {
             title={"회원가입 페이지로 이동"}
             id={"move_join"}
             size="lg"
-            type="submit"
             onClick={(e) => {
               if (!window) return;
               window.location.reload();
@@ -42,7 +41,6 @@ export default function RejectJoin({ res }: any) {
             title={"로그인 페이지로 이동"}
             id={"move_login"}
             size="lg"
-            type="submit"
             onClick={(e) => {
               router.push("/login");
             }}

@@ -1,7 +1,7 @@
 import { db } from "@/datastore/firebase/firestore";
 import { ApiResponse } from "@/types/common/commonType";
-import { AddUserRequest } from "@/types/doNotHaveSession/join/request";
 import { ModifyUserRequest } from "@/types/haveSession/dashboard/dashboard/request";
+import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { encryptPassword } from "@/utils/common/common";
 import {
   collection,
@@ -13,15 +13,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { User } from "next-auth";
-
-/**
- * @name CollectionDocUser
- * @description User 인터페이스를 확장한 docId를 포함한 인터페이스
- */
-interface CollectionDocUser extends User {
-  docId: string;
-}
-
 /**
  * @name getCollectionUserById
  * @param id 유저 ID
@@ -36,7 +27,7 @@ async function getCollectionUserById(id: string) {
     if (!querySnapshot.empty) {
       // 문서 ID와 데이터를 반환
       const doc = querySnapshot.docs[0];
-      const responseData: CollectionDocUser = {
+      const responseData: UserResponse = {
         docId: doc.id,
         ...(doc.data() as User),
       };
@@ -64,8 +55,9 @@ export async function modifyCollectionUser(
      * @name STEP1
      * @description 변경하고자 하는 닉네임을 가진 다른 정보가 DB에 있는지 확인
      */
-    const existingDiffUser: CollectionDocUser | null =
-      await getCollectionUserById(data.id);
+    const existingDiffUser: UserResponse | null = await getCollectionUserById(
+      data.id
+    );
 
     if (existingDiffUser && existingDiffUser.id != currentUserId) {
       return {
@@ -79,7 +71,7 @@ export async function modifyCollectionUser(
      * @name STEP2
      * @description 현재 닉네임을 가진 "내 정보"를 DB에서 가져옴
      */
-    const existingUser: CollectionDocUser | null = await getCollectionUserById(
+    const existingUser: UserResponse | null = await getCollectionUserById(
       currentUserId
     );
     if (!existingUser) {

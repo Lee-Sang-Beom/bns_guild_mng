@@ -12,11 +12,9 @@ import {
   startAfter,
 } from "firebase/firestore";
 import { db } from "@/datastore/firebase/firestore";
-import { TablePageRequest, TablePageResponse } from "@/types/common/commonType";
-import {
-  CashshareRequest,
-  CashshareResponse,
-} from "@/types/haveSession/dashboard/cashshare/request";
+import { TablePageResponse } from "@/types/common/commonType";
+import { CashshareRequest } from "@/types/haveSession/dashboard/cashshare/request";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 
 async function getCollectionCashShare(
   queryInstance: CashshareRequest

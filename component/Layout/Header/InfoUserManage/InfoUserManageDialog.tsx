@@ -32,7 +32,6 @@ export default function InfoUserManageDialog({ session, setOpen }: IProps) {
   const router = useRouter();
   const { update } = useSession();
 
-  console.log("session ", session);
   const {
     register,
     getValues,

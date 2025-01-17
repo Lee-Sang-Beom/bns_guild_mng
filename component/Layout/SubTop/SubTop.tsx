@@ -5,7 +5,7 @@ import BreadCrumb from "../BreadCrumb/BreadCrumb";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { RiHome3Fill } from "react-icons/ri";
-import { GiPayMoney } from "react-icons/gi";
+import { GiOrganigram, GiPayMoney } from "react-icons/gi";
 import { AiFillPicture } from "react-icons/ai";
 import { FaPaperPlane } from "react-icons/fa";
 import { menuList } from "@/datastore/common/common";
@@ -23,7 +23,7 @@ const getMenuIcon = (menuSeq: number) => {
     case 2:
       return <GiPayMoney size={size} role="돈을 떨어뜨리는 손 아이콘" />;
     case 3:
-      return <AiFillPicture size={size} role="갤러리 아이콘" />;
+      return <GiOrganigram size={size} role="조직 아이콘" />;
     default:
       return <FaPaperPlane size={size} role="공지사항 아이콘" />;
   }

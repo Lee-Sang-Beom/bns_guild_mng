@@ -1,5 +1,5 @@
 import { db } from "@/datastore/firebase/firestore";
-import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/request";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, orderBy, limit, query } from "firebase/firestore";
 

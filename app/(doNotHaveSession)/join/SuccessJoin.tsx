@@ -29,7 +29,6 @@ export default function SuccessJoin() {
             title={"로그인 페이지로 이동"}
             id={"move_login"}
             size="lg"
-            type="submit"
             onClick={(e) => {
               router.push("/login");
             }}

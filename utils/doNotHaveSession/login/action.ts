@@ -75,7 +75,8 @@ export async function loginCollectionUser(
         // 비활성화
         return {
           success: false,
-          message: "관리자에 의해 비활성화된 계정입니다.",
+          message:
+            "로그인이 승인된 문파원이 아닙니다. 문파 관리자에게 문의해주세요.",
           data: null,
         };
       }

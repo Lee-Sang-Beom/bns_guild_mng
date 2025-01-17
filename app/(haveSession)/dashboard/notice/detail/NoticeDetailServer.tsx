@@ -3,10 +3,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/AuthOptions";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/datastore/firebase/firestore";
 
-import { NoticeResponse } from "@/types/haveSession/dashboard/notice/request";
 import NoticeDetailClient from "./NoticeDetailClient";
-import ms from "./NoticeDetail.module.scss";
 import { redirect } from "next/navigation";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
+
 async function getDetailCollectionNoticeByDocId(
   docId: string
 ): Promise<NoticeResponse | null> {

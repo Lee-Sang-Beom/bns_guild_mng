@@ -3,13 +3,11 @@
 import { Session } from "next-auth";
 import ms from "./Notice.module.scss";
 import { TablePageResponse } from "@/types/common/commonType";
-import {
-  NoticeRequest,
-  NoticeResponse,
-} from "@/types/haveSession/dashboard/notice/request";
+import { NoticeRequest } from "@/types/haveSession/dashboard/notice/request";
 import NoticeTop from "./NoticeTop";
 import NoticeMiddle from "./NoticeMiddle";
 import NoticeBottom from "./NoticeBottom";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 
 interface IProps {
   session: Session;

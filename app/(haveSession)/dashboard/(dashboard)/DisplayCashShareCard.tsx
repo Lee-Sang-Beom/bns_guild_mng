@@ -1,15 +1,13 @@
 "use client";
 import { useGetRecentCashShareDates } from "@/hooks/dashboard/useGetRecentCashShareDates";
 import ms from "./Dashboard.module.scss";
-import {
-  CashshareRequest,
-  CashshareResponse,
-} from "@/types/haveSession/dashboard/cashshare/request";
+import { CashshareRequest } from "@/types/haveSession/dashboard/cashshare/request";
 import clsx from "clsx";
 import tms from "@/styles/tableHeader.module.scss";
 import { SiDatadog } from "react-icons/si";
 import Link from "next/link";
 import { makeUrlQuery } from "@/utils/common/common";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 
 export default function DisplayCashShareCard() {
   const { data } = useGetRecentCashShareDates();
@@ -26,8 +24,6 @@ export default function DisplayCashShareCard() {
             <span className={`${ms.regDt} ${ms.header}`}>등록일</span>
           </li>
           {data.map((cashData: CashshareResponse) => {
-            console.log(cashData);
-
             // 거래단계
             const step = cashData.step;
             const stepValue =

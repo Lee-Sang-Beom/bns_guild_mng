@@ -4,10 +4,7 @@ import Chip from "@/component/common/Chip/Chip";
 import PagingComponent from "@/component/common/Paging/Paging";
 import Table, { TableHeader } from "@/component/common/Table/Table";
 import { TablePageResponse } from "@/types/common/commonType";
-import {
-  CashshareRequest,
-  CashshareResponse,
-} from "@/types/haveSession/dashboard/cashshare/request";
+import { CashshareRequest } from "@/types/haveSession/dashboard/cashshare/request";
 import { makeUrlQuery } from "@/utils/common/common";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
@@ -19,6 +16,7 @@ import DistributionInfomationModifyDialog from "./Dialog/DistributionInfomationM
 import { deleteCollectionCashShare } from "@/utils/haveSession/dashboard/cashshare/action";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import clsx from "clsx";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 
 interface IProps {
   session: Session;
@@ -129,7 +127,7 @@ export default function CashShareBottom({
       },
     },
     {
-      name: "판매 수익금(단위: 금)",
+      name: "판매 수익금",
       value: "totalPrice",
       width: "15%",
       accessFn: (item: CashshareResponse, idx: number) => {
@@ -214,7 +212,6 @@ export default function CashShareBottom({
                     color={"blue_reverse"}
                     title={"수정"}
                     id={"modifiy"}
-                    type="submit"
                     onClick={(e) => {
                       setSelectCashshare(item);
                       setDialogOpen(true);
@@ -228,7 +225,6 @@ export default function CashShareBottom({
                     color={"red_reverse"}
                     title={"삭제"}
                     id={"remove"}
-                    type="submit"
                     onClick={async (e) => {
                       const res = await deleteCollectionCashShare(item.docId);
                       if (res.success) {

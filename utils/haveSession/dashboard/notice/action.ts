@@ -24,7 +24,6 @@ import { User } from "next-auth";
 export async function addCollectionNotice(
   data: NoticeFormRegisterRequest
 ): Promise<ApiResponse<string | null>> {
-  console.log("data is ", data);
   try {
     // Firestore에 새로운 유저 추가
     const docRef = await addDoc(collection(db, "collection_notice"), data);

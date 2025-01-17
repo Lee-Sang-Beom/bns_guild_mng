@@ -52,7 +52,7 @@ export default function JoinClient() {
       authType: "MEMBER",
       job: "검사",
       gender: "MALE",
-      useYn: "Y",
+      useYn: "N",
       userBirth: "",
     },
   });

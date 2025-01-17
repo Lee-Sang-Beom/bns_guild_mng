@@ -12,14 +12,12 @@ import Button from "@/component/common/Button/Button";
 import { useRef, useState } from "react";
 import Dialog from "@/component/common/Dialog/Dialog";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
-import {
-  NoticeRequest,
-  NoticeResponse,
-} from "@/types/haveSession/dashboard/notice/request";
+import { NoticeRequest } from "@/types/haveSession/dashboard/notice/request";
 import ModifyNoticeDialog from "./Dialog/ModifyNoticeDialog";
 import { deleteCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
 import Link from "next/link";
 import { adminAuthTypes } from "@/datastore/common/common";
+import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
 
 interface IProps {
   session: Session;

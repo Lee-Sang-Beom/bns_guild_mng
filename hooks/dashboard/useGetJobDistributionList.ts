@@ -1,7 +1,7 @@
 import { jobList } from "@/datastore/common/common";
 import { db } from "@/datastore/firebase/firestore";
 import { useQuery } from "@tanstack/react-query";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 // Firebase 유저 데이터 타입 정의
 interface UserData {
@@ -19,7 +19,8 @@ const fetchJobDistributionList = async (): Promise<
   DashboardJobDistributionListType[]
 > => {
   const userCollection = collection(db, "collection_user");
-  const snapshot = await getDocs(userCollection);
+  const q = query(userCollection, where("useYn", "==", "Y"));
+  const snapshot = await getDocs(q);
 
   // 초기 카운트 맵 생성
   const jobCountMap: Record<string, number> = jobList.reduce(

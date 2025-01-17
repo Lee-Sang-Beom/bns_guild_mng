@@ -4,12 +4,10 @@ import { Session } from "next-auth";
 import ms from "./CashShare.module.scss";
 import CashShareTop from "./CashShareTop";
 import CashShareBottom from "./CashShareBottom";
-import {
-  CashshareRequest,
-  CashshareResponse,
-} from "@/types/haveSession/dashboard/cashshare/request";
+import { CashshareRequest } from "@/types/haveSession/dashboard/cashshare/request";
 import { TablePageResponse } from "@/types/common/commonType";
 import CashShareMiddle from "./CashShareMiddle";
+import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
 
 interface IProps {
   session: Session;
