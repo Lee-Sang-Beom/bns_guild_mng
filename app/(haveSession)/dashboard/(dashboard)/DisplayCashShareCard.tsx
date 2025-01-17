@@ -22,9 +22,7 @@ export default function DisplayCashShareCard() {
             <span className={`${ms.step} ${ms.header}`}>단계</span>
             <span className={`${ms.sellerId} ${ms.header}`}>판매자</span>
             <span className={`${ms.itemName} ${ms.header}`}>판매 물품</span>
-            <span className={`${ms.totalPrice} ${ms.header}`}>
-              물품 총 가격
-            </span>
+            <span className={`${ms.totalPrice} ${ms.header}`}>판매 수익금</span>
             <span className={`${ms.regDt} ${ms.header}`}>등록일</span>
           </li>
           {data.map((cashData: CashshareResponse) => {

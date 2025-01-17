@@ -110,6 +110,7 @@ export default function DistributionInfomationModifyDialog({
           setText("저장되었습니다.");
           setIsChange(true);
           setStatus("success");
+          setOpen(false);
 
           // 자동으로 내가 추가하거나 수정한 검색조건으로 이동
           const replaceQueryInstance = {
@@ -378,7 +379,7 @@ export default function DistributionInfomationModifyDialog({
                 <div className={ms.flexbox}>
                   <div className={ms.inp_box}>
                     <span className={ms.label}>
-                      {`판매 물품 총 가격(금)`}{" "}
+                      {`판매 수익금(단위: 금)`}
                       <span className="essential">*</span>
                     </span>
                     <Input
@@ -387,7 +388,7 @@ export default function DistributionInfomationModifyDialog({
                         onlyNumberReactHookFormOption(true)
                       )}
                       type="text"
-                      placeholder="판매 물품 총 가격을 입력해주세요."
+                      placeholder="시장 거래 결과로 수령받은 거래수수료가 차감된 수익금을 입력해주세요."
                       aria-invalid={
                         isSubmitted
                           ? errors.totalPrice
@@ -395,7 +396,7 @@ export default function DistributionInfomationModifyDialog({
                             : "false"
                           : undefined
                       }
-                      title="판매 물품 총 가격"
+                      title="판매 물품 수익금(단위: 금)"
                       id="totalPrice"
                       onFocus={(e) => {
                         setValue(
