@@ -85,7 +85,8 @@ export default function LoginClient() {
             <div className={ms.top}>
               <p className={ms.title}>로그인</p>
               <p className={ms.desc}>
-                회원가입을 진행한 시그니처 문파원만 로그인을 진행할 수 있습니다.
+                회원가입을 진행한 후, 관리자 확인을 통과한 시그니처 문파원만
+                로그인을 진행할 수 있습니다.
               </p>
             </div>
             <SubmitForm onSubmit={handleSubmit(onSubmit, onError)}>

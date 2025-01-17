@@ -29,7 +29,8 @@ export async function approvalCollectionUser(
 
 // 회원 탈퇴 함수
 export async function withdrawCollectionUser(
-  user: UserResponse
+  user: UserResponse,
+  tabLocate: "LEFT" | "RIGHT"
 ): Promise<ApiResponse<string | null>> {
   const userDocRef = doc(db, "collection_user", user.docId);
 
@@ -37,13 +38,16 @@ export async function withdrawCollectionUser(
     await deleteDoc(userDocRef);
     return {
       success: true,
-      message: "승인요청 반려가 완료되었습니다.",
+      message:
+        tabLocate === "LEFT"
+          ? "회원탈퇴가 완료되었습니다."
+          : "정상적으로 승인요청을 반려했습니다.",
       data: userDocRef.id,
     };
   } catch (error) {
     return {
       success: false,
-      message: "승인요청 중 오류가 발생했습니다.",
+      message: "요청 중 오류가 발생했습니다.",
       data: null,
     };
   }
