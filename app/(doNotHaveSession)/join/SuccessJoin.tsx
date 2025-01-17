@@ -12,7 +12,7 @@ export default function SuccessJoin() {
       <div className={ms.top}>
         <p className={ms.title}>회원가입 완료</p>
         <p className={ms.desc}>
-          로그인 페이지로 이동하여, 로그인을 진행해주세요.
+          관리자 승인 이후, 로그인을 진행하실 수 있습니다.
         </p>
       </div>
 

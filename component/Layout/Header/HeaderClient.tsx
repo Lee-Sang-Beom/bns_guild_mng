@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { Session } from "next-auth";
 import InfoUserManage from "./InfoUserManage/InfoUserManage";
+import Link from "next/link";
+import { MdOutlineNewReleases } from "react-icons/md";
 
 interface IProps {
   session: Session | null;
@@ -56,6 +58,9 @@ export default function HeaderClient({ session }: IProps) {
             </span>
           </button>
         </div>
+        <Link className={ms.version_update_link} href="/dashboard/update">
+          <MdOutlineNewReleases size={20} /> 업데이트 확인
+        </Link>
       </div>
 
       {/* MIDDLE - Navigation */}

@@ -24,6 +24,8 @@
   align-items: center;
   gap: 5px;
 
+  position: relative;
+
   img {
     width: auto;
     height: 170px;
@@ -123,6 +125,21 @@
       width: 100%;
     }
   }
+
+  .version_update_link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+    font-size: var(--fs-16);
+  }
 }
 
 // MIDDLE (Navigation)
@@ -173,7 +190,7 @@
 
   left: 0;
   bottom: 20px;
-  padding: 0 50px;
+  padding: 0 35px;
   font-size: var(--fs-18);
 
   .inner {
@@ -191,6 +208,12 @@
       display: flex;
       align-items: center;
       gap: 5px;
+
+      span {
+        display: inline-block;
+        word-wrap: break-word;
+        max-width: 130px;
+      }
     }
 
     // RIGHT

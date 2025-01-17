@@ -1,7 +1,6 @@
-.approval_wrap {
+.wrap {
   width: 100%;
   height: auto;
-
   * {
     box-sizing: border-box;
   }
@@ -62,7 +61,6 @@
   flex-direction: row-reverse;
   gap: 5px;
   margin-top: 20px;
-
   .btn_box {
     width: 100px;
     height: auto;

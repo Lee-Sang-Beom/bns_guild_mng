@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import ms from "./Org.module.scss";
 import { adminAuthTypes, userAuthList } from "@/datastore/common/common";
 import Dialog from "@/component/common/Dialog/Dialog";
-import LoginApprovalDialog from "./LoginApprovalDialog";
+import ApprovalDialog from "./ApprovalDialog";
 interface IProps {
   session: Session;
   userList: UserResponse[];
@@ -89,7 +89,7 @@ export function OrgRightTabClient({ session, userList }: IProps) {
         </div>
       )}
 
-      {/* 분배 정보 수정 */}
+      {/* 승인 관리 */}
       {selectUser && (
         <Dialog
           type="alert"
@@ -100,7 +100,7 @@ export function OrgRightTabClient({ session, userList }: IProps) {
           ref={ref}
           paperHidden={true}
         >
-          <LoginApprovalDialog
+          <ApprovalDialog
             session={session}
             setOpen={setOpen}
             data={selectUser}

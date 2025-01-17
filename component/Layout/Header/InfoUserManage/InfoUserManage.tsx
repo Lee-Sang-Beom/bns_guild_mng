@@ -23,7 +23,7 @@ export default function InfoUserManage({ session }: IProps) {
           {/* LEFT */}
           <p className={`${ms.left} ${ms.info_txt}`}>
             <BiSolidUserCircle size={22} role="img" aria-label="유저 아이콘" />
-            {session && session.user && session.user.id}
+            <span>{session && session.user && session.user.id}</span>
           </p>
 
           {/* RIGHT */}

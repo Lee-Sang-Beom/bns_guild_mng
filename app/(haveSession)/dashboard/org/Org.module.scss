@@ -12,6 +12,103 @@
   height: auto;
 }
 
+// ------------ LEFT
+.inner {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
+  // LEFT
+  .left.logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .circle_bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background-color: var(--chart7);
+      border-radius: 50%;
+    }
+    .circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: url("/img/logo.jpg");
+      background-size: cover; /* 이미지가 요소의 크기에 맞게 조정 */
+      background-position: center; /* 이미지가 중앙에 위치 */
+      background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+    }
+  }
+
+  .right.role {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .role_box {
+      width: 100%;
+      position: relative;
+      background-color: #ffffff;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .role_title {
+        font-size: var(--fs-18);
+        font-weight: bold;
+        color: #333;
+        width: 100px;
+        max-width: 100px;
+      }
+
+      .role_list {
+        width: calc(100% - 150px);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+
+    .role_box:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Connecting lines */
+    .role_box::before {
+      content: "";
+      position: absolute;
+      width: 30px; /* Adjust distance based on layout */
+      height: 2px;
+      background-color: var(--gray-500);
+      top: 50%;
+      left: -30px;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+// ------------ RIGHT
 // 승인요청할 문파원이 없는경우
 .no_user {
   width: 100%;
@@ -41,8 +138,10 @@
   gap: 16px; /* 카드 간격 */
   padding: 16px;
   background-color: var(--mbackgroundColor); /* 배경색 */
+  width: 100%;
 
   .card {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
