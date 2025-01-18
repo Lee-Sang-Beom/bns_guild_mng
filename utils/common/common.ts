@@ -161,6 +161,16 @@ export function makeUrlQuery(params: Record<string, any>): string {
 }
 
 /**
+ * @name maskUserBirth
+ * @description 생년월일 스키마처리
+ */
+export function maskUserBirth(userBirth: string): string {
+  // "YYYY-MM-DD" 형식의 문자열에서 월과 일을 "**"로 변경
+  const [year] = userBirth.split("-");
+  return `${year}-**-**`;
+}
+
+/**
  * @name throttle
  * @description 스로틀링 함수 구현
  */

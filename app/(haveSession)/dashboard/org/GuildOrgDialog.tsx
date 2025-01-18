@@ -13,6 +13,7 @@ import {
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { maskUserBirth } from "@/utils/common/common";
 
 interface IProps {
   session: Session;
@@ -26,7 +27,8 @@ export default function GuildOrgDialog({ session, setOpen, data }: IProps) {
   const [authName] = useState<string>(
     userAuthList.find((auth) => data.authType === auth.value)!.name
   );
-  const [isAdmin, setIsAdmin] = useState<boolean>();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isSelf, setIsSelf] = useState<boolean>(false);
 
   async function onMutate(action: string, user: UserResponse) {
     try {
@@ -64,6 +66,7 @@ export default function GuildOrgDialog({ session, setOpen, data }: IProps) {
       (auth) => auth === loginUserAuthType
     );
     setIsAdmin(findIsAdmin ? true : false);
+    setIsSelf(session.user.id === data.id);
   }, [session]);
 
   return (
@@ -81,9 +84,15 @@ export default function GuildOrgDialog({ session, setOpen, data }: IProps) {
               {data.gender === "MALE" ? "남" : "여"}
             </span>
           </li>
+
+          {/* 관리자이거나 본인이면 생년월일 그대로 표시(아니면 마스킹) */}
           <li>
             <span className={ms.key}>생년월일</span>
-            <span className={ms.value}>{data.userBirth}</span>
+            <span className={ms.value}>
+              {isAdmin || isSelf
+                ? data.userBirth
+                : maskUserBirth(data.userBirth)}
+            </span>
           </li>
           <li>
             <span className={ms.key}>직업</span>
