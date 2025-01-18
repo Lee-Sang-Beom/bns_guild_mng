@@ -59,7 +59,7 @@ export default function HeaderClient({ session }: IProps) {
           </button>
         </div>
         <Link className={ms.version_update_link} href="/dashboard/update">
-          <MdOutlineNewReleases size={20} /> 업데이트 확인
+          <MdOutlineNewReleases size={20} /> 업데이트
         </Link>
       </div>
 
