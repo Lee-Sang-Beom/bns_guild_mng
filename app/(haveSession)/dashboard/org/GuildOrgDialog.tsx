@@ -14,6 +14,7 @@ import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { maskUserBirth } from "@/utils/common/common";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IProps {
   session: Session;
@@ -23,6 +24,7 @@ interface IProps {
 export default function GuildOrgDialog({ session, setOpen, data }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [authName] = useState<string>(
     userAuthList.find((auth) => data.authType === auth.value)!.name
@@ -49,12 +51,17 @@ export default function GuildOrgDialog({ session, setOpen, data }: IProps) {
         setText("회원탈퇴를 진행하여 자동 로그아웃을 진행합니다.");
         setStatus("success");
         setIsChange(true);
-
         setTimeout(() => {
           window.location.href = "/";
         }, 500);
       } else {
         setOpen(false); // 다이얼로그 닫기
+        queryClient.invalidateQueries({
+          queryKey: ["useGetActiveUserList"], // 조직도 본 캐릭터 리스트
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["useGetActiveSubUserList"], // 조직도 서브 캐릭터 리스트
+        });
         router.refresh();
       }
     }
