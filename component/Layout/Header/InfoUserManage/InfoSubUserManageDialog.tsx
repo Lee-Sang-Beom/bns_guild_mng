@@ -84,7 +84,16 @@ export default function InfoSubUserManageDialog({ session, setOpen }: IProps) {
           reset();
           setSelectSubUser(null);
           queryClient.invalidateQueries({
-            queryKey: ["useGetSubUserList", session.user.id],
+            queryKey: ["useGetSubUserList", session.user.id], // 팝업 내 서브캐릭터 리스트
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["useGetJobDistributionList"], // 직업 분포 쿼리
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["useGetActiveUserList"], // 조직도 본 캐릭터 리스트
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["useGetActiveSubUserList"], // 조직도 서브 캐릭터 리스트
           });
         } else {
           setText(res.message || "작업 처리 중 문제가 발생했습니다.");
@@ -112,7 +121,16 @@ export default function InfoSubUserManageDialog({ session, setOpen }: IProps) {
           reset();
           setSelectSubUser(null);
           queryClient.invalidateQueries({
-            queryKey: ["useGetSubUserList", session.user.id],
+            queryKey: ["useGetSubUserList", session.user.id], // 팝업 내 서브캐릭터 리스트
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["useGetJobDistributionList"], // 직업 분포 쿼리
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["useGetActiveUserList"], // 조직도 본 캐릭터 리스트
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["useGetActiveSubUserList"], // 조직도 서브 캐릭터 리스트
           });
         } else {
           setText(
@@ -189,9 +207,17 @@ export default function InfoSubUserManageDialog({ session, setOpen }: IProps) {
                           setIsChange(true);
                           setStatus("success");
                           queryClient.invalidateQueries({
-                            queryKey: ["useGetSubUserList", session.user.id],
+                            queryKey: ["useGetSubUserList", session.user.id], // 팝업 내 서브캐릭터 리스트
                           });
-
+                          queryClient.invalidateQueries({
+                            queryKey: ["useGetJobDistributionList"], // 직업 분포 쿼리
+                          });
+                          queryClient.invalidateQueries({
+                            queryKey: ["useGetActiveUserList"], // 조직도 본 캐릭터 리스트
+                          });
+                          queryClient.invalidateQueries({
+                            queryKey: ["useGetActiveSubUserList"], // 조직도 서브 캐릭터 리스트
+                          });
                           reset();
                           setSelectSubUser(null);
                         } catch (error: any) {

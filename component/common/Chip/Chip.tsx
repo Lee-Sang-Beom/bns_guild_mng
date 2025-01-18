@@ -46,7 +46,7 @@ interface ChipProps {
  * @return "xsm" | "sm" | "md" | "lg" | "xlg";
  *
  * @param color?: 칩 색상 (기본 white)
- * @returns string (white, disabled)
+ * @returns string (white, blue, disabled)
  *
  * @param border?: 보더 사이즈 (기본 br_square_round_2)
  * @return "br_square_round_1" | "br_square_round_2" | "br_round";

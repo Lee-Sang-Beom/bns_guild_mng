@@ -8,18 +8,26 @@ import { UserAuthType } from "@/types/common/commonType";
 import Chip from "@/component/common/Chip/Chip";
 import Dialog from "@/component/common/Dialog/Dialog";
 import GuildOrgDialog from "./GuildOrgDialog";
+import { SubUserDocResponse } from "@/types/haveSession/dashboard/dashboard/response";
+import GuildOrgSubCharacterDialog from "./GuildOrgSubCharacterDialog";
+import { useGetActiveSubUserList } from "@/hooks/dashboard/org/useGetActiveSubUserList";
+import { useGetActiveUserList } from "@/hooks/dashboard/org/useGetActiveUserList";
 interface IProps {
   session: Session;
-  userList: UserResponse[];
 }
 
+// 대표캐릭터, 서브캐릭터 형태
 type GroupedUsers = Record<UserAuthType, UserResponse[]>;
+type GroupedSubUsers = Record<UserAuthType, SubUserDocResponse[]>;
 
-export default function OrgLeftTabClient({ session, userList }: IProps) {
+export default function OrgLeftTabClient({ session }: IProps) {
   const ref = useRef<HTMLButtonElement | null>(null);
   const [selectUserChip, setSelectUserChip] = useState<UserResponse | null>(
     null
   );
+  const [selectSubUserChip, setSelectSubUserChip] =
+    useState<SubUserDocResponse | null>(null);
+
   const [open, setOpen] = useState<boolean>(false);
   const [groupedUsers, setGroupedUsers] = useState<GroupedUsers>({
     LEADER: [],
@@ -28,11 +36,30 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
     MEMBER: [],
     TRAINEE: [],
   });
+  const [groupedSubUsers, setGroupedSubUsers] = useState<GroupedSubUsers>({
+    LEADER: [],
+    DEPUTY_LEADER: [],
+    ELDER: [],
+    MEMBER: [],
+    TRAINEE: [],
+  });
+
+  const { data: userList } = useGetActiveUserList();
+  const { data: subUserList } = useGetActiveSubUserList();
 
   useEffect(() => {
     if (userList) {
-      // 권한별로 분류
+      // 권한별로 분류 - 본캐릭터
       const grouped: GroupedUsers = {
+        LEADER: [],
+        DEPUTY_LEADER: [],
+        ELDER: [],
+        MEMBER: [],
+        TRAINEE: [],
+      };
+
+      // 권한별로 분류 - 서브캐릭터터
+      const groupedSub: GroupedSubUsers = {
         LEADER: [],
         DEPUTY_LEADER: [],
         ELDER: [],
@@ -43,14 +70,27 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
       userList.forEach((user) => {
         grouped[user.authType].push(user);
       });
+      subUserList.forEach((user) => {
+        groupedSub[user.authType].push(user);
+      });
 
       setGroupedUsers(grouped);
+      setGroupedSubUsers(groupedSub);
     }
-  }, [userList]);
+  }, [userList, subUserList]);
 
-  function chipClick(user: UserResponse) {
+  // 본캐릭터 클릭
+  function userChipClick(user: UserResponse) {
     setOpen(true);
     setSelectUserChip(user);
+    setSelectSubUserChip(null);
+  }
+
+  // 서브캐릭터 클릭
+  function subUserChipClick(user: SubUserDocResponse) {
+    setOpen(true);
+    setSelectUserChip(null);
+    setSelectSubUserChip(user);
   }
   return (
     <div className={ms.inner}>
@@ -77,7 +117,26 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
                   color={session.user.id === user.id ? "blue" : "white"}
                   title={`${user.id}_${user.docId}`}
                   onClick={() => {
-                    chipClick(user);
+                    userChipClick(user);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              );
+            })}
+            {groupedSubUsers.LEADER.map((user) => {
+              return (
+                <Chip
+                  key={`${user.id}_${user.docId}`}
+                  widthStyle="fit-content"
+                  chipData={{
+                    name: user.id,
+                    value: user.id,
+                    group: "",
+                  }}
+                  color={session.user.id === user.parentId ? "blue" : "white"}
+                  title={`${user.id}_${user.docId}`}
+                  onClick={() => {
+                    subUserChipClick(user);
                   }}
                   style={{ cursor: "pointer" }}
                 />
@@ -101,7 +160,26 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
                   color={session.user.id === user.id ? "blue" : "white"}
                   title={`${user.id}_${user.docId}`}
                   onClick={() => {
-                    chipClick(user);
+                    userChipClick(user);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              );
+            })}
+            {groupedSubUsers.DEPUTY_LEADER.map((user) => {
+              return (
+                <Chip
+                  key={`${user.id}_${user.docId}`}
+                  widthStyle="fit-content"
+                  chipData={{
+                    name: user.id,
+                    value: user.id,
+                    group: "",
+                  }}
+                  color={session.user.id === user.parentId ? "blue" : "white"}
+                  title={`${user.id}_${user.docId}`}
+                  onClick={() => {
+                    subUserChipClick(user);
                   }}
                   style={{ cursor: "pointer" }}
                 />
@@ -125,7 +203,26 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
                   color={session.user.id === user.id ? "blue" : "white"}
                   title={`${user.id}_${user.docId}`}
                   onClick={() => {
-                    chipClick(user);
+                    userChipClick(user);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              );
+            })}
+            {groupedSubUsers.ELDER.map((user) => {
+              return (
+                <Chip
+                  key={`${user.id}_${user.docId}`}
+                  widthStyle="fit-content"
+                  chipData={{
+                    name: user.id,
+                    value: user.id,
+                    group: "",
+                  }}
+                  color={session.user.id === user.parentId ? "blue" : "white"}
+                  title={`${user.id}_${user.docId}`}
+                  onClick={() => {
+                    subUserChipClick(user);
                   }}
                   style={{ cursor: "pointer" }}
                 />
@@ -149,7 +246,26 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
                   color={session.user.id === user.id ? "blue" : "white"}
                   title={`${user.id}_${user.docId}`}
                   onClick={() => {
-                    chipClick(user);
+                    userChipClick(user);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              );
+            })}
+            {groupedSubUsers.MEMBER.map((user) => {
+              return (
+                <Chip
+                  key={`${user.id}_${user.docId}`}
+                  widthStyle="fit-content"
+                  chipData={{
+                    name: user.id,
+                    value: user.id,
+                    group: "",
+                  }}
+                  color={session.user.id === user.parentId ? "blue" : "white"}
+                  title={`${user.id}_${user.docId}`}
+                  onClick={() => {
+                    subUserChipClick(user);
                   }}
                   style={{ cursor: "pointer" }}
                 />
@@ -173,7 +289,26 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
                   color={session.user.id === user.id ? "blue" : "white"}
                   title={`${user.id}_${user.docId}`}
                   onClick={() => {
-                    chipClick(user);
+                    userChipClick(user);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              );
+            })}
+            {groupedSubUsers.TRAINEE.map((user) => {
+              return (
+                <Chip
+                  key={`${user.id}_${user.docId}`}
+                  widthStyle="fit-content"
+                  chipData={{
+                    name: user.id,
+                    value: user.id,
+                    group: "",
+                  }}
+                  color={session.user.id === user.parentId ? "blue" : "white"}
+                  title={`${user.id}_${user.docId}`}
+                  onClick={() => {
+                    subUserChipClick(user);
                   }}
                   style={{ cursor: "pointer" }}
                 />
@@ -198,6 +333,25 @@ export default function OrgLeftTabClient({ session, userList }: IProps) {
             session={session}
             setOpen={setOpen}
             data={selectUserChip}
+          />
+        </Dialog>
+      )}
+
+      {/* 문파원 서브캐릭터 정보 */}
+      {selectSubUserChip && (
+        <Dialog
+          type="alert"
+          width="sm"
+          open={open}
+          setOpen={setOpen}
+          title={"문파원 서브캐릭터 정보"}
+          ref={ref}
+          paperHidden={true}
+        >
+          <GuildOrgSubCharacterDialog
+            session={session}
+            setOpen={setOpen}
+            data={selectSubUserChip}
           />
         </Dialog>
       )}

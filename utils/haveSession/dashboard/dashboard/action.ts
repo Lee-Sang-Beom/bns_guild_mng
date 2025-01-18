@@ -4,6 +4,10 @@ import {
   ModifyUserRequest,
   SubUserManageRequest,
 } from "@/types/haveSession/dashboard/dashboard/request";
+import {
+  SubUserDocResponse,
+  SubUserResponse,
+} from "@/types/haveSession/dashboard/dashboard/response";
 import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { encryptPassword } from "@/utils/common/common";
 import {
@@ -47,6 +51,37 @@ async function getCollectionUserById(id: string) {
 }
 
 /**
+ * @name getCollectionSubUserById
+ * @param id 유저 ID
+ * @description Firestore에서 특정 ID를 가진 collection_sub_user 검색
+ * @returns 동일한 ID를 가진 유저 데이터 또는 null
+ */
+async function getCollectionSubUserById(id: string) {
+  try {
+    const q = query(
+      collection(db, "collection_sub_user"),
+      where("id", "==", id)
+    );
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      // 문서 ID와 데이터를 반환
+      const doc = querySnapshot.docs[0];
+      const responseData: SubUserDocResponse = {
+        docId: doc.id,
+        ...(doc.data() as SubUserResponse),
+      };
+      return responseData; // 문서 ID 포함
+    }
+
+    return null; // 동일한 ID를 가진 유저가 없음
+  } catch (e) {
+    console.error("Error fetching sub-user by ID: ", e);
+    throw new Error("Failed to fetch sub-user by ID");
+  }
+}
+
+/**
  * @name modifyCollectionUser
  * @param data 유저 정보
  * @description 개인정보 수정
@@ -65,6 +100,17 @@ export async function modifyCollectionUser(
     );
 
     if (existingDiffUser && existingDiffUser.id != currentUserId) {
+      return {
+        success: false,
+        message: "이미 같은 닉네임을 가진 회원이 존재합니다.",
+        data: null,
+      };
+    }
+
+    const existingDiffSubUser: SubUserDocResponse | null =
+      await getCollectionSubUserById(data.id);
+
+    if (existingDiffSubUser && existingDiffSubUser.id != currentUserId) {
       return {
         success: false,
         message: "이미 같은 닉네임을 가진 회원이 존재합니다.",
