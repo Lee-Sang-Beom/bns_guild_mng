@@ -18,9 +18,14 @@ interface DashboardJobDistributionListType {
 const fetchJobDistributionList = async (): Promise<
   DashboardJobDistributionListType[]
 > => {
+  // 컬렉션을 두 개 모두 조회: collection_user, collection_sub_user
   const userCollection = collection(db, "collection_user");
-  const q = query(userCollection, where("useYn", "==", "Y"));
-  const snapshot = await getDocs(q);
+  const subUserCollection = collection(db, "collection_sub_user");
+
+  const [userSnapshot, subUserSnapshot] = await Promise.all([
+    getDocs(query(userCollection, where("useYn", "==", "Y"))),
+    getDocs(query(subUserCollection)),
+  ]);
 
   // 초기 카운트 맵 생성
   const jobCountMap: Record<string, number> = jobList.reduce(
@@ -31,9 +36,18 @@ const fetchJobDistributionList = async (): Promise<
     {} as Record<string, number>
   );
 
-  // 유저 데이터를 카운트
-  snapshot.forEach((doc) => {
+  // 유저 데이터 카운트 (collection_user)
+  userSnapshot.forEach((doc) => {
     const data = doc.data() as UserData;
+    if (data.job && jobCountMap[data.job] !== undefined) {
+      jobCountMap[data.job] += 1;
+    }
+  });
+
+  // 서브 유저 데이터 카운트 (collection_sub_user)
+  subUserSnapshot.forEach((doc) => {
+    const data = doc.data() as UserData;
+
     if (data.job && jobCountMap[data.job] !== undefined) {
       jobCountMap[data.job] += 1;
     }
@@ -58,7 +72,7 @@ export const useGetJobDistributionList = () => {
 
   return useQuery({
     queryKey: ["useGetJobDistributionList"],
-    queryFn: fetchJobDistributionList,
+    queryFn: () => fetchJobDistributionList(),
     initialData,
   });
 };

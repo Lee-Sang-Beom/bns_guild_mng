@@ -1,7 +1,15 @@
 import { db } from "@/datastore/firebase/firestore";
 import { ApiResponse } from "@/types/common/commonType";
 import { UserResponse } from "@/types/haveSession/dashboard/org/response";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 // 회원 승인 함수
 export async function approvalCollectionUser(
@@ -35,7 +43,18 @@ export async function withdrawCollectionUser(
   const userDocRef = doc(db, "collection_user", user.docId);
 
   try {
+    // 서브 유저 삭제 - parentId가 user.id인 문서 삭제
+    const subUserRef = collection(db, "collection_sub_user");
+    const q = query(subUserRef, where("parentId", "==", user.id));
+    const querySnapshot = await getDocs(q);
+
+    // 서브 유저 문서가 있으면 삭제
+    const deletePromises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
+    await Promise.all(deletePromises);
+
+    // 회원 탈퇴 처리
     await deleteDoc(userDocRef);
+
     return {
       success: true,
       message:

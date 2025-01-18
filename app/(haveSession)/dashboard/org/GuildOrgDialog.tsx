@@ -131,8 +131,9 @@ export default function GuildOrgDialog({ session, setOpen, data }: IProps) {
               id={"withdraw"}
               size="md"
               onClick={(e) => {
-                const confirmed =
-                  window.confirm("정말 회원탈퇴를 진행하시겠습니까?");
+                const confirmed = window.confirm(
+                  "정말 회원탈퇴를 진행하시겠습니까? 서브 캐릭터 정보도 함께 삭제됩니다."
+                );
                 if (confirmed) {
                   onMutate("WITHDRAW", data); // 탈퇴 로직 실행
                 }
