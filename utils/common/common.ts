@@ -216,7 +216,11 @@ export function compressImages(
   });
 }
 
-export async function compressContentImages(content: string): Promise<string> {
+export async function compressContentImages(
+  content: string,
+  maxWidth?: number, // 선택적 파라미터 추가
+  maxHeight?: number // 선택적 파라미터 추가
+): Promise<string> {
   const imageRegex = /<img[^>]*src=["']([^"']+)["'][^>]*>/g; // img 태그에서 src 추출
   let match;
   let compressedContent = content;
@@ -224,7 +228,11 @@ export async function compressContentImages(content: string): Promise<string> {
   while ((match = imageRegex.exec(content)) !== null) {
     const originalBase64 = match[1]; // img src에서 Base64 추출
     if (originalBase64.startsWith("data:image/")) {
-      const compressedBase64 = await compressImages(originalBase64); // 이미지 압축
+      const compressedBase64 = await compressImages(
+        originalBase64,
+        maxWidth,
+        maxHeight
+      ); // 이미지 압축
       compressedContent = compressedContent.replace(
         originalBase64,
         compressedBase64

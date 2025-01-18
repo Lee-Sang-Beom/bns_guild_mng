@@ -148,6 +148,10 @@ export default function LoginClient() {
               <Link href="/join" prefetch={true}>
                 회원가입 페이지로 이동
               </Link>
+              <span>|</span>
+              <Link href="/findPw" prefetch={true}>
+                비밀번호 찾기
+              </Link>
             </div>
           </div>
         </div>
