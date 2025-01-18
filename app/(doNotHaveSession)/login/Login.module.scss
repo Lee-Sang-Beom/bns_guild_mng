@@ -75,6 +75,15 @@
           margin-bottom: 5px;
         }
       }
+
+      .bottom {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        span {
+          display: inline-block;
+        }
+      }
     }
   }
 }
