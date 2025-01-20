@@ -7,27 +7,44 @@ import Link from "next/link";
 import { RiHome3Fill } from "react-icons/ri";
 import { menuList } from "@/datastore/common/common";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import { BiSolidMessageSquareDots } from "react-icons/bi";
 
 // 메뉴 아이콘을 선택하는 함수
 const getMenuIcon = (menuSeq: number) => {
   const size: number = 32;
   switch (menuSeq) {
     case 1:
-      return <RiHome3Fill size={size} role="홈 아이콘" />;
+      return <RiHome3Fill size={size} role="img" aria-label="홈 아이콘" />;
     case 2:
-      return <GiPayMoney size={size} role="돈을 떨어뜨리는 손 아이콘" />;
+      return (
+        <GiPayMoney
+          size={size}
+          role="img"
+          aria-label="돈을 떨어뜨리는 손 아이콘"
+        />
+      );
     case 3:
-      return <GiOrganigram size={size} role="조직 아이콘" />;
+      return <GiOrganigram size={size} role="img" aria-label="조직 아이콘" />;
     case 4:
     case 5:
-      return <FaPaperPlane size={size} role="공지사항 아이콘" />;
-    // case 6:
-    // case 7:
-    default:
+      return (
+        <FaPaperPlane size={size} role="img" aria-label="공지사항 아이콘" />
+      );
+    case 6:
+    case 7:
       return (
         <MdOutlineTipsAndUpdates
           size={size}
-          role="업데이트 알림용 전구 아이콘"
+          role="img"
+          aria-label="업데이트 알림용 전구 아이콘"
+        />
+      );
+    default:
+      return (
+        <BiSolidMessageSquareDots
+          size={size}
+          role="img"
+          aria-label="말풍선아이콘"
         />
       );
   }
