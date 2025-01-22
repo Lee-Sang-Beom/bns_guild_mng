@@ -9,6 +9,7 @@ import Tab from "@/component/common/Tab/Tab";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { makeUrlQuery } from "@/utils/common/common";
+import ArtworkClient from "./Artwork/ArtworkClient";
 
 interface IProps {
   session: Session;
@@ -62,7 +63,11 @@ export default function CommunityClient({
           );
         }}
       >
-        <p>1</p>
+        <ArtworkClient
+          session={session}
+          queryInstance={queryInstance}
+          tableResponse={tableResponse}
+        />
         <p>2</p>
       </Tab>
     </div>
