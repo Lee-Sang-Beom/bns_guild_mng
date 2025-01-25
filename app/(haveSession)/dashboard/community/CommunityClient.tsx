@@ -14,7 +14,7 @@ import ArtworkClient from "./Artwork/ArtworkClient";
 interface IProps {
   session: Session;
   queryInstance: CommunityRequest;
-  tableResponse: TablePageResponse<CommunityResponse[]> | null;
+  tableResponse: TablePageResponse<CommunityResponse[]>;
 }
 export default function CommunityClient({
   session,

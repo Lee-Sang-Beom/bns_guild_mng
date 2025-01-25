@@ -9,6 +9,10 @@ export interface NoticeRequest extends TablePageRequest {
   searchKeyWord: string;
 }
 
+/**
+ * @name NoticeFormRegisterRequest
+ * @description 공지사항 등록 Form Type
+ */
 export interface NoticeFormRegisterRequest {
   /**
    * @name writerId

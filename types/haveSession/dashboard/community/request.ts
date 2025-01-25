@@ -1,4 +1,5 @@
 import { TablePageRequest } from "@/types/common/commonType";
+import { Timestamp } from "firebase/firestore";
 
 /**
  * @name CommunityType
@@ -13,4 +14,40 @@ export type CommunityType = "ARTWORK" | "INFO";
 export interface CommunityRequest extends TablePageRequest {
   searchType: CommunityType;
   searchKeyWord: string;
+}
+
+/**
+ * @name CommunityFormRegisterRequest
+ * @description 커뮤니티 등록 Form
+ */
+export interface CommunityFormRegisterRequest {
+  /**
+   * @name writerId
+   * @description 작성자 아이디
+   */
+  writerId: string;
+
+  /**
+   * @name title
+   * @description 공지사항 타이틀
+   */
+  title: string;
+
+  /**
+   * @name content
+   * @description 공지사항 내용
+   */
+  content: string;
+
+  /**
+   * @name regDt
+   * @description 등록일
+   */
+  regDt: Timestamp | null;
+
+  /**
+   * @name docType
+   * @description 커뮤니티 내 문서타입
+   */
+  docType: CommunityType;
 }

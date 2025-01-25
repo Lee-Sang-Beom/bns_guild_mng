@@ -4,11 +4,13 @@ import { CommunityResponse } from "@/types/haveSession/dashboard/community/respo
 import { Session } from "next-auth";
 import ms from "../Community.module.scss";
 import CommunitySearchTop from "../Common/CommunitySearchTop";
+import CommunitySearchMiddle from "../Common/CommunitySearchMiddle";
+import ArtworkDisplay from "./ArtworkDisplay";
 
 interface IProps {
   session: Session;
   queryInstance: CommunityRequest;
-  tableResponse: TablePageResponse<CommunityResponse[]> | null;
+  tableResponse: TablePageResponse<CommunityResponse[]>;
 }
 
 export default function ArtworkClient({
@@ -22,8 +24,14 @@ export default function ArtworkClient({
       <CommunitySearchTop session={session} queryInstance={queryInstance} />
 
       {/* MIDDLE */}
+      <CommunitySearchMiddle session={session} queryInstance={queryInstance} />
 
       {/* BOTTOM */}
+      <ArtworkDisplay
+        session={session}
+        queryInstance={queryInstance}
+        tableResponse={tableResponse}
+      />
     </div>
   );
 }

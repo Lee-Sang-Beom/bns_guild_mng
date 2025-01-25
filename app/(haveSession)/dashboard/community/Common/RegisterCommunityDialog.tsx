@@ -8,12 +8,15 @@ import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { Timestamp } from "firebase/firestore";
-import { NoticeFormRegisterRequest } from "@/types/haveSession/dashboard/notice/request";
 import EditorComponent from "@/component/common/EditorComponent/EditorComponent";
 import _ from "lodash";
 import { addCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
 import { compressContentImages } from "@/utils/common/common";
-import { CommunityType } from "@/types/haveSession/dashboard/community/request";
+import {
+  CommunityFormRegisterRequest,
+  CommunityType,
+} from "@/types/haveSession/dashboard/community/request";
+import { addCollectionCommunity } from "@/utils/haveSession/dashboard/community/action";
 
 interface IProps {
   session: Session;
@@ -29,11 +32,12 @@ export default function RegisterCommunityDialog({
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [regData, setRegData] = useState<NoticeFormRegisterRequest>({
+  const [regData, setRegData] = useState<CommunityFormRegisterRequest>({
     title: "",
     content: "",
     writerId: session.user.id,
     regDt: null,
+    docType: docType,
   });
 
   const onSubmit = async () => {
@@ -42,16 +46,16 @@ export default function RegisterCommunityDialog({
       regData.content
     );
 
-    const postData: NoticeFormRegisterRequest = {
+    const postData: CommunityFormRegisterRequest = {
       ...regData,
       content: contentWithCompressedImages, // 압축된 데이터 저장
       regDt: Timestamp.fromDate(new Date()),
     };
 
-    await addCollectionNotice(postData)
+    await addCollectionCommunity(postData)
       .then(async (res) => {
         if (!res) {
-          setText("공지사항 등록 중 오류가 발생했습니다.");
+          setText("커뮤니티 정보 등록 중 오류가 발생했습니다.");
           setIsChange(true);
           setStatus("error");
           return;
@@ -72,7 +76,7 @@ export default function RegisterCommunityDialog({
         }
       })
       .catch((error) => {
-        setText("공지사항 등록 중 오류가 발생했습니다.");
+        setText("커뮤니티 정보 등록 중 오류가 발생했습니다.");
 
         setIsChange(true);
         setStatus("error");
@@ -82,7 +86,7 @@ export default function RegisterCommunityDialog({
 
   return (
     <React.Fragment>
-      <Loading text="공지사항 정보를 제출하고 있습니다." open={isLoading} />
+      <Loading text="커뮤니티 정보를 제출하고 있습니다." open={isLoading} />
       <div className={ms.wrap}>
         <div className={ms.section}>
           <div className={ms.inner}>

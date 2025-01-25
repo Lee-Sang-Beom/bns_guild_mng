@@ -5,7 +5,6 @@ import React, { useRef, useState } from "react";
 import { Session } from "next-auth";
 import Dialog from "@/component/common/Dialog/Dialog";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
-import { adminAuthTypes } from "@/datastore/common/common";
 import {
   CommunityRequest,
   CommunityType,
@@ -29,7 +28,11 @@ export default function CommunitySearchTop({ session, queryInstance }: IProps) {
         <div className={ms.btn_box}>
           <Button
             color={"blue"}
-            title={"커뮤니티 등록"}
+            title={
+              dialogDocType === "ARTWORK"
+                ? "아트워크 등록 버튼"
+                : "정보(팁) 등록 버튼"
+            }
             id={"reg_community_btn"}
             size="md"
             ref={ref}
@@ -49,7 +52,7 @@ export default function CommunitySearchTop({ session, queryInstance }: IProps) {
         width="lg"
         open={dialogOpen}
         setOpen={setDialogOpen}
-        title="커뮤니티 등록"
+        title={dialogDocType === "ARTWORK" ? "아트워크 등록" : "정보(팁) 등록"}
         ref={ref}
         paperHidden={true}
       >
