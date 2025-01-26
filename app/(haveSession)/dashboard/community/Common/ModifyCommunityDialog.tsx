@@ -10,34 +10,31 @@ import { Session } from "next-auth";
 import { Timestamp } from "firebase/firestore";
 import EditorComponent from "@/component/common/EditorComponent/EditorComponent";
 import _ from "lodash";
-import { addCollectionNotice } from "@/utils/haveSession/dashboard/notice/action";
 import { compressContentImages } from "@/utils/common/common";
-import {
-  CommunityFormRegisterRequest,
-  CommunityType,
-} from "@/types/haveSession/dashboard/community/request";
-import { addCollectionCommunity } from "@/utils/haveSession/dashboard/community/action";
+import { modifyCollectionCommunity } from "@/utils/haveSession/dashboard/community/action";
+import { CommunityFormRegisterRequest } from "@/types/haveSession/dashboard/community/request";
+import { CommunityResponse } from "@/types/haveSession/dashboard/community/response";
 
 interface IProps {
   session: Session;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  docType: CommunityType;
+  data: CommunityResponse;
 }
 
-export default function RegisterCommunityDialog({
+export default function ModifyCommunityDialog({
   session,
   setOpen,
-  docType,
+  data,
 }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [regData, setRegData] = useState<CommunityFormRegisterRequest>({
-    title: "",
-    content: "",
+    title: data.title,
+    content: data.content,
     writerId: session.user.id,
-    regDt: null,
-    docType: docType,
+    regDt: data.regDt,
+    docType: data.docType,
   });
 
   const onSubmit = async () => {
@@ -47,7 +44,6 @@ export default function RegisterCommunityDialog({
       setStatus("warning");
       return;
     }
-
     // CKEditor에서 가져온 데이터를 기반으로 이미지 압축
     const contentWithCompressedImages = await compressContentImages(
       regData.content
@@ -59,7 +55,7 @@ export default function RegisterCommunityDialog({
       regDt: Timestamp.fromDate(new Date()),
     };
 
-    await addCollectionCommunity(postData)
+    await modifyCollectionCommunity(data.docId, postData)
       .then(async (res) => {
         if (!res) {
           setText("커뮤니티 정보 등록 중 오류가 발생했습니다.");
@@ -89,6 +85,10 @@ export default function RegisterCommunityDialog({
         setStatus("error");
         return;
       });
+  };
+
+  const onError = (errors: any) => {
+    console.error("errors ", errors);
   };
 
   return (
@@ -142,15 +142,15 @@ export default function RegisterCommunityDialog({
             <div className={ms.btn_box}>
               <Button
                 color={"blue"}
-                title={"등록"}
-                id={"register"}
+                title={"수정"}
+                id={"modify"}
                 size="lg"
                 type="submit"
                 onClick={(e) => {
                   onSubmit();
                 }}
               >
-                등록
+                수정
               </Button>
             </div>
           </div>

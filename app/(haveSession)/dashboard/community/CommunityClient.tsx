@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { makeUrlQuery } from "@/utils/common/common";
 import ArtworkClient from "./Artwork/ArtworkClient";
+import InfoClient from "./Info/InfoClient";
 
 interface IProps {
   session: Session;
@@ -35,7 +36,7 @@ export default function CommunityClient({
             case "아트워크":
               newQueryInstance = {
                 ...queryInstance,
-                page: 0,
+                page: 1,
                 searchType: "ARTWORK",
                 searchKeyWord: "",
               };
@@ -43,7 +44,7 @@ export default function CommunityClient({
             case "정보":
               newQueryInstance = {
                 ...queryInstance,
-                page: 0,
+                page: 1,
                 searchType: "INFO",
                 searchKeyWord: "",
               };
@@ -51,7 +52,7 @@ export default function CommunityClient({
             default:
               newQueryInstance = {
                 ...queryInstance,
-                page: 0,
+                page: 1,
                 searchType: "ARTWORK",
                 searchKeyWord: "",
               };
@@ -61,6 +62,7 @@ export default function CommunityClient({
           router.replace(
             `/dashboard/community?${makeUrlQuery(newQueryInstance)}`
           );
+          router.refresh();
         }}
       >
         <ArtworkClient
@@ -68,7 +70,11 @@ export default function CommunityClient({
           queryInstance={queryInstance}
           tableResponse={tableResponse}
         />
-        <p>2</p>
+        <InfoClient
+          session={session}
+          queryInstance={queryInstance}
+          tableResponse={tableResponse}
+        />
       </Tab>
     </div>
   );

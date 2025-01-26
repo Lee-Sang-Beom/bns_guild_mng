@@ -1,7 +1,7 @@
 "use client";
 
 import PagingComponent from "@/component/common/Paging/Paging";
-import { TableHeader } from "@/component/common/Table/Table";
+import Table, { TableHeader } from "@/component/common/Table/Table";
 import { TablePageResponse } from "@/types/common/commonType";
 import ms from "../Community.module.scss";
 import { makeUrlQuery } from "@/utils/common/common";
@@ -13,18 +13,18 @@ import { useRef, useState } from "react";
 import Dialog from "@/component/common/Dialog/Dialog";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import Link from "next/link";
+
 import { CommunityRequest } from "@/types/haveSession/dashboard/community/request";
 import { CommunityResponse } from "@/types/haveSession/dashboard/community/response";
 import { deleteCollectionCommunity } from "@/utils/haveSession/dashboard/community/action";
 import ModifyCommunityDialog from "../Common/ModifyCommunityDialog";
-import ArtworkCard from "./ArtworkCard";
 
 interface IProps {
   session: Session;
   queryInstance: CommunityRequest;
   tableResponse: TablePageResponse<CommunityResponse[]>;
 }
-export default function ArtworkDisplay({
+export default function InfoDisplay({
   session,
   queryInstance,
   tableResponse,
@@ -162,10 +162,17 @@ export default function ArtworkDisplay({
             />
           </Dialog>
         )}
-
-        {/* 아트워크 리스트 (테이블 x) */}
-        <ArtworkCard data={tableResponse.content} />
-
+        <Table<CommunityResponse>
+          data={
+            tableResponse && tableResponse.content ? tableResponse.content : []
+          }
+          headers={tableHeader}
+          tableType={"vertical"}
+          tableCaption={""}
+          itemTitle={""}
+          ref={null}
+          trHover
+        />
         <PagingComponent
           onClickEvent={(page: number) => {
             const newQueryString: CommunityRequest = {
@@ -178,7 +185,6 @@ export default function ArtworkDisplay({
             router.replace(
               `/dashboard/community?${makeUrlQuery(newQueryString)}`
             );
-            router.refresh();
           }}
           pagingData={{
             first: tableResponse?.first ?? false,

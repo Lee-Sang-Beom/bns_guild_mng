@@ -1,0 +1,21 @@
+.wrap {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .btn_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    button {
+      width: 200px;
+    }
+  }
+}

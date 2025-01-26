@@ -236,7 +236,7 @@ export default function CashShareBottom({
                           router.replace(
                             `/dashboard/cashshare?${makeUrlQuery({
                               ...queryInstance,
-                              page: 0,
+                              page: 1,
                             })}`
                           );
                           router.refresh();
