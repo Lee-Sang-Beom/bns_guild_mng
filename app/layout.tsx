@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.scss";
 import NextAuthProvider from "@/provider/NextAuthProvider";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   title: "시그니처",
   description: "BNS_Signature",
@@ -103,6 +103,7 @@ export default function RootLayout({
             <NextAuthProvider>
               {children}
               <AutoAlert />
+              <SpeedInsights />
             </NextAuthProvider>
           </RecoilRootProvider>
         </ReactQueryProvider>
