@@ -1,7 +1,12 @@
 import { SelectboxType } from "@/component/common/Selectbox/Selectbox";
 import { MenuItem } from "@/types/common/commonType";
 
+/**
+ * @name homepageAdminUserId
+ * @description 홈페이지 관리자 닉네임
+ */
 export const homepageAdminUserId = "표현";
+
 /**
  * @name userAuthList
  * @description 유저 권한 종류
@@ -92,5 +97,11 @@ export const menuList: MenuItem[] = [
     menuNm: "업데이트 상세",
     menuUrl: "/dashboard/update/detail",
     mainShow: "N",
+  },
+  {
+    menuSeq: 8,
+    menuNm: "커뮤니티",
+    menuUrl: "/dashboard/community",
+    mainShow: "Y",
   },
 ];

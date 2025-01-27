@@ -22,7 +22,7 @@
       width: 100%;
       text-align: center;
       line-height: 120%;
-      color: var(--grya-1000) !important;
+      color: var(--gray-1000) !important;
       background-color: #fafbff !important;
       border: 1px solid var(--gray-600);
     }
@@ -46,6 +46,7 @@
       &.blue {
         button {
           background-color: var(--mcolor) !important;
+          color: var(--gray-100) !important;
         }
       }
     }

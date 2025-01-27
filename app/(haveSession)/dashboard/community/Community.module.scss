@@ -1,0 +1,128 @@
+.wrap {
+  width: 100%;
+  height: auto;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.inner {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// TOP
+.top {
+  display: flex;
+  justify-content: end;
+
+  .btn_box {
+    width: 150px;
+  }
+}
+
+// MIDDLE
+.middle {
+  .inner {
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+
+    .inp_box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .label {
+        display: inline-block;
+        font-weight: 500;
+        font-size: var(--fs-18);
+        margin-bottom: 5px;
+      }
+
+      .inp {
+        width: 600px;
+      }
+    }
+  }
+}
+
+// BOTTOM
+.bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .card_box {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    ); /* 최소 250px, 최대 1fr */
+    gap: 16px; /* 카드 간격 */
+    padding: 16px;
+    background-color: var(--mbackgroundColor); /* 배경색 */
+    width: 100%;
+
+    .card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #ffffff; /* 카드 배경색 */
+      border: 1px solid #ddd; /* 테두리 */
+      border-radius: 8px; /* 모서리 둥글게 */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+      padding: 16px;
+      text-align: center; /* 텍스트 가운데 정렬 */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* 호버 효과 */
+
+      &:hover {
+        transform: translateY(-8px); /* 살짝 위로 올라감 */
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* 그림자 강화 */
+      }
+
+      .card_title {
+        font-size: var(--fs-18);
+        color: var(--gray-800);
+        font-weight: 600;
+      }
+
+      .card_desc {
+        font-size: var(--fs-14);
+        color: var(--gray-600);
+      }
+
+      .img_box {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  .no_data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    border-top: 2px solid var(--gray-800);
+    border-bottom: 2px solid var(--gray-800);
+    color: var(--gray-800);
+  }
+}

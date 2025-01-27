@@ -220,7 +220,7 @@ export function compressImages(
       ctx!.drawImage(img, 0, 0, width, height);
 
       // 품질을 100%로 설정하여 해상도를 최대화
-      const compressedBase64 = canvas.toDataURL("image/jpeg", 1.0); // 품질 100%
+      const compressedBase64 = canvas.toDataURL("image/jpeg", 0.8); // 품질 100%
       resolve(compressedBase64);
     };
   });

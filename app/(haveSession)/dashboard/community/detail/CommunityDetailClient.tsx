@@ -1,52 +1,56 @@
 "use client";
 
-import ms from "./UpdateDetail.module.scss";
+import ms from "./CommunityDetailClient.module.scss";
 import TableDetail from "@/component/common/TableDetail/TableDetail";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Session } from "next-auth";
 import Button from "@/component/common/Button/Button";
 import Dialog from "@/component/common/Dialog/Dialog";
+
 import { useRouter } from "next/navigation";
-import { homepageAdminUserId } from "@/datastore/common/common";
-import { UpdateResponse } from "@/types/haveSession/dashboard/update/response";
-import ModifyUpdateDialog from "../Dialog/ModifyUpdateDialog";
-import { deleteCollectionUpdate } from "@/utils/haveSession/dashboard/update/action";
+import { CommunityResponse } from "@/types/haveSession/dashboard/community/response";
+import ModifyCommunityDialog from "../Common/ModifyCommunityDialog";
+import { deleteCollectionCommunity } from "@/utils/haveSession/dashboard/community/action";
+import { makeUrlQuery } from "@/utils/common/common";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
+
 interface IProps {
-  data: UpdateResponse;
+  data: CommunityResponse;
   session: Session;
 }
-export default function UpdateDetailClient({ session, data }: IProps) {
+export default function CommunityDetailClient({ session, data }: IProps) {
   const tableRef = useRef<HTMLDivElement>(null);
-  const [selectNotice, setSelectNotice] = useState<UpdateResponse | null>(null);
+  const [selectCommunity, setSelectCommunity] =
+    useState<CommunityResponse | null>(null);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const router = useRouter();
   const ref = useRef<HTMLButtonElement | null>(null);
 
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const { setIsChange, setStatus, setText } = useAutoAlert();
-
-  useEffect(() => {
-    const isAdmin = session.user.id === homepageAdminUserId;
-    setIsAdmin(isAdmin ? true : false);
-  }, [session]);
-
+  const { setText, setStatus, setIsChange } = useAutoAlert();
+  const newQueryInstance = {
+    page: 1,
+    size: 5,
+    sort: "regDt",
+    orderBy: "desc",
+    searchType: data.docType,
+    searchKeyWord: "",
+  };
   return (
     <div className={ms.wrap}>
-      {/* 업데이트 공지사항 수정 */}
-      {selectNotice && (
+      {/* 커뮤니티 수정 */}
+      {selectCommunity && (
         <Dialog
           width="lg"
           open={dialogOpen}
           setOpen={setDialogOpen}
-          title="업데이트 공지사항 수정"
+          title="커뮤니티 수정"
           ref={ref}
           paperHidden={true}
         >
-          <ModifyUpdateDialog
+          <ModifyCommunityDialog
             session={session}
             setOpen={setDialogOpen}
-            data={selectNotice}
+            data={selectCommunity}
           />
         </Dialog>
       )}
@@ -58,14 +62,14 @@ export default function UpdateDetailClient({ session, data }: IProps) {
         writerId={data.writerId}
       >
         <div className={ms.btn_box}>
-          {isAdmin ? (
+          {session.user.id === data.writerId ? (
             <>
               <Button
                 color={"blue_reverse"}
                 title={"수정"}
                 id={"modifiy"}
                 onClick={(e) => {
-                  setSelectNotice(data);
+                  setSelectCommunity(data);
                   setDialogOpen(true);
                 }}
               >
@@ -76,19 +80,20 @@ export default function UpdateDetailClient({ session, data }: IProps) {
                 title={"삭제"}
                 id={"remove"}
                 onClick={async (e) => {
-                  const res = await deleteCollectionUpdate(data.docId);
+                  const res = await deleteCollectionCommunity(data.docId);
                   if (res.success) {
                     setText("삭제되었습니다.");
                     setIsChange(true);
                     setStatus("success");
                     setTimeout(() => {
-                      router.replace("/dashboard/update");
+                      router.replace(
+                        `/dashboard/community?${makeUrlQuery(newQueryInstance)}`
+                      );
                       router.refresh();
                     }, 500);
                   } else {
                     setText(
-                      res.message ||
-                        "업데이트 공지사항 삭제 중 오류가 발생했습니다."
+                      res.message || "커뮤니티 삭제 중 오류가 발생했습니다."
                     );
                     setIsChange(true);
                     setStatus("error");
@@ -106,7 +111,10 @@ export default function UpdateDetailClient({ session, data }: IProps) {
             title={"목록으로"}
             id={"move_list_page"}
             onClick={() => {
-              router.push("/dashboard/update");
+              router.replace(
+                `/dashboard/community?${makeUrlQuery(newQueryInstance)}`
+              );
+              router.refresh();
             }}
           >
             목록으로

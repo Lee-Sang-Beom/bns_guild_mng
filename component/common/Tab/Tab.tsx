@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import style from "./Tab.module.scss";
 import { useEffect, useState } from "react";
 import Button from "../Button/Button";
@@ -20,9 +19,6 @@ export default function Tab({
   children,
   color,
 }: TabProps) {
-  //
-  const router = useRouter();
-
   // 현재 탭 인덱스
   const [activeIdx, setActiveIdx] = useState(
     defaultActiveIndex ? defaultActiveIndex : 0
