@@ -6,10 +6,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ms from "./OrgDialog.module.scss";
 import { adminAuthTypes, userAuthList } from "@/datastore/common/common";
 import Button from "@/component/common/Button/Button";
-import {
-  approvalCollectionUser,
-  withdrawCollectionUser,
-} from "@/utils/haveSession/dashboard/org/action";
+import { withdrawCollectionUser } from "@/utils/haveSession/dashboard/org/action";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";

@@ -10,6 +10,9 @@ import Dialog from "@/component/common/Dialog/Dialog";
 import { useRouter } from "next/navigation";
 import { CommunityResponse } from "@/types/haveSession/dashboard/community/response";
 import ModifyCommunityDialog from "../Common/ModifyCommunityDialog";
+import { deleteCollectionCommunity } from "@/utils/haveSession/dashboard/community/action";
+import { makeUrlQuery } from "@/utils/common/common";
+import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 
 interface IProps {
   data: CommunityResponse;
@@ -23,6 +26,15 @@ export default function CommunityDetailClient({ session, data }: IProps) {
   const router = useRouter();
   const ref = useRef<HTMLButtonElement | null>(null);
 
+  const { setText, setStatus, setIsChange } = useAutoAlert();
+  const newQueryInstance = {
+    page: 1,
+    size: 5,
+    sort: "regDt",
+    orderBy: "desc",
+    searchType: data.docType,
+    searchKeyWord: "",
+  };
   return (
     <div className={ms.wrap}>
       {/* 커뮤니티 수정 */}
@@ -51,17 +63,46 @@ export default function CommunityDetailClient({ session, data }: IProps) {
       >
         <div className={ms.btn_box}>
           {session.user.id === data.writerId ? (
-            <Button
-              color={"blue_reverse"}
-              title={"수정"}
-              id={"modifiy"}
-              onClick={(e) => {
-                setSelectCommunity(data);
-                setDialogOpen(true);
-              }}
-            >
-              수정
-            </Button>
+            <>
+              <Button
+                color={"blue_reverse"}
+                title={"수정"}
+                id={"modifiy"}
+                onClick={(e) => {
+                  setSelectCommunity(data);
+                  setDialogOpen(true);
+                }}
+              >
+                수정
+              </Button>
+              <Button
+                color={"red_reverse"}
+                title={"삭제"}
+                id={"remove"}
+                onClick={async (e) => {
+                  const res = await deleteCollectionCommunity(data.docId);
+                  if (res.success) {
+                    setText("삭제되었습니다.");
+                    setIsChange(true);
+                    setStatus("success");
+                    setTimeout(() => {
+                      router.replace(
+                        `/dashboard/community?${makeUrlQuery(newQueryInstance)}`
+                      );
+                      router.refresh();
+                    }, 500);
+                  } else {
+                    setText(
+                      res.message || "커뮤니티 삭제 중 오류가 발생했습니다."
+                    );
+                    setIsChange(true);
+                    setStatus("error");
+                  }
+                }}
+              >
+                삭제
+              </Button>
+            </>
           ) : (
             <></>
           )}
@@ -70,7 +111,10 @@ export default function CommunityDetailClient({ session, data }: IProps) {
             title={"목록으로"}
             id={"move_list_page"}
             onClick={() => {
-              router.push("/dashboard/community");
+              router.replace(
+                `/dashboard/community?${makeUrlQuery(newQueryInstance)}`
+              );
+              router.refresh();
             }}
           >
             목록으로

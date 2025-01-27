@@ -6,7 +6,6 @@ import { CommunityResponse } from "@/types/haveSession/dashboard/community/respo
 import { Session } from "next-auth";
 import ms from "./Community.module.scss";
 import Tab from "@/component/common/Tab/Tab";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { makeUrlQuery } from "@/utils/common/common";
 import ArtworkClient from "./Artwork/ArtworkClient";
@@ -28,6 +27,7 @@ export default function CommunityClient({
     <div className={ms.wrap}>
       <Tab
         tabTitle={["아트워크", "정보"]}
+        defaultActiveIndex={queryInstance.searchType === "ARTWORK" ? 0 : 1}
         color="blue"
         titleClick={(title) => {
           const tabTitle = title;
