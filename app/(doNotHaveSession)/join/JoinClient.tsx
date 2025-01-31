@@ -81,8 +81,8 @@ export default function JoinClient() {
               <div className={ms.top}>
                 <p className={ms.title}>회원가입</p>
                 <p className={ms.desc}>
-                  시그니처 문파원 내 캐릭터가 아닌 유저는 관리자에 의해 계정이
-                  사용 중단될 수 있습니다.
+                  티어 문파원 내 캐릭터가 아닌 유저는 관리자에 의해 계정이 사용
+                  중단될 수 있습니다.
                 </p>
               </div>
 

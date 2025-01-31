@@ -7,8 +7,8 @@ import "@/styles/globals.scss";
 import NextAuthProvider from "@/provider/NextAuthProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
-  title: "시그니처",
-  description: "BNS_Signature",
+  title: "티어",
+  description: "BNS_Tier",
 };
 
 const pretendard = localFont({

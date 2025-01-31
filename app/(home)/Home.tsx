@@ -27,7 +27,7 @@ export default function Home() {
 
     // TypeIt 애니메이션 적용
     const typeItInstance = new TypeIt("#title", {
-      strings: ["WELCOME TO SIGNATURE!", "👀"],
+      strings: ["WELCOME TO TIER!", "👀"],
       speed: 300, // 타이핑 속도 조절
       waitUntilVisible: true,
       lifeLike: true,
