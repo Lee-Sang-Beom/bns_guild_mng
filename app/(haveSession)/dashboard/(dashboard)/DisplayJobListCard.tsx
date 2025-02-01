@@ -16,10 +16,6 @@ export default function DisplayJobListCard() {
   const chartRef = useRef<HTMLDivElement>(null);
   const { data: chartData } = useGetJobDistributionList();
 
-  /**
-   * @name useEffect
-   * @description 차트 데이터 세팅
-   */
   useEffect(() => {
     const chartDom = chartRef.current;
     let mngChart: any;
@@ -34,17 +30,28 @@ export default function DisplayJobListCard() {
       const chartXAxisData = chartData?.map((item) => item.job) || [];
 
       // Y축: 직업별 카운트 값
-      const chartDataValue = [
+      const chartSeriesData = [
         {
-          label: "직업별 인원수",
-          value: chartData?.map((item) => item.count) || [],
+          label: "직업 별 인원 수(대표 캐릭터)",
+          value: chartData?.map((item) => item.representCount) || [],
+          color: "#ff6287", // chart1
+        },
+        {
+          label: "직업 별 인원 수(서브 캐릭터)",
+          value: chartData?.map((item) => item.subCount) || [],
+          color: "#62b4ff", // chart2
+        },
+        {
+          label: "직업 별 인원 수(전체)",
+          value: chartData?.map((item) => item.totalCount) || [],
+          color: "#5bc3aa", // chart3
         },
       ];
 
       // ECharts 옵션 설정
       let option: echarts.EChartsOption = {
         ...eChartBaseOption,
-        color: ["#ff6287"], // 기본 색상
+        color: chartSeriesData.map((s) => s.color), // 직업별 색상 설정
         xAxis: {
           type: "category",
           axisLabel: baseXAxisLabelOption,
@@ -62,37 +69,32 @@ export default function DisplayJobListCard() {
             fontFamily: "scdream",
           },
         },
+
         // @ts-ignore
-        series: chartDataValue.map((seriesItem: any) => {
-          return {
-            ...baseSeriesOption,
-            name: seriesItem.label,
-            type: "bar",
-            stack: "total",
-            barWidth: "20%",
-            data: seriesItem.value.map((val: number) => {
-              return {
-                value: val,
-                itemStyle: {
-                  borderRadius: [0, 0, 0, 0],
-                },
-                label: {
-                  ...baseSeriesLabelOption,
-                  show: false,
-                  formatter: `${val.toLocaleString()}`, // 천 단위 구분
-                },
-              };
-            }),
-            yAxisIndex: 0,
-          };
-        }),
+        series: chartSeriesData.map((seriesItem) => ({
+          ...baseSeriesOption,
+          name: seriesItem.label,
+          type: "bar",
+          barWidth: "20%",
+          data: seriesItem.value.map((val: number) => ({
+            value: val,
+            itemStyle: {
+              borderRadius: [0, 0, 0, 0],
+            },
+            label: {
+              ...baseSeriesLabelOption,
+              show: false,
+              formatter: `${val.toLocaleString()}`, // 천 단위 구분
+            },
+          })),
+          yAxisIndex: 0,
+        })),
       };
 
       mngChart.setOption(option);
       window.addEventListener("resize", () => mngChart.resize());
 
       return () => {
-        // 컴포넌트가 DOM에서 제거되기 직전에 실행
         mngChart.dispose(); // 생성된 차트 삭제하고 메모리 해제
         window.removeEventListener("resize", () => mngChart.resize());
       };
