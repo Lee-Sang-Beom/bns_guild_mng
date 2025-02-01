@@ -10,18 +10,19 @@ import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import tms from "@/styles/tableHeader.module.scss";
 import Button from "@/component/common/Button/Button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Dialog from "@/component/common/Dialog/Dialog";
 import DistributionInfomationModifyDialog from "./Dialog/DistributionInfomationModifyDialog";
 import { deleteCollectionCashShare } from "@/utils/haveSession/dashboard/cashshare/action";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import clsx from "clsx";
 import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
+import Loading from "@/component/common/Loading/Loading";
+import ms from "./CashShare.module.scss";
 
 interface IProps {
   session: Session;
   queryInstance: CashshareRequest;
-
   tableResponse: TablePageResponse<CashshareResponse[]>;
 }
 export default function CashShareBottom({
@@ -35,6 +36,7 @@ export default function CashShareBottom({
     useState<CashshareResponse | null>(null);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const ref = useRef<HTMLButtonElement | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // 로딩 상태 추가
 
   const tableHeader: TableHeader[] = [
     {
@@ -264,58 +266,73 @@ export default function CashShareBottom({
     },
   ];
 
-  return (
-    <div>
-      {/* 분배 정보 수정 */}
-      {selectCashshare && (
-        <Dialog
-          width="lg"
-          open={dialogOpen}
-          setOpen={setDialogOpen}
-          title="분배 정보 등록"
-          ref={ref}
-          paperHidden={true}
-        >
-          <DistributionInfomationModifyDialog
-            session={session}
-            setOpen={setDialogOpen}
-            data={selectCashshare}
-          />
-        </Dialog>
-      )}
-      <Table<CashshareResponse>
-        data={
-          tableResponse && tableResponse.content ? tableResponse.content : []
-        }
-        headers={tableHeader}
-        tableType={"vertical"}
-        tableCaption={""}
-        itemTitle={""}
-        ref={null}
-        trHover
-      />
-      <PagingComponent
-        onClickEvent={(page: number) => {
-          const newQueryString: CashshareRequest = {
-            ...queryInstance,
-            size: queryInstance.size, // 기존 size 유지
-            page: page, // 클릭된 페이지
-          };
+  // 🚀 데이터를 받아오면 로딩 상태 해제
+  useEffect(() => {
+    setIsLoading(false);
+  }, [tableResponse]);
 
-          // 쿼리스트링에 lastDoc을 포함하여 URL 업데이트
-          router.replace(
-            `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
-          );
-        }}
-        pagingData={{
-          first: tableResponse?.first ?? false,
-          last: tableResponse?.last ?? false,
-          size: tableResponse?.size ?? 10,
-          totalPages: tableResponse?.totalPages ?? 1,
-          totalElements: tableResponse?.totalElements ?? 0,
-          number: tableResponse?.number ?? 0,
-        }}
-      />
-    </div>
+  return (
+    <>
+      <Loading text="요청한 데이터를 불러오고 있습니다..." open={isLoading} />
+
+      <div className={ms.bottom}>
+        <div className={ms.inner}>
+          {/* 분배 정보 수정 */}
+          {selectCashshare && (
+            <Dialog
+              width="lg"
+              open={dialogOpen}
+              setOpen={setDialogOpen}
+              title="분배 정보 등록"
+              ref={ref}
+              paperHidden={true}
+            >
+              <DistributionInfomationModifyDialog
+                session={session}
+                setOpen={setDialogOpen}
+                data={selectCashshare}
+              />
+            </Dialog>
+          )}
+          <Table<CashshareResponse>
+            data={
+              tableResponse && tableResponse.content
+                ? tableResponse.content
+                : []
+            }
+            headers={tableHeader}
+            tableType={"vertical"}
+            tableCaption={""}
+            itemTitle={""}
+            ref={null}
+            trHover
+          />
+          <PagingComponent
+            onClickEvent={(page: number) => {
+              setIsLoading(true);
+              const newQueryString: CashshareRequest = {
+                ...queryInstance,
+                size: queryInstance.size, // 기존 size 유지
+                page: page, // 클릭된 페이지
+              };
+
+              // 쿼리스트링에 lastDoc을 포함하여 URL 업데이트
+              router.replace(
+                `/dashboard/cashshare?${makeUrlQuery(newQueryString)}`
+              );
+              router.refresh();
+            }}
+            pagingData={{
+              first: tableResponse?.first ?? false,
+              last: tableResponse?.last ?? false,
+              size: tableResponse?.size ?? 10,
+              totalPages: tableResponse?.totalPages ?? 1,
+              totalElements: tableResponse?.totalElements ?? 0,
+              number: tableResponse?.number ?? 0,
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 }

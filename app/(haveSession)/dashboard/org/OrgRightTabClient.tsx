@@ -22,6 +22,7 @@ export function OrgRightTabClient({ session, userList }: IProps) {
   const [selectUser, setSelectUser] = useState<UserResponse | null>(null);
   const ref = useRef<HTMLButtonElement | null>(null);
 
+  // 관리자 여부 확인
   useEffect(() => {
     const loginUserAuthType = session.user.authType;
     const findIsAdmin = adminAuthTypes.find(
@@ -29,6 +30,11 @@ export function OrgRightTabClient({ session, userList }: IProps) {
     );
     setIsAdmin(findIsAdmin ? true : false);
   }, [session]);
+
+  // 로그인 요청 유저 수 세팅
+  useEffect(() => {
+    setUserCount(userList && userList.length > 0 ? userList.length : 0);
+  }, [userList]);
 
   return (
     <div className={ms.inner}>

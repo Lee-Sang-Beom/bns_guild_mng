@@ -104,4 +104,10 @@ export const menuList: MenuItem[] = [
     menuUrl: "/dashboard/community",
     mainShow: "Y",
   },
+  {
+    menuSeq: 9,
+    menuNm: "커뮤니티 상세",
+    menuUrl: "/dashboard/community/detail",
+    mainShow: "N",
+  },
 ];
