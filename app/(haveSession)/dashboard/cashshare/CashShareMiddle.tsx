@@ -114,9 +114,7 @@ export default function CashShareMiddle({
 
         {/* 검색어 */}
         <div className={ms.inp_box}>
-          <span className={ms.label}>
-            검색어 <span className="essential">*</span>
-          </span>
+          <span className={ms.label}>검색어</span>
           <div className={ms.inp}>
             <Input
               type="text"
