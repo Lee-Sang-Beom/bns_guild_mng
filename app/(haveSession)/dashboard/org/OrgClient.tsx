@@ -1,7 +1,7 @@
 import ms from "./Org.module.scss";
 import Tab from "@/component/common/Tab/Tab";
-import OrgLeftTabServer from "./OrgLeftTabServer";
-import OrgRightTabServer from "./OrgRightTabServer";
+import OrgLeftTabServer from "./Left/OrgLeftTabServer";
+import OrgRightTabServer from "./Right/OrgRightTabServer";
 
 export default function OrgClient() {
   const tabTitle = [

@@ -3,7 +3,7 @@
 import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { Session } from "next-auth";
 import { useEffect, useRef, useState } from "react";
-import ms from "./Org.module.scss";
+import ms from "../Org.module.scss";
 import { adminAuthTypes, userAuthList } from "@/datastore/common/common";
 import Dialog from "@/component/common/Dialog/Dialog";
 import ApprovalDialog from "./ApprovalDialog";

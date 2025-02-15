@@ -2,7 +2,7 @@
 
 import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { Session } from "next-auth";
-import ms from "./Org.module.scss";
+import ms from "../Org.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { UserAuthType } from "@/types/common/commonType";
 import Chip from "@/component/common/Chip/Chip";
