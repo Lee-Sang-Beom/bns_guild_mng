@@ -20,8 +20,35 @@ import {
   updateDoc,
   setDoc,
   deleteDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { User } from "next-auth";
+
+/**
+ * @name getDateString
+ * @description 등록일 문자열 반환, 일주일 내 등록되었는지 여부 반환
+ * @param regDt
+ * @returns dateString, @returns isNew
+ */
+export function getDashboardDateStringAndIsNew(regDt: Timestamp) {
+  const timestamp = regDt;
+  const dateString = timestamp
+    ? new Date(timestamp.seconds * 1000).toLocaleString()
+    : "-";
+
+  // regDt가 1주일 이내인지 확인
+  const regDate = new Date(timestamp.seconds * 1000); // 등록일
+  const currentDate = new Date(); // 현재
+
+  // 밀리초 단위로 차이 계산
+  const differenceInMillis = currentDate.getTime() - regDate.getTime();
+
+  const oneWeekInMillis = 7 * 24 * 60 * 60 * 1000; // 1주일을 밀리초로 변환
+  const isNew = differenceInMillis <= oneWeekInMillis;
+
+  return { dateString, isNew };
+}
+
 /**
  * @name getCollectionUserById
  * @param id 유저 ID

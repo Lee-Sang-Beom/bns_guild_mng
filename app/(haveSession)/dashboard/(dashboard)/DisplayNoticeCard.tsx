@@ -4,6 +4,8 @@ import ms from "./Dashboard.module.scss";
 import { useGetRecentNoticeDates } from "@/hooks/dashboard/useGetRecentNoticeDates";
 import Link from "next/link";
 import { SiDatadog } from "react-icons/si";
+import { getDashboardDateStringAndIsNew } from "@/utils/haveSession/dashboard/dashboard/action";
+import { MdOutlineFiberNew } from "react-icons/md";
 export default function DisplayCashShareCard() {
   const { data } = useGetRecentNoticeDates();
 
@@ -17,19 +19,27 @@ export default function DisplayCashShareCard() {
             <span className={`${ms.regDt} ${ms.header}`}>등록일</span>
           </li>
           {data.map((noticeItem: NoticeResponse) => {
-            // 등록일
-            const timestamp = noticeItem.regDt;
-            const dateString = timestamp
-              ? new Date(timestamp.seconds * 1000).toLocaleString()
-              : "-";
-
+            const { dateString, isNew } = getDashboardDateStringAndIsNew(
+              noticeItem.regDt
+            );
             return (
               <Link
                 key={`${noticeItem.docId}_link`}
                 href={`/dashboard/notice/detail?doc=${noticeItem.docId}`}
               >
                 <li>
-                  <span className={ms.notice_title}>{noticeItem.title}</span>
+                  <span className={ms.notice_title}>
+                    {noticeItem.title}
+                    {isNew && (
+                      <MdOutlineFiberNew
+                        role="img"
+                        aria-label="NEW 문자열 아이콘"
+                        color="red"
+                        size={24}
+                        className={ms.new_ico}
+                      />
+                    )}
+                  </span>
                   <span className={ms.notice_writerId}>
                     {noticeItem.writerId}
                   </span>
