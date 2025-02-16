@@ -3,19 +3,24 @@ import ms from "./Dashboard.module.scss";
 import dynamic from "next/dynamic";
 import { FaChartPie, FaPaperPlane } from "react-icons/fa";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { BiSolidMessageSquareDots } from "react-icons/bi";
+import { MdOutlineTipsAndUpdates } from "react-icons/md";
+
 interface IProps {
   session: Session;
 }
-const DisplayNoticeCard = dynamic(() => import("./DisplayNoticeCard"), {
+
+// 직업 분포
+const DisplayJobListCard = dynamic(() => import("./DisplayJobListCard"), {
   ssr: false,
   loading: () => (
     <div
-      className={`${ms.card} ${ms.card_middle} ${ms.loading} ${ms.loading_cat}`}
-    >
-      <span className={ms.loading_text}>Loading...</span>
-    </div>
+      className={`${ms.card} ${ms.card_top} ${ms.loading} ${ms.loading_run}`}
+    ></div>
   ),
 });
+
+// 분배금 관리
 const DisplayCashShareCard = dynamic(() => import("./DisplayCashShareCard"), {
   ssr: false,
   loading: () => (
@@ -26,12 +31,40 @@ const DisplayCashShareCard = dynamic(() => import("./DisplayCashShareCard"), {
     </div>
   ),
 });
-const DisplayJobListCard = dynamic(() => import("./DisplayJobListCard"), {
+
+// 커뮤니티
+const DisplayCommunityCard = dynamic(() => import("./DisplayCommunityCard"), {
   ssr: false,
   loading: () => (
     <div
-      className={`${ms.card} ${ms.card_top} ${ms.loading} ${ms.loading_run}`}
-    ></div>
+      className={`${ms.card} ${ms.card_middle} ${ms.loading} ${ms.loading_cat}`}
+    >
+      <span className={ms.loading_text}>Loading...</span>
+    </div>
+  ),
+});
+
+// 공지사항
+const DisplayNoticeCard = dynamic(() => import("./DisplayNoticeCard"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className={`${ms.card} ${ms.card_middle} ${ms.loading} ${ms.loading_cat}`}
+    >
+      <span className={ms.loading_text}>Loading...</span>
+    </div>
+  ),
+});
+
+// 업데이트
+const DisplayUpdateCard = dynamic(() => import("./DisplayUpdateCard"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className={`${ms.card} ${ms.card_middle} ${ms.loading} ${ms.loading_cat}`}
+    >
+      <span className={ms.loading_text}>Loading...</span>
+    </div>
   ),
 });
 
@@ -46,8 +79,10 @@ export default function Dashboard({ session }: IProps) {
         </p>
         <DisplayJobListCard />
       </div>
-      <div className={ms.middle}>
-        {/* 2. 분배 리스트 */}
+
+      {/* 2. 분배금 관리, 커뮤니티티  */}
+      <div className={ms.middle_top}>
+        {/* 분배금 관리 */}
         <div className={ms.middle_left}>
           <p className={ms.title}>
             <FaMoneyCheckDollar size={22} role="img" aria-label="돈 아이콘" />
@@ -55,17 +90,47 @@ export default function Dashboard({ session }: IProps) {
           </p>
           <DisplayCashShareCard />
         </div>
-        {/* 3. 공지사항 */}
+
+        {/* 커뮤니티 */}
         <div className={ms.middle_right}>
+          <p className={ms.title}>
+            <BiSolidMessageSquareDots
+              size={22}
+              role="img"
+              aria-label="말풍선아이콘"
+            />
+            최근 커뮤니티 정보
+          </p>
+          <DisplayCommunityCard />
+        </div>
+      </div>
+
+      {/* 3. 공지사항, 업데이트  */}
+      <div className={ms.middle_bottom}>
+        {/* 공지사항 */}
+        <div className={ms.middle_left}>
           <p className={ms.title}>
             <FaPaperPlane
               size={22}
               role="img"
               aria-label="공지사항 종이 아이콘"
             />
-            최근 공지사항
+            최근 공지사항 정보
           </p>
           <DisplayNoticeCard />
+        </div>
+
+        {/* 업데이트 */}
+        <div className={ms.middle_right}>
+          <p className={ms.title}>
+            <MdOutlineTipsAndUpdates
+              size={22}
+              role="img"
+              aria-label="업데이트 알림용 전구 아이콘"
+            />
+            최근 업데이트 정보
+          </p>
+          <DisplayUpdateCard />
         </div>
       </div>
     </div>

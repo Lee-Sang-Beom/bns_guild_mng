@@ -15,6 +15,53 @@ export type UserAuthType =
   | "MEMBER"
   | "TRAINEE";
 
+export const userAuthTypeList: UserAuthType[] = [
+  "LEADER",
+  "DEPUTY_LEADER",
+  "ELDER",
+  "MEMBER",
+  "TRAINEE",
+];
+
+/**
+ * @name UserJobType, @name userJobTypeList
+ * @description 선택 가능한 유저 직업
+ */
+export type UserJobType =
+  | "검사"
+  | "권사"
+  | "역사"
+  | "기공사"
+  | "암살자"
+  | "소환사"
+  | "린검사"
+  | "주술사"
+  | "기권사"
+  | "격사"
+  | "투사"
+  | "궁사"
+  | "천도사"
+  | "쌍검사"
+  | "악사";
+
+export const userJobTypeList: UserJobType[] = [
+  "검사",
+  "권사",
+  "역사",
+  "기공사",
+  "암살자",
+  "소환사",
+  "린검사",
+  "주술사",
+  "기권사",
+  "격사",
+  "투사",
+  "궁사",
+  "천도사",
+  "쌍검사",
+  "악사",
+];
+
 /**
  * @name GenderType
  * @description 성별
