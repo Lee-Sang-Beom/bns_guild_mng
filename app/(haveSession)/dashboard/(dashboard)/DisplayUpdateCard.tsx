@@ -5,12 +5,11 @@ import { SiDatadog } from "react-icons/si";
 import { useEffect } from "react";
 import { useGetRecentUpdateDates } from "@/hooks/dashboard/useGetRecentUpdateDates";
 import { NoticeResponse } from "@/types/haveSession/dashboard/notice/response";
+import { MdOutlineFiberNew } from "react-icons/md";
+import { getDashboardDateStringAndIsNew } from "@/utils/haveSession/dashboard/dashboard/action";
 export default function DisplayUpdateCard() {
   const { data } = useGetRecentUpdateDates();
 
-  useEffect(() => {
-    console.log("data is ", data);
-  }, [data]);
   return (
     <div className={`${ms.card} ${ms.card_middle}`}>
       {data && data.length > 0 ? (
@@ -21,19 +20,27 @@ export default function DisplayUpdateCard() {
             <span className={`${ms.regDt} ${ms.header}`}>등록일</span>
           </li>
           {data.map((updateItem: NoticeResponse) => {
-            // 등록일
-            const timestamp = updateItem.regDt;
-            const dateString = timestamp
-              ? new Date(timestamp.seconds * 1000).toLocaleString()
-              : "-";
-
+            const { dateString, isNew } = getDashboardDateStringAndIsNew(
+              updateItem.regDt
+            );
             return (
               <Link
                 key={`${updateItem.docId}_link`}
                 href={`/dashboard/update/detail?doc=${updateItem.docId}`}
               >
                 <li>
-                  <span className={ms.notice_title}>{updateItem.title}</span>
+                  <span className={ms.notice_title}>
+                    {updateItem.title}
+                    {isNew && (
+                      <MdOutlineFiberNew
+                        role="img"
+                        aria-label="NEW 문자열 아이콘"
+                        color="red"
+                        size={24}
+                        className={ms.new_ico}
+                      />
+                    )}
+                  </span>
                   <span className={ms.notice_writerId}>
                     {updateItem.writerId}
                   </span>

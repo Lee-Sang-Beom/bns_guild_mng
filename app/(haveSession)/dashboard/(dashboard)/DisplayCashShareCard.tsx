@@ -8,6 +8,8 @@ import { SiDatadog } from "react-icons/si";
 import Link from "next/link";
 import { makeUrlQuery } from "@/utils/common/common";
 import { CashshareResponse } from "@/types/haveSession/dashboard/cashshare/response";
+import { getDashboardDateStringAndIsNew } from "@/utils/haveSession/dashboard/dashboard/action";
+import { MdOutlineFiberNew } from "react-icons/md";
 
 export default function DisplayCashShareCard() {
   const { data } = useGetRecentCashShareDates();
@@ -53,10 +55,9 @@ export default function DisplayCashShareCard() {
                 : "미판매";
 
             // 등록일
-            const timestamp = cashData.regDt;
-            const dateString = timestamp
-              ? new Date(timestamp.seconds * 1000).toLocaleString()
-              : "-";
+            const { dateString, isNew } = getDashboardDateStringAndIsNew(
+              cashData.regDt!
+            );
 
             // 링크
             const queryInstance: CashshareRequest = {
@@ -77,6 +78,15 @@ export default function DisplayCashShareCard() {
                 <li>
                   <span className={`${borderClsx} ${ms.step}`}>
                     {stepValue}
+                    {isNew && (
+                      <MdOutlineFiberNew
+                        role="img"
+                        aria-label="NEW 문자열 아이콘"
+                        color="red"
+                        size={24}
+                        className={ms.new_ico}
+                      />
+                    )}
                   </span>
                   <span className={ms.sellerId}>{cashData.sellerId}</span>
                   <span className={ms.itemName}>{itemListString}</span>

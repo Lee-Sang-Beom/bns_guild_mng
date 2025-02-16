@@ -4,6 +4,8 @@ import Link from "next/link";
 import { SiDatadog } from "react-icons/si";
 import { useGetRecentCommunityDates } from "@/hooks/dashboard/useGetRecentCommunityDates";
 import { CommunityResponse } from "@/types/haveSession/dashboard/community/response";
+import { getDashboardDateStringAndIsNew } from "@/utils/haveSession/dashboard/dashboard/action";
+import { MdOutlineFiberNew } from "react-icons/md";
 export default function DisplayCommunityCard() {
   const { data } = useGetRecentCommunityDates();
 
@@ -18,11 +20,9 @@ export default function DisplayCommunityCard() {
             <span className={`${ms.regDt} ${ms.header}`}>등록일</span>
           </li>
           {data.map((communityItem: CommunityResponse) => {
-            // 등록일
-            const timestamp = communityItem.regDt;
-            const dateString = timestamp
-              ? new Date(timestamp.seconds * 1000).toLocaleString()
-              : "-";
+            const { dateString, isNew } = getDashboardDateStringAndIsNew(
+              communityItem.regDt
+            );
 
             let docTypeString: string = "";
 
@@ -42,7 +42,18 @@ export default function DisplayCommunityCard() {
                 href={`/dashboard/community/detail?doc=${communityItem.docId}`}
               >
                 <li>
-                  <span className={ms.notice_title}>{communityItem.title}</span>
+                  <span className={ms.notice_title}>
+                    {communityItem.title}
+                    {isNew && (
+                      <MdOutlineFiberNew
+                        role="img"
+                        aria-label="NEW 문자열 아이콘"
+                        color="red"
+                        size={24}
+                        className={ms.new_ico}
+                      />
+                    )}
+                  </span>
                   <span className={ms.notice_writerId}>
                     {communityItem.writerId}
                   </span>
