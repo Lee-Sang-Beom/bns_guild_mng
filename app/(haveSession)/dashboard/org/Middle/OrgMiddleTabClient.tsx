@@ -7,11 +7,11 @@ import { useEffect, useRef, useState } from "react";
 import { UserAuthType } from "@/types/common/commonType";
 import Chip from "@/component/common/Chip/Chip";
 import Dialog from "@/component/common/Dialog/Dialog";
-import GuildOrgDialog from "../GuildOrgDialog";
 import { SubUserDocResponse } from "@/types/haveSession/dashboard/dashboard/response";
-import GuildOrgSubCharacterDialog from "../GuildOrgSubCharacterDialog";
 import { useGetActiveSubUserList } from "@/hooks/dashboard/org/useGetActiveSubUserList";
 import { useGetActiveUserList } from "@/hooks/dashboard/org/useGetActiveUserList";
+import GuildOrgDialog from "../GuildOrgDialog";
+import GuildOrgSubCharacterDialog from "../GuildOrgSubCharacterDialog";
 interface IProps {
   session: Session;
 }
@@ -20,7 +20,7 @@ interface IProps {
 type GroupedUsers = Record<UserAuthType, UserResponse[]>;
 type GroupedSubUsers = Record<UserAuthType, SubUserDocResponse[]>;
 
-export default function OrgLeftTabClient({ session }: IProps) {
+export default function OrgMiddleTabClient({ session }: IProps) {
   const ref = useRef<HTMLButtonElement | null>(null);
   const [selectUserChip, setSelectUserChip] = useState<UserResponse | null>(
     null

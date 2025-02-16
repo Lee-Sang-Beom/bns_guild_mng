@@ -3,7 +3,7 @@
 import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { Session } from "next-auth";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import ms from "../OrgDialog.module.scss";
+import ms from "./OrgDialog.module.scss";
 import { adminAuthTypes, userAuthList } from "@/datastore/common/common";
 import Button from "@/component/common/Button/Button";
 import { withdrawCollectionUser } from "@/utils/haveSession/dashboard/org/action";

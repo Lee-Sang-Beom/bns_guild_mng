@@ -2,7 +2,7 @@
 
 import { Session } from "next-auth";
 import { Dispatch, SetStateAction, useState } from "react";
-import ms from "../OrgDialog.module.scss";
+import ms from "./OrgDialog.module.scss";
 import { userAuthList } from "@/datastore/common/common";
 import Button from "@/component/common/Button/Button";
 import { SubUserDocResponse } from "@/types/haveSession/dashboard/dashboard/response";
