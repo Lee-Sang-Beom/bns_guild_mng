@@ -82,6 +82,7 @@ export default function Chip({
     [style.disabled]: color === "disabled",
     [style.blue]: color === "blue",
     [style.no_cursor]: !props.onClick && !chipClick,
+    [style.cursor]: props.onClick || chipClick,
   });
   return (
     <button

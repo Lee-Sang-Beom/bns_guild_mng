@@ -21,6 +21,11 @@
   &.no_cursor {
     cursor: default !important;
   }
+  &.cursor {
+    &:hover {
+      background-color: var(--gray-300);
+    }
+  }
 
   /* size (sm 기본) */
   &.xsm {
