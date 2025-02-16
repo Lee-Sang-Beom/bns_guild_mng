@@ -17,9 +17,9 @@
     width: 100%;
     justify-content: center;
   }
-  /* target 여부에 따른 padding 세팅 */
-  &.target_btn {
-    padding: 0.6rem 0.6rem 0.6rem 1.2rem;
+
+  &.no_cursor {
+    cursor: default !important;
   }
 
   /* size (sm 기본) */
@@ -84,78 +84,8 @@
   &.br_round {
     border-radius: var(--br-50);
   }
-
-  /* del btn */
-  .del_btn {
-    position: relative;
-    border-radius: var(--br-50);
-    width: 18px;
-    height: 18px;
-    background-color: var(--gray-100);
-    border: 1px solid var(--gray-300);
-
-    /** focus, hover 시 */
-    &:focus,
-    &:hover {
-      outline: 1px solid var(--form-white-text-color);
-      background-color: #e1e8f2;
-    }
-
-    /** disabled 상태에서 focus, hover 시 */
-    &:disabled {
-      outline: none;
-      cursor: default !important;
-      background-color: var(--gray-100);
-    }
-
-    svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
 }
 
-.tooltip_box {
-  position: absolute;
-  z-index: 1000;
-  background-color: var(--gray-100);
-  width: 100%;
-  top: 100%;
-  left: 0;
-  color: var(--gray-1000);
-  padding: 1rem;
-  box-sizing: border-box;
-  border-radius: var(--br-8);
-  box-shadow: 0px 2px 2px 2px var(--gray-600);
-  transition: all 0.3s;
-  font-size: var(--fs-14);
-  &.none {
-    opacity: 0;
-  }
-  &.block {
-    opacity: 1;
-  }
-
-  &.top {
-    top: calc(-100% - 5px);
-    left: 0;
-  }
-
-  &.bottom {
-    top: calc(100% + 5px);
-    left: 0;
-  }
-  &.left {
-    top: 0;
-    left: calc(-100% - 5px);
-  }
-  &.right {
-    top: 0;
-    left: calc(100% + 5px);
-  }
-}
 // 반응형
 // 모바일
 @media screen and (max-width: 768px) {

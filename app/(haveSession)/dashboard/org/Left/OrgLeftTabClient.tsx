@@ -4,7 +4,7 @@ import { UserResponse } from "@/types/haveSession/dashboard/org/response";
 import { Session } from "next-auth";
 import ms from "../Org.module.scss";
 import { useEffect, useRef, useState } from "react";
-import { UserAuthType } from "@/types/common/commonType";
+import { UserAuthType, userAuthTypeList } from "@/types/common/commonType";
 import Chip from "@/component/common/Chip/Chip";
 import Dialog from "@/component/common/Dialog/Dialog";
 import GuildOrgDialog from "../GuildOrgDialog";
@@ -29,52 +29,60 @@ export default function OrgLeftTabClient({ session }: IProps) {
     useState<SubUserDocResponse | null>(null);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [groupedUsers, setGroupedUsers] = useState<GroupedUsers>({
-    LEADER: [],
-    DEPUTY_LEADER: [],
-    ELDER: [],
-    MEMBER: [],
-    TRAINEE: [],
-  });
-  const [groupedSubUsers, setGroupedSubUsers] = useState<GroupedSubUsers>({
-    LEADER: [],
-    DEPUTY_LEADER: [],
-    ELDER: [],
-    MEMBER: [],
-    TRAINEE: [],
-  });
+  const [groupedUsers, setGroupedUsers] = useState<GroupedUsers>(
+    {} as GroupedUsers
+  );
+  const [groupedSubUsers, setGroupedSubUsers] = useState<GroupedSubUsers>(
+    {} as GroupedSubUsers
+  );
 
   const { data: userList } = useGetActiveUserList();
   const { data: subUserList } = useGetActiveSubUserList();
 
   useEffect(() => {
+    // const grouped: GroupedUsers = {
+    //   LEADER: [],
+    //   DEPUTY_LEADER: [],
+    //   ELDER: [],
+    //   MEMBER: [],
+    //   TRAINEE: [],
+    // };
+    // const groupedSub: GroupedSubUsers = {
+    //   LEADER: [],
+    //   DEPUTY_LEADER: [],
+    //   ELDER: [],
+    //   MEMBER: [],
+    //   TRAINEE: [],
+    // };
+
     if (userList) {
       // 권한별로 분류 - 본캐릭터
-      const grouped: GroupedUsers = {
-        LEADER: [],
-        DEPUTY_LEADER: [],
-        ELDER: [],
-        MEMBER: [],
-        TRAINEE: [],
-      };
-
-      // 권한별로 분류 - 서브캐릭터터
-      const groupedSub: GroupedSubUsers = {
-        LEADER: [],
-        DEPUTY_LEADER: [],
-        ELDER: [],
-        MEMBER: [],
-        TRAINEE: [],
-      };
+      const grouped: GroupedUsers = userAuthTypeList.reduce((acc, authType) => {
+        acc[authType] = []; // authType을 key로 하고 빈 배열로 초기화
+        return acc;
+      }, {} as GroupedUsers);
 
       userList.forEach((user) => {
         grouped[user.authType].push(user);
       });
+
+      setGroupedUsers(grouped);
+    }
+
+    if (subUserList) {
+      // 권한별로 분류 - 서브캐릭터
+      const groupedSub: GroupedSubUsers = userAuthTypeList.reduce(
+        (acc, authType) => {
+          acc[authType] = []; // authType을 key로 하고 빈 배열로 초기화
+          return acc;
+        },
+        {} as GroupedSubUsers
+      );
+
       subUserList.forEach((user) => {
         groupedSub[user.authType].push(user);
       });
 
-      setGroupedUsers(grouped);
       setGroupedSubUsers(groupedSub);
     }
   }, [userList, subUserList]);
@@ -104,7 +112,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
         <div className={ms.role_box}>
           <p className={ms.role_title}>문파장</p>
           <div className={ms.role_list}>
-            {groupedUsers.LEADER.map((user) => {
+            {groupedUsers.LEADER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -123,7 +131,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
                 />
               );
             })}
-            {groupedSubUsers.LEADER.map((user) => {
+            {groupedSubUsers.LEADER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -147,7 +155,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
         <div className={ms.role_box}>
           <p className={ms.role_title}>부문파장</p>
           <div className={ms.role_list}>
-            {groupedUsers.DEPUTY_LEADER.map((user) => {
+            {groupedUsers.DEPUTY_LEADER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -166,7 +174,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
                 />
               );
             })}
-            {groupedSubUsers.DEPUTY_LEADER.map((user) => {
+            {groupedSubUsers.DEPUTY_LEADER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -190,7 +198,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
         <div className={ms.role_box}>
           <p className={ms.role_title}>문파장로</p>
           <div className={ms.role_list}>
-            {groupedUsers.ELDER.map((user) => {
+            {groupedUsers.ELDER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -209,7 +217,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
                 />
               );
             })}
-            {groupedSubUsers.ELDER.map((user) => {
+            {groupedSubUsers.ELDER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -233,7 +241,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
         <div className={ms.role_box}>
           <p className={ms.role_title}>문파원</p>
           <div className={ms.role_list}>
-            {groupedUsers.MEMBER.map((user) => {
+            {groupedUsers.MEMBER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -252,7 +260,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
                 />
               );
             })}
-            {groupedSubUsers.MEMBER.map((user) => {
+            {groupedSubUsers.MEMBER?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -276,7 +284,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
         <div className={ms.role_box}>
           <p className={ms.role_title}>연습생</p>
           <div className={ms.role_list}>
-            {groupedUsers.TRAINEE.map((user) => {
+            {groupedUsers.TRAINEE?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}
@@ -295,7 +303,7 @@ export default function OrgLeftTabClient({ session }: IProps) {
                 />
               );
             })}
-            {groupedSubUsers.TRAINEE.map((user) => {
+            {groupedSubUsers.TRAINEE?.map((user) => {
               return (
                 <Chip
                   key={`${user.id}_${user.docId}`}

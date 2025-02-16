@@ -1,9 +1,8 @@
 "use client";
 
-import React, { Ref, forwardRef, useEffect, useId, useState } from "react";
+import React, { useState } from "react";
 import style from "./Chip.module.scss";
 import clsx from "clsx";
-import { HiX } from "react-icons/hi";
 
 export interface ChipType {
   name: string;
@@ -13,7 +12,6 @@ export interface ChipType {
 interface ChipProps {
   widthStyle?: "parent-content" | "fit-content";
   chipData: ChipType;
-  chipClickTarget?: "chip" | "button";
   chipClick?: (chipData: ChipType) => void;
   chipSize?: "xsm" | "sm" | "md" | "lg" | "xlg";
   color?: "white" | "blue" | "disabled";
@@ -31,9 +29,6 @@ interface ChipProps {
  *
  * @param chipData: 칩 내용
  * @return {name: string; value: string | number; group: string;}
- *
- * @param chipClickTarget?: 칩 클릭 타겟 (default는 chip)
- * @return chip | button
  *
  * @description 클릭한 이유가 chip 자체인지, closeButton과 element에 대한 이벤트인지 구분
  * @description 이는 의도치않은 버블링 분리를 위함
@@ -58,14 +53,13 @@ interface ChipProps {
 export default function Chip({
   widthStyle,
   chipData,
-  chipClickTarget,
   chipClick,
   chipSize,
   color,
   title,
   border,
   ...props
-}: ChipProps & React.HTMLProps<HTMLDivElement>) {
+}: ChipProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const [hover, setHover] = useState<boolean>(false);
 
   // chip은 기본 size가 sm
@@ -87,20 +81,17 @@ export default function Chip({
     [style.white]: color === "white",
     [style.disabled]: color === "disabled",
     [style.blue]: color === "blue",
+    [style.no_cursor]: !props.onClick && !chipClick,
   });
   return (
-    <div
+    <button
+      title={chipData.name}
       className={clsx(
         baseChipClassName,
-        border ? style[border] : style.br_square_round_2,
-        chipClickTarget && chipClickTarget === "button"
-          ? style["target_btn"]
-          : style["target_chip"]
+        border ? style[border] : style.br_square_round_2
       )}
       onClick={() => {
-        // 만약 클릭한 타겟이 button으로 전달되었으면, 해당 chip에서 이벤트가 발생하면 안됨
-        if (chipClickTarget === "button") return;
-
+        if (props.onClick) return;
         if (chipClick) {
           chipClick(chipData);
         }
@@ -111,33 +102,10 @@ export default function Chip({
       onMouseLeave={() => {
         setHover(false);
       }}
+      tabIndex={props.onClick || chipClick ? 0 : -1}
       {...props}
     >
       {chipData.name}
-      {chipClickTarget && chipClickTarget === "button" ? (
-        <button
-          className={style.del_btn}
-          disabled={color && color === "disabled" ? true : false}
-          title={`${chipData.name} 항목 삭제`}
-          onClick={(e) => {
-            // 이게 없으면, Form 객체 하위에서 submit이 발생함
-            e.preventDefault();
-
-            if (chipClick) {
-              chipClick(chipData);
-            }
-          }}
-        >
-          <HiX
-            size={12}
-            role={"img"}
-            aria-label="삭제 아이콘"
-            color="var(--gray-1000)"
-          />
-        </button>
-      ) : (
-        <></>
-      )}
-    </div>
+    </button>
   );
 }

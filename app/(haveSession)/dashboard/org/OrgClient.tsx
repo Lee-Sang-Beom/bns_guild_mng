@@ -2,6 +2,7 @@ import ms from "./Org.module.scss";
 import Tab from "@/component/common/Tab/Tab";
 import OrgLeftTabServer from "./Left/OrgLeftTabServer";
 import OrgRightTabServer from "./Right/OrgRightTabServer";
+import OrgMiddleTabServer from "./Middle/OrgMiddleTabServer";
 
 export default function OrgClient() {
   const tabTitle = [
@@ -13,6 +14,7 @@ export default function OrgClient() {
     <div className={ms.wrap}>
       <Tab tabTitle={tabTitle} color="blue">
         <OrgLeftTabServer />
+        <OrgMiddleTabServer />
         <OrgRightTabServer />
       </Tab>
     </div>
