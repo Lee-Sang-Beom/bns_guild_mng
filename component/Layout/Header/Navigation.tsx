@@ -8,6 +8,7 @@ import { RiHome3Fill } from "react-icons/ri";
 import { menuList } from "@/datastore/common/common";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { BiSolidMessageSquareDots } from "react-icons/bi";
+import { CiCalendarDate } from "react-icons/ci";
 
 // 메뉴 아이콘을 선택하는 함수
 const getMenuIcon = (menuSeq: number) => {
@@ -24,14 +25,18 @@ const getMenuIcon = (menuSeq: number) => {
         />
       );
     case 3:
-      return <GiOrganigram size={size} role="img" aria-label="조직 아이콘" />;
+      return (
+        <CiCalendarDate size={size} role="img" aria-label="캘린더 아이콘" />
+      );
     case 4:
+      return <GiOrganigram size={size} role="img" aria-label="조직 아이콘" />;
     case 5:
+    case 6:
       return (
         <FaPaperPlane size={size} role="img" aria-label="공지사항 아이콘" />
       );
-    case 6:
     case 7:
+    case 8:
       return (
         <MdOutlineTipsAndUpdates
           size={size}

@@ -10,6 +10,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { menuList } from "@/datastore/common/common";
 import { BiSolidMessageSquareDots } from "react-icons/bi";
+import { CiCalendarDate } from "react-icons/ci";
 
 interface IProps {
   menuList: MenuItem[];
@@ -30,14 +31,18 @@ const getMenuIcon = (menuSeq: number) => {
         />
       );
     case 3:
-      return <GiOrganigram size={size} role="img" aria-label="조직 아이콘" />;
+      return (
+        <CiCalendarDate size={size} role="img" aria-label="캘린더 아이콘" />
+      );
     case 4:
+      return <GiOrganigram size={size} role="img" aria-label="조직 아이콘" />;
     case 5:
+    case 6:
       return (
         <FaPaperPlane size={size} role="img" aria-label="공지사항 아이콘" />
       );
-    case 6:
     case 7:
+    case 8:
       return (
         <MdOutlineTipsAndUpdates
           size={size}
