@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-
+  overflow-x: hidden;
   * {
     box-sizing: border-box;
   }
@@ -29,6 +29,7 @@
 
 // MIDDLE
 .middle {
+  padding: 0 1px 0 0;
   .inner {
     width: 100%;
     height: auto;
@@ -38,6 +39,7 @@
     align-items: center;
 
     .inp_box {
+      width: auto;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -58,4 +60,36 @@
 
 // BOTTOM
 .bottom {
+}
+
+@media screen and (max-width: 1480px) {
+  .middle {
+    .inner {
+      width: 100%;
+      height: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 10px;
+
+      .inp_box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .label {
+          display: inline-block;
+          font-weight: 500;
+          font-size: var(--fs-18);
+          margin-bottom: 5px;
+        }
+
+        .inp {
+          width: 400px;
+        }
+      }
+    }
+  }
 }
