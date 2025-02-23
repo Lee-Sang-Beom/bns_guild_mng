@@ -68,7 +68,7 @@ export const menuList: MenuItem[] = [
     mainShow: "Y" as const,
   },
   {
-    menuNm: "일정관리",
+    menuNm: "일정 관리",
     menuUrl: "/dashboard/schedule",
     mainShow: "Y" as const,
   },

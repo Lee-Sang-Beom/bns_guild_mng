@@ -1,0 +1,24 @@
+.react-calendar-box {
+  width: 100%;
+  height: 100%;
+}
+
+/**
+* ==== react-calendar 라이브러리 내 고정 클래스명 ====
+*/
+
+// 사용자 클릭으로 활성화된 영역 스타일
+.react-calendar__tile--active {
+  background: #5bc3aa !important;
+  color: white;
+}
+
+// 현재 날짜가 표시되는 영역 스타일
+.react-calendar__tile--now {
+  background: #aad6ff !important;
+}
+
+// 텍스트 스타일
+abbr {
+  font-weight: 300;
+}
