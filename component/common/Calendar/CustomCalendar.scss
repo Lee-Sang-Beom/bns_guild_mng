@@ -6,6 +6,11 @@
 /**
 * ==== react-calendar 라이브러리 내 고정 클래스명 ====
 */
+.react-calendar {
+  min-width: 450px;
+  width: 100%;
+  height: 100%;
+}
 
 // 사용자 클릭으로 활성화된 영역 스타일
 .react-calendar__tile--active {

@@ -1,4 +1,3 @@
-import { SetStateAction } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CustomCalendar.scss";
@@ -20,10 +19,10 @@ interface IProps {
   selectedDate: SelectedDate;
 
   /**
-   * @property {React.Dispatch<SetStateAction<SelectedDate>>} onChange
+   * @property {(newDate: SelectedDate) => void} onChange
    * @description 날짜 선택 시 부모 컴포넌트의 상태를 업데이트하는 함수
    */
-  onChange: React.Dispatch<SetStateAction<SelectedDate>>;
+  onChange: (newDate: SelectedDate) => void;
 }
 
 /**
@@ -37,7 +36,7 @@ export default function CustomCalendar({ selectedDate, onChange }: IProps) {
     <div className="react-calendar-box">
       <Calendar
         calendarType="gregory"
-        onChange={onChange} // 부모에서 전달된 상태 업데이트 함수 실행
+        onChange={(value) => onChange(value as SelectedDate)} // 타입 캐스팅 추가
         value={selectedDate} // 부모에서 전달된 현재 날짜 값
         locale="ko-KR"
         minDetail="year"

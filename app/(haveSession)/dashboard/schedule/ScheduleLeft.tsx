@@ -1,17 +1,13 @@
 "use client";
 
-import CustomCalendar, {
-  SelectedDate,
-} from "@/component/common/Calendar/CustomCalendar";
+import useScheduleSelectedDate from "@/zustand/scheduleSelectedDate";
 import { ScheduleLeftCalendarBox } from "./styles/css-in-js/ScheduleLeftStyledComp";
-import { useEffect, useState } from "react";
+import CustomCalendar from "@/component/common/Calendar/CustomCalendar";
 
 export default function ScheduleLeft() {
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
+  // zustand에서 상태 및 setter 가져오기
+  const { selectedDate, setSelectedDate } = useScheduleSelectedDate();
 
-  useEffect(() => {
-    console.log("sel ", selectedDate);
-  }, [selectedDate]);
   return (
     <ScheduleLeftCalendarBox>
       <CustomCalendar selectedDate={selectedDate} onChange={setSelectedDate} />

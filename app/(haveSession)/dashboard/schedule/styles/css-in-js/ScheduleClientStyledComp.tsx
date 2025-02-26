@@ -15,6 +15,10 @@ const ScheduleWrapBox = styled.div`
   * {
     box-sizing: border-box;
   }
+
+  @media screen and (max-width: 1320px) {
+    flex-direction: column;
+  }
 `;
 
 /**
@@ -23,8 +27,12 @@ const ScheduleWrapBox = styled.div`
  * @returns {StyledComponent} - styled.div
  */
 const ScheduleLeftBox = styled.div`
-  flex-basis: calc(70% - 10px);
+  width: calc(45% - 10px);
   height: auto;
+
+  @media screen and (max-width: 1320px) {
+    width: 100%;
+  }
 `;
 
 /**
@@ -33,8 +41,12 @@ const ScheduleLeftBox = styled.div`
  * @returns {StyledComponent} - styled.div
  */
 const ScheduleRightBox = styled.div`
-  flex-basis: calc(30% - 10px);
-  height: auto;
+  width: calc(55% - 10px);
+  height: 100%;
+
+  @media screen and (max-width: 1320px) {
+    width: 100%;
+  }
 `;
 
 export { ScheduleWrapBox, ScheduleLeftBox, ScheduleRightBox };
