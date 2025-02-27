@@ -2,7 +2,10 @@
 
 import useScheduleSelectedDate from "@/zustand/scheduleSelectedDate";
 import { ScheduleLeftCalendarBox } from "./styles/css-in-js/ScheduleLeftStyledComp";
-import CustomCalendar from "@/component/common/Calendar/CustomCalendar";
+import CustomCalendar, {
+  SelectedDate,
+} from "@/component/common/Calendar/CustomCalendar";
+import { useEffect, useState } from "react";
 
 export default function ScheduleLeft() {
   // zustand에서 상태 및 setter 가져오기
@@ -10,7 +13,11 @@ export default function ScheduleLeft() {
 
   return (
     <ScheduleLeftCalendarBox>
-      <CustomCalendar selectedDate={selectedDate} onChange={setSelectedDate} />
+      <CustomCalendar
+        selectedDate={selectedDate}
+        onChange={setSelectedDate}
+        dateList={[]}
+      />
     </ScheduleLeftCalendarBox>
   );
 }

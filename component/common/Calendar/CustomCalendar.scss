@@ -27,3 +27,26 @@
 abbr {
   font-weight: 300;
 }
+
+// 01일 ~ 31일에 해당하는 일별 버튼 스타일
+.react-calendar__tile.react-calendar__month-view__days__day {
+  height: 60px;
+  max-height: 60px;
+}
+
+// 일정 있는 날 표시
+.dot_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: var(--chart1);
+  border-radius: 50%;
+  text-align: center;
+  margin-top: 3px;
+}
