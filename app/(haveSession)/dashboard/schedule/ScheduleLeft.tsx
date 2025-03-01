@@ -2,9 +2,7 @@
 
 import useScheduleSelectedDate from "@/zustand/scheduleSelectedDate";
 import { ScheduleLeftCalendarBox } from "./styles/css-in-js/ScheduleLeftStyledComp";
-import CustomCalendar, {
-  SelectedDate,
-} from "@/component/common/Calendar/CustomCalendar";
+import CustomCalendar from "@/component/common/Calendar/CustomCalendar";
 import { useEffect, useState } from "react";
 
 export default function ScheduleLeft() {

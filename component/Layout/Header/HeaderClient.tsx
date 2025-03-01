@@ -32,7 +32,7 @@ export default function HeaderClient({ session }: IProps) {
     <header id="header" className={ms.header}>
       {/* TOP - 메인 로고 및 로그아웃 버튼 */}
       <div className={ms.top}>
-        <img src="/img/logo.png" alt="티어 메인 로고" />
+        <img src="/img/logo.png" alt="리셋 메인 로고" />
         <div className={ms.btn_box}>
           <button
             title="로그아웃"

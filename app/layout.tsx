@@ -8,8 +8,8 @@ import NextAuthProvider from "@/provider/NextAuthProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
-  title: "티어",
-  description: "BNS_Tier",
+  title: "리셋",
+  description: "Blade & Soul Guild Manage Project",
 };
 
 const pretendard = localFont({

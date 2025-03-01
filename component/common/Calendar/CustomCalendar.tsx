@@ -66,7 +66,7 @@ export default function CustomCalendar({
         formatDay={(local, date) => moment(date).format("D")} // 01일 -> 1일 처럼 변경
         tileContent={({ date, view }) => {
           // 해당 날짜가 dateList에 몇 개 포함되는지 카운트
-          let tileCount = dateList.filter(
+          let dotCount = dateList.filter(
             (x) =>
               x &&
               moment(x).format("YYYY-MM-DD") ===
@@ -74,11 +74,11 @@ export default function CustomCalendar({
           ).length;
 
           // 최대 10개
-          tileCount = tileCount > 10 ? 10 : tileCount;
+          dotCount = dotCount > 10 ? 10 : dotCount;
 
           return (
             <div className="dot_box">
-              {Array.from({ length: tileCount }, (_, i) => (
+              {Array.from({ length: dotCount }, (_, i) => (
                 <div key={i} className="dot"></div>
               ))}
             </div>
