@@ -17,6 +17,8 @@ export default function ScheduleRight() {
         : selectedDate
         ? moment(selectedDate).format("YYYY-MM-DD")
         : "날짜를 선택해주세요"}
+
+      <p>개발중입니다</p>
     </ScheduleRightCalendarBox>
   );
 }

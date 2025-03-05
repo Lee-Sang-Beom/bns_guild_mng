@@ -54,7 +54,7 @@ export default function CustomCalendar({
   dateList,
 }: IProps) {
   return (
-    <div className="react-calendar-box">
+    <section className="react-calendar-box">
       <Calendar
         calendarType="gregory"
         onChange={(value) => onChange(value as SelectedDate)} // 타입 캐스팅 추가
@@ -85,6 +85,6 @@ export default function CustomCalendar({
           );
         }}
       />
-    </div>
+    </section>
   );
 }
