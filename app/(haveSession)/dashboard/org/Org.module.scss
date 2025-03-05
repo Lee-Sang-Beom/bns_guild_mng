@@ -51,10 +51,6 @@
     }
   }
 
-  // MIDDLE
-  .middle {
-  }
-
   // RIGHT
   .right.role {
     flex: 2;
@@ -110,6 +106,11 @@
       left: -30px;
       transform: translateY(-50%);
     }
+  }
+  .right.scroll {
+    max-height: calc(100vh - 250px);
+    overflow-y: scroll;
+    padding-right: 5px;
   }
 }
 

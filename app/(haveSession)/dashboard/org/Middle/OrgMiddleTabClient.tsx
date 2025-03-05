@@ -106,7 +106,7 @@ export default function OrgMiddleTabClient({ session }: IProps) {
         <div className={ms.circle}></div>
       </div>
       {/* RIGHT */}
-      <div className={`${ms.right} ${ms.role}`}>
+      <div className={`${ms.right} ${ms.role} ${ms.scroll}`}>
         {userJobTypeList.map(
           (
             role // 직업별로 표시할 것임임

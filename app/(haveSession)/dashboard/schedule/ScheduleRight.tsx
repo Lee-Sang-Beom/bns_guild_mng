@@ -10,13 +10,7 @@ export default function ScheduleRight() {
 
   return (
     <ScheduleRightCalendarBox>
-      {Array.isArray(selectedDate)
-        ? `${moment(selectedDate[0]).format("YYYY-MM-DD")} ~ ${moment(
-            selectedDate[1]
-          ).format("YYYY-MM-DD")}`
-        : selectedDate
-        ? moment(selectedDate).format("YYYY-MM-DD")
-        : "날짜를 선택해주세요"}
+      {`${moment(selectedDate).format("YYYY-MM-DD")}`}
 
       <p>개발중입니다</p>
     </ScheduleRightCalendarBox>
