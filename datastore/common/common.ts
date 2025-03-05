@@ -61,53 +61,38 @@ export const genderList: SelectboxType[] = [
  * @description 메뉴 리스트 (필요 시, 차후 서버에서 관리하여 내려줄 수 있도록 할 것임)
  */
 export const menuList: MenuItem[] = [
-  { menuSeq: 1, menuNm: "홈", menuUrl: "/dashboard", mainShow: "Y" },
+  { menuNm: "홈", menuUrl: "/dashboard", mainShow: "Y" as const },
   {
-    menuSeq: 2,
     menuNm: "분배금 관리",
     menuUrl: "/dashboard/cashshare",
-    mainShow: "Y",
+    mainShow: "Y" as const,
   },
   {
-    menuSeq: 3,
-    menuNm: "조직도",
-    menuUrl: "/dashboard/org",
-    mainShow: "Y",
+    menuNm: "일정 관리",
+    menuUrl: "/dashboard/schedule",
+    mainShow: "Y" as const,
   },
+  { menuNm: "조직도", menuUrl: "/dashboard/org", mainShow: "Y" as const },
+  { menuNm: "공지사항", menuUrl: "/dashboard/notice", mainShow: "Y" as const },
   {
-    menuSeq: 4,
-    menuNm: "공지사항",
-    menuUrl: "/dashboard/notice",
-    mainShow: "Y",
-  },
-  {
-    menuSeq: 5,
     menuNm: "공지사항 상세",
     menuUrl: "/dashboard/notice/detail",
-    mainShow: "N",
+    mainShow: "N" as const,
   },
+  { menuNm: "업데이트", menuUrl: "/dashboard/update", mainShow: "N" as const },
   {
-    menuSeq: 6,
-    menuNm: "업데이트",
-    menuUrl: "/dashboard/update",
-    mainShow: "N",
-  },
-  {
-    menuSeq: 7,
     menuNm: "업데이트 상세",
     menuUrl: "/dashboard/update/detail",
-    mainShow: "N",
+    mainShow: "N" as const,
   },
   {
-    menuSeq: 8,
     menuNm: "커뮤니티",
     menuUrl: "/dashboard/community",
-    mainShow: "Y",
+    mainShow: "Y" as const,
   },
   {
-    menuSeq: 9,
     menuNm: "커뮤니티 상세",
     menuUrl: "/dashboard/community/detail",
-    mainShow: "N",
+    mainShow: "N" as const,
   },
-];
+].map((item, index) => ({ ...item, menuSeq: index + 1 }));

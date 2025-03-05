@@ -7,7 +7,7 @@ import { passwordReactHookFormOption } from "@/utils/vaildation/reactHookFormRet
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -48,7 +48,7 @@ export default function LoginClient() {
       ...data,
       redirect: false,
     })
-      .then((res) => {
+      .then(async (res) => {
         // res가 아예 없는 경우 : 로그인 중 응답 오류
         if (!res) {
           setText("로그인 응답 중 오류가 발생했습니다.");
@@ -58,6 +58,7 @@ export default function LoginClient() {
         }
 
         if (res.status == 200) {
+          await getSession();
           router.push("/dashboard");
         } else {
           setText(res.error || "닉네임과 비밀번호를 다시 확인해주세요.");
@@ -85,7 +86,7 @@ export default function LoginClient() {
             <div className={ms.top}>
               <p className={ms.title}>로그인</p>
               <p className={ms.desc}>
-                회원가입을 진행한 후, 관리자 확인을 통과한 티어 문파원만
+                회원가입을 진행한 후, 관리자 확인을 통과한 리셋 문파원만
                 로그인을 진행할 수 있습니다.
               </p>
             </div>

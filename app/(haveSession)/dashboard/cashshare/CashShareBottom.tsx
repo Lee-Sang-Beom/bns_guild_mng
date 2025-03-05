@@ -107,9 +107,9 @@ export default function CashShareBottom({
         return (
           <div
             className={`${tms.table_header_flex} ${tms.table_header_flexwrap}`}
-            key={`${item.docId}_itemList`}
+            key={`${item.docId}_itemList_box`}
           >
-            {item.itemList.map((itemName) => {
+            {item.itemList.map((itemName, itemIdx: number) => {
               return (
                 <Chip
                   widthStyle="fit-content"
@@ -119,8 +119,9 @@ export default function CashShareBottom({
                     group: "",
                   }}
                   color={"white"}
-                  title={`${item.docId}_itemList_${itemName}`}
-                  key={`${item.docId}_itemList_${itemName}`}
+                  // 데이터를 표시만하는 영역이기 때문에 key={idx}가 권장되지 않지만 사용
+                  title={`${item.docId}_itemList_${itemName}_${itemIdx}`}
+                  key={`${item.docId}_itemList_${itemName}_${itemIdx}`}
                 />
               );
             })}
@@ -179,9 +180,19 @@ export default function CashShareBottom({
         return (
           <>
             {stepValue != "거래등록" ? (
-              <p className={tms.table_header_text}>{item.distributionPrice}</p>
+              <p
+                className={tms.table_header_text}
+                key={`${item.docId}_distribution_price`}
+              >
+                {item.distributionPrice}
+              </p>
             ) : (
-              <p className={tms.table_header_text}>미판매</p>
+              <p
+                className={tms.table_header_text}
+                key={`${item.docId}_distribution_price`}
+              >
+                미판매
+              </p>
             )}
           </>
         );
