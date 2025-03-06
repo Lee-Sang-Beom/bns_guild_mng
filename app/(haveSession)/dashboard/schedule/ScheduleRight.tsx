@@ -1,7 +1,11 @@
 "use client";
 
 import useScheduleSelectedDate from "@/zustand/scheduleSelectedDate";
-import { ScheduleRightCalendarBox } from "./styles/css-in-js/ScheduleRightStyledComp";
+import {
+  ScheduleRightCalendarBottomBox,
+  ScheduleRightCalendarBox,
+  ScheduleRightCalendarTopBox,
+} from "./styles/css-in-js/ScheduleRightStyledComp";
 import moment from "moment";
 
 export default function ScheduleRight() {
@@ -10,9 +14,16 @@ export default function ScheduleRight() {
 
   return (
     <ScheduleRightCalendarBox>
-      {`${moment(selectedDate).format("YYYY-MM-DD")}`}
+      {/* TOP: 선택일자 출력 */}
+      <ScheduleRightCalendarTopBox>
+        <header>선택일자</header>
+        <time dateTime={moment(selectedDate).format("YYYY-MM-DD")}>
+          {moment(selectedDate).format("YYYY-MM-DD")}
+        </time>
+      </ScheduleRightCalendarTopBox>
 
-      <p>개발중입니다</p>
+      {/* BOTTOM: 선택일자에 해당하는 일정 출력 */}
+      <ScheduleRightCalendarBottomBox></ScheduleRightCalendarBottomBox>
     </ScheduleRightCalendarBox>
   );
 }

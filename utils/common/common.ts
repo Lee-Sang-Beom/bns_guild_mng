@@ -166,8 +166,8 @@ export function makeUrlQuery(params: Record<string, any>): string {
  */
 export function maskUserBirth(userBirth: string): string {
   // "YYYY-MM-DD" 형식의 문자열에서 월과 일을 "**"로 변경
-  const [year] = userBirth.split("-");
-  return `${year}-**-**`;
+  const [year, month, day] = userBirth.split("-");
+  return `****-${month}-${day}`;
 }
 
 /**
