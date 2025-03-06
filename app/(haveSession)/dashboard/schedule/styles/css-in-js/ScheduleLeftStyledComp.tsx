@@ -8,6 +8,10 @@ import styled from "styled-components";
 const ScheduleLeftCalendarBox = styled.div`
   width: 100%;
   height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export { ScheduleLeftCalendarBox };
