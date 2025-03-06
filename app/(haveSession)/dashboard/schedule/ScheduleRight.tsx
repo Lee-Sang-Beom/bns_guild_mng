@@ -23,7 +23,9 @@ export default function ScheduleRight() {
       </ScheduleRightCalendarTopBox>
 
       {/* BOTTOM: 선택일자에 해당하는 일정 출력 */}
-      <ScheduleRightCalendarBottomBox></ScheduleRightCalendarBottomBox>
+      <ScheduleRightCalendarBottomBox>
+        개발중입니다
+      </ScheduleRightCalendarBottomBox>
     </ScheduleRightCalendarBox>
   );
 }
