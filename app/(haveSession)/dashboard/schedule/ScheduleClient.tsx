@@ -16,7 +16,7 @@ export default function ScheduleClient({ session }: IProps) {
     <ScheduleWrapBox>
       {/* LEFT */}
       <ScheduleLeftBox>
-        <ScheduleLeft />
+        <ScheduleLeft session={session} />
       </ScheduleLeftBox>
 
       {/* RIGHT */}
