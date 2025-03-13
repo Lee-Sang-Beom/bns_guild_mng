@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import Input from "@/component/common/Input/Input";
 import Button from "@/component/common/Button/Button";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import SubmitForm from "@/component/common/SubmitForm/SubmitForm";
 import Loading from "@/component/common/Loading/Loading";
 import { useAutoAlert } from "@/hooks/common/alert/useAutoAlert";
@@ -20,6 +20,7 @@ import {
   Section,
   Wrap,
 } from "../styles/css-in-js/ScheduleManageDialogStyledComp";
+import Textarea from "@/component/common/Textarea/Textarea";
 
 interface IProps {
   session: Session;
@@ -145,23 +146,16 @@ export default function ScheduleManageDialog({
                 <Label htmlFor="content">
                   일정 내용 <span className="essential">*</span>
                 </Label>
-                <Input
+                <Textarea
                   {...register("content", {
                     required: "일정 내용을 입력해주세요.",
                   })}
-                  type="text"
-                  placeholder="일정 내용을 입력해주세요."
-                  aria-invalid={
-                    isSubmitted
-                      ? errors.content
-                        ? "true"
-                        : "false"
-                      : undefined
-                  }
-                  title="일정 내용"
-                  id="content"
+                  title={"일정 내용"}
+                  placeholder={"일정 내용 입력"}
+                  style={{ height: "99px" }}
                   partialErrorObj={errors.content}
-                  inpSize="md"
+                  defaultMultiLine={true}
+                  taSize="sm"
                 />
               </InputBox>
 
@@ -169,14 +163,14 @@ export default function ScheduleManageDialog({
               <ButtonBox>
                 <Button
                   color="blue"
-                  title={data ? "저장" : "수정"}
+                  title={data ? "수정" : "저장"}
                   id="save"
                   size="lg"
                   type="submit"
                   disabled={isSubmitting}
                   onClick={() => {}}
                 >
-                  {data ? "저장" : "수정"}
+                  {data ? "수정" : "저장"}
                 </Button>
               </ButtonBox>
             </Inner>
