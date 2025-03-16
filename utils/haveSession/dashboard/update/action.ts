@@ -18,7 +18,6 @@ export async function addCollectionUpdate(
   data: UpdateFormRegisterRequest
 ): Promise<ApiResponse<string | null>> {
   try {
-    // Firestore에 새로운 유저 추가
     const docRef = await addDoc(collection(db, "collection_update"), data);
 
     return {

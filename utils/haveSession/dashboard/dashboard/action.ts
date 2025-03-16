@@ -245,7 +245,6 @@ export async function addCollectionSubUser(
       };
     }
 
-    // Firestore에 새로운 유저 추가
     const docRef = await addDoc(collection(db, "collection_sub_user"), data);
 
     return {
