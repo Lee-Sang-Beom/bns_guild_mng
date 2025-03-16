@@ -21,15 +21,22 @@ import {
   Wrap,
 } from "../styles/css-in-js/ScheduleManageDialogStyledComp";
 import Textarea from "@/component/common/Textarea/Textarea";
+import {
+  addCollectionSchedule,
+  updateCollectionSchedule,
+} from "@/utils/haveSession/dashboard/schedule/action";
+import { SelectedDate } from "@/component/common/Calendar/CustomCalendar";
 
 interface IProps {
   session: Session;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  selectedDate: SelectedDate;
   data: ScheduleResponse | null;
 }
 export default function ScheduleManageDialog({
   session,
   setOpen,
+  selectedDate,
   data,
 }: IProps) {
   const { setIsChange, setStatus, setText } = useAutoAlert();
@@ -55,6 +62,7 @@ export default function ScheduleManageDialog({
       docId: data ? data.docId : null,
       writerId: data ? data.writerId : session.user.id,
       content: data ? data.content : "",
+      baseDt: selectedDate!,
       regDt: data ? data.regDt : null,
     },
   });
@@ -67,7 +75,40 @@ export default function ScheduleManageDialog({
 
     if (docId) {
       // case 수정
-      await updateCollectionCashShare(docId, postData)
+      await updateCollectionSchedule(docId, postData)
+        .then(async (res) => {
+          if (!res) {
+            setText("일정 정보 수정 중 오류가 발생했습니다.");
+            setIsChange(true);
+            setStatus("error");
+            return;
+          }
+          if (res.success) {
+            setText("수정되었습니다.");
+            setIsChange(true);
+            setStatus("success");
+            setOpen(false);
+
+            setTimeout(() => {
+              router.replace(`/dashboard/schedule`);
+              router.refresh();
+              setOpen(false);
+            }, 500);
+          } else {
+            setText(res.message || "일정 정보 수정 중 오류가 발생했습니다.");
+            setIsChange(true);
+            setStatus("error");
+          }
+        })
+        .catch((error) => {
+          setText("일정 정보 수정 중 오류가 발생했습니다.");
+          setIsChange(true);
+          setStatus("error");
+          return;
+        });
+    } else {
+      // case 저장
+      await addCollectionSchedule(postData)
         .then(async (res) => {
           if (!res) {
             setText("일정 정보 저장 중 오류가 발생했습니다.");
@@ -98,9 +139,6 @@ export default function ScheduleManageDialog({
           setStatus("error");
           return;
         });
-    } else {
-      // case 저장
-      console.log("저장 ", postData, docId);
     }
   };
 

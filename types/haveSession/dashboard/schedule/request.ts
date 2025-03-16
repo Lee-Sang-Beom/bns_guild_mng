@@ -1,3 +1,4 @@
+import { SelectedDate } from "@/component/common/Calendar/CustomCalendar";
 import { Timestamp } from "firebase/firestore";
 
 /**
@@ -22,6 +23,12 @@ export interface ScheduleFormRequest {
    * @description 일정내용
    */
   content: string;
+
+  /**
+   * @name baseDt
+   * @description 선택일자
+   */
+  baseDt: SelectedDate;
 
   /**
    * @name regDt

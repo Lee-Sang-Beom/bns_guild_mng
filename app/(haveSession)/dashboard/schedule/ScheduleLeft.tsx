@@ -8,6 +8,7 @@ import Button from "@/component/common/Button/Button";
 import Dialog from "@/component/common/Dialog/Dialog";
 import ScheduleManageDialog from "./Dialog/ScheduleManageDialog";
 import { Session } from "next-auth";
+import { useGetScheduleList } from "@/hooks/dashboard/schedule/useGetScheduleList";
 
 interface IProps {
   session: Session;
@@ -19,6 +20,11 @@ export default function ScheduleLeft({ session }: IProps) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const ref = useRef<HTMLButtonElement | null>(null);
 
+  const { data, isLoading } = useGetScheduleList(selectedDate);
+
+  useEffect(() => {
+    console.log("useGetScheduleList ", data);
+  }, [data]);
   return (
     <ScheduleLeftCalendarBox>
       {/* 캘린더 영역 */}
@@ -44,20 +50,23 @@ export default function ScheduleLeft({ session }: IProps) {
       </Button>
 
       {/* 일정 추가에 해당하는 다이얼로그 */}
-      <Dialog
-        width="lg"
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        title="일정 내용 저장"
-        ref={ref}
-        paperHidden={true}
-      >
-        <ScheduleManageDialog
-          session={session}
+      {selectedDate && (
+        <Dialog
+          width="lg"
+          open={dialogOpen}
           setOpen={setDialogOpen}
-          data={null}
-        />
-      </Dialog>
+          title="일정 내용 저장"
+          ref={ref}
+          paperHidden={true}
+        >
+          <ScheduleManageDialog
+            session={session}
+            setOpen={setDialogOpen}
+            selectedDate={selectedDate!}
+            data={null}
+          />
+        </Dialog>
+      )}
     </ScheduleLeftCalendarBox>
   );
 }

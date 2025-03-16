@@ -15,7 +15,7 @@ import {
  * @description 일정추가
  */
 export async function addCollectionSchedule(
-  data: ScheduleFormRequest
+  data: Partial<ScheduleFormRequest>
 ): Promise<ApiResponse<string | null>> {
   try {
     const docRef = await addDoc(collection(db, "collection_schedule"), data);
