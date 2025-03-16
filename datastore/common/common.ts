@@ -5,7 +5,7 @@ import { MenuItem } from "@/types/common/commonType";
  * @name homepageAdminUserId
  * @description 홈페이지 관리자 닉네임
  */
-export const homepageAdminUserId = "왕좌";
+export const homepageAdminUserId = "영면";
 
 /**
  * @name userAuthList
